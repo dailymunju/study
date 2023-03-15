@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>쿠키</title>
+        <script src="../js/jquery-1.12.4.min.js"></script>
+        <script src="../js/swiper.min.js"></script>
+        <link rel="stylesheet" href="../css/swiper.min.css">
+    </head>
+    <style>
+        a { outline: 0; text-decoration: none; color: #333; -webkit-transition: 0.3s; transition: 0.3s; }
+        #popup3 {position:absolute; width:450px; left:50%; margin-left:-480px; top:100px; z-index:1; }
+        .pop-btm { position: relative; height: 35px; padding: 16px 10px 0 10px; background-color: #eee;  text-align: right;  }
+        .pop-btm form { display: flex;  margin: 0 auto; font-size: 11px; color: #696969; }
+        .pop-btm form input { margin-right: 10px; }
+        .pop-close { position: absolute; right: 10px; top: 12px; }
+        .pop-close a { font-size: 13px; color: #696969; }
+    </style>
+    <body>
+        <!-- 헤더부분에 삽입 -->
+        <script language="Javascript" type="text/javascript">
+            function setCookie( name, value, expirehours ) {
+                var todayDate = new Date();
+                todayDate.setHours( todayDate.getHours() + expirehours );
+                document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+            }
+
+            function closeWin(id,checkbox) {
+                if ( checkbox.checked ){
+                setCookie( id, "done" , 1 ); 
+                }
+                document.getElementById(id).style.display = "none";
+            }
+        </script>
+        <!-- 헤더부분에 삽입 -->
+        
+        
+        <!-- popup 영역 -->
+        <div id="popup3">
+            <div class="swiper-container popup-slide">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><a href="#"><img src="../img/kokpop_220726.jpg"></a></div>
+                    <div class="swiper-slide"><a href="#"><img src="../img/kokpop1230.jpg"></a></div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <script>
+                $(document).ready( function(){
+                    var ttSwiper = new Swiper(".popup-slide", {
+                        spaceBetween: 0,
+                        slidesPerView: 1,
+                        centeredSlides: true,
+                        roundLengths: true,
+                        loop: true,
+                        autoplay: {
+                            delay: 2500,
+                        },
+                        navigation: {
+                            nextEl: ".popup-slide .swiper-button-next",
+                            prevEl: ".popup-slide .swiper-button-prev"
+                        }
+                    });
+                });
+                	
+            </script>
+            <div class="pop-btm">
+                <form name="notice-form">
+                    <input type='checkbox' id="popup" name='chkbox[]' value='checkbox' onclick="closeWin('popup3',this);" style="display:block;">
+                    <label for="popup">오늘 하루 이창을 열지 않기</label>
+                </form>
+                <div class="pop-close">
+                    <a onclick="document.all.popup3.style.visibility='hidden';" href="javascript:;" onfocus='this.blur()'>닫기</a>
+                </div>
+            </div>
+            <a onclick="document.all.popup2.style.visibility='hidden';" href="javascript:;"><!-- 창닫기 --></a>
+        </div>
+        <!-- // popup 영역 -->
+        
+        <script language="Javascript" type="text/javascript">
+            cookiedata = document.cookie; 
+            //2번째 레이어에대한 쿠키에 값이있는지 없는지 확인하여 있으면 비노출 없으면 노출
+            if ( cookiedata.indexOf("popup3=done") < 0 ){   
+                document.getElementById('popup3').style.display = "block";
+            }
+            else {
+                document.getElementById('popup3').style.display = "none";
+            }
+        </script>
+    </body>
+</html>
