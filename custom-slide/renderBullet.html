@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>renderBullet</title>
+        <script src="../js/jquery-1.12.4.min.js"></script>
+        <script src="js/swiper.min.js"></script>
+        <link rel="stylesheet" href="css/swiper.min.css">
+    </head>
+    <style>
+        html,body { position: relative; height: 100%; }
+        body { background: #eee; margin: 0; padding: 0; }
+
+       /* .swiper-container { width: 100%; height: 100%; }
+        .swiper-slide { text-align: center; font-size: 18px; background: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center; }
+        .swiper-pagination-bullet { width: 12px; height: 12px; background: transparent; border: 1px solid pink; opacity: 1; }
+        .swiper-pagination-bullet-active { width: 40px; transition: width .5s; border-radius: 5px; background: pink; border: 1px solid transparent; }*/
+
+
+        .swiper01 { position: absolute; width: 60%; height: 60%; top: 50%; right: 5%; transform: translateY(-50%); margin: 0; }
+        .swiper-container { width: 100%; height: 100%; }
+        .swiper-slide { text-align: center; font-size: 18px; background: rgb(255, 242, 242); display: flex; justify-content: center; align-items: center; }
+        .swiper-slide:nth-child(2) { background-color: powderblue; }
+        .swiper-slide:last-child { background-color: rgb(139, 235, 235); }
+        .swiper-pagination { position: absolute; top: 50%; left: 5%; transform: translateY(-50%); }
+        .swiper-pagination-bullet { width: 100%; min-height: 30px; background: transparent; opacity: 1; }
+        .swiper-pagination-bullet-active:before { content: ""; display: block; position: absolute; border-top: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid pink; transition: all .5 ease-in-out; }
+
+        
+    </style>
+   
+    <body>
+        <!--첫번째 슬라이드 renderBullet-->
+        <!--<div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>-->
+
+
+        <!--side pagination-->
+        <!--<div class="swiper01">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>-->
+        <!--// side pagination-->
+
+        <div class="main-v">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="images/main01.jpg" alt="본아한의원"></div>
+                    <div class="swiper-slide"><img src="images/main02.jpg" alt="본아한의원"></div>
+                    <div class="swiper-slide"><img src="images/main03.jpg" alt="본아한의원"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        $(document).ready( function(){
+            /*var swiper = new Swiper('.swiper-container', {
+                autoplay: {
+                    delay: 2500,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                speed : 1000,
+	      	    effect : 'fade'
+            });*/
+
+            /*var bullet = ['1번', '2번', '3번'];
+            var swiper = new Swiper('.swiper01 .swiper-container', {
+                speed : 1000,
+	      	    effect : 'fade',
+                autoplay: {
+                    delay: 2500,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                    return '<div class="' + className + '"><span>' + (bullet[index]) + '</span></div>';
+                    }
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                
+            });*/
+
+            var swiper = new Swiper('.main-v .swiper-container', {	    	
+                autoplay: {
+                    delay: 2500,
+                },
+
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                        return '<span class="' + className + '">' + (index + 1) + "</span>"; 
+                    },
+                },
+                    speed : 1000,
+                    effect : 'fade' // 페이드 효과 사용
+                });
+            });
+        
+    </script>
+</html>

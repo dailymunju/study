@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>100% slide</title>
+        <script src="../js/jquery-1.12.4.min.js"></script>
+        <script src="./js/swiper.min.js"></script>
+        <link rel="stylesheet" href="./css/swiper.min.css">
+    </head>
+    <script>
+        $(document).ready( function(){
+            var bestProduct = new Swiper('.sect_01 .swiper-container', {
+            observer: true,
+            observeParents: true,
+            slidesPerView: 4,
+            centeredSlides: true,
+            speed: 1000,
+            loop: true,
+            pagination: {
+            el: ".swiper-pagination",
+            type: "progressbar",
+            },
+            navigation: {
+                nextEl: ".best_next",
+                prevEl: ".best_prev",
+            },
+            autoplay:true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            on: {
+                init: function() {
+                    $('.best_contr .best_play').on('click', function(e) {
+                        if($(this).hasClass('on')){
+                            bestProduct.autoplay.stop();
+                        } else {
+                            bestProduct.autoplay.start();
+                        }
+                    })
+                }
+            },
+            breakpoints: {
+                475: {
+                    slidesPerView: 1.7,
+                },
+                601: {
+                    slidesPerView: 2.2,
+                },
+                701: {
+                    slidesPerView: 2.5,
+                },
+                800: {
+                    slidesPerView: 1.7,
+                },
+                1024: {
+                slidesPerView: 2.3,
+                centeredSlides: true,
+                },
+                1280: {
+                    slidesPerView: '2.7',
+                    centeredSlides: true,
+                },
+                1550: {
+                slidesPerView: '3.7',
+                centeredSlides: true,
+                },
+            }
+        })
+        });
+    </script>
+    <style>
+        .sect_01 .best_cotr { display: flex; align-items:center; justify-content: center; }
+        .sect_01 .swiper-pagination {
+        width: 100%;
+        position: relative;
+        height: 2px;
+        background-color: #e5e5e5;
+        }
+        .sect_01 .swiper-pagination {
+        width: 100%;
+        position: relative;
+        height: 2px;
+        background-color: #e5e5e5;
+        }
+        .sect_01 .swiper-pagination > span {
+        background-color: #e1ae5f;
+        height: 2px;
+        }
+        .sect_01 .best_contr ._contr {
+        flex: 1 0 auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 1.6666666667em;
+        }
+        .sect_01 .best_contr ._contr .left, .sect_01 .best_contr ._contr .right {
+        font-size: 0.875em;
+        }
+        .sect_01 .best_contr ._contr .start {
+        width: 1.875rem;
+        height: 1.875rem;
+        border-radius: 50%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+        font-size: 0.6111111111em;
+        transition: background 0.3s, color 0.3s;
+        }
+        .iconFt_pause:before {
+        content: "\e912";
+        }
+        .sect_01 .pdt_img {
+        padding: 0.9375rem 0;
+        overflow: hidden;
+        border-radius: 1.25rem;
+        position: relative;
+        width: 26.875rem;
+        height: 26.875rem;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100% !important;
+        }
+        .sect_01 .pdt_img a {
+        display: block;
+        }
+        .product_exp .p_cate {
+        display: block;
+        font-weight: 600;
+        color: #c8a666;
+        }
+        .sect_01 .p_name {
+        font-weight: 400;
+        }
+        .product_exp .p_name {
+        display: block;
+        font-size: 1.4444444444em;
+        color: #111;
+        line-height: 1.6;
+        }
+        .view_detail {
+        font-size: 1rem;
+        text-align: center;
+        color: #666666;
+        }
+        #container img {
+        max-width: 100%;
+        }
+        .sect_01 .pdt_img ._hov {
+        opacity: 0;
+        }
+        .sect_01 .pdt_img img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        max-width: none !important;
+        transition: opacity 0.35s;
+        }
+        .sect_01 .pdt_img a:hover ._hov {
+        opacity: 1;
+        }
+        .sect_01 .pdt_img ._hov {
+        opacity: 0;
+        }
+        .sect_01 .pdt_img a:hover ._def { opacity: 0; }
+        .sect_01 .pdt_img ._def {
+        opacity: 1;
+        }
+        .pdt_txt { text-align: center; }
+    </style>
+    <body>
+        <div class="sect_block sect_01">
+            <h3 class="sect_tit t_center" data-aos="fade-up">
+                <span class="tit_point">Best Menu</span>
+                베스트 메뉴를 만나보세요.
+            </h3>
+            <div class="pdt_bnr font_nsk mt_20" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/20">
+                                    <img src="https://ilmi.kr/upload_data/product/1655681857_5681.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1655681857_1711.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">밥/죽/면</span>
+                                <strong class="p_name">일미평양냉면</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/20">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/18">
+                                    <img src="https://ilmi.kr/upload_data/product/1655681295_5503.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1655681295_5309.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">국/탕/찌개</span>
+                                <strong class="p_name">일미순대국</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/18">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/15">
+                                    <img src="https://ilmi.kr/upload_data/product/1652318986_6877.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1652318986_9058.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">국/탕/찌개</span>
+                                <strong class="p_name">일미본갈비탕</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/15">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/7">
+                                    <img src="https://ilmi.kr/upload_data/product/1642068206_6778.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1642125551_8062.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">만두/돈까스/피자</span>
+                                <strong class="p_name">일미김치만두</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/7">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/6">
+                                    <img src="https://ilmi.kr/upload_data/product/1642068125_8106.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1642125538_5702.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">만두/돈까스/피자</span>
+                                <strong class="p_name">일미고기만두</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/6">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/4">
+                                    <img src="https://ilmi.kr/upload_data/product/1642067807_4176.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1642125513_5984.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">떡갈비</span>
+                                <strong class="p_name">한우1등급떡갈비</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/4">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide best_item">
+                            <div class="pdt_img">
+                                <a href="/product/view/3">
+                                    <img src="https://ilmi.kr/upload_data/product/1642067667_5706.png" alt="" class="_def">
+                                    <img src="https://ilmi.kr/upload_data/product/1642125499_5371.png" alt="임시" class="_hov">
+                                </a>
+                            </div>
+                            <div class="pdt_txt product_exp">
+                                <span class="p_cate">국/탕/찌개</span>
+                                <strong class="p_name">일미한우사골곰국</strong>
+                                <p class="view_detail t_center mt_20 mb_40">
+                                    <a href="/product/view/3">
+                                        자세히 보기
+                                        <i class="iconFt_arrow_ty1_r"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrap_1460">
+                        <div class="best_contr">
+                            <div class="swiper-pagination"></div>
+                            <p class="_contr">
+                                <button type="button" class="left best_prev">
+                                    <i class="iconFt_long_left"></i>
+                                </button>
+                                <button type="button" class="start best_play toggle_on">
+                                    <i class="iconFt_pause"></i>
+                                    <i class="iconFt_play"></i>
+                                </button>
+                                <button type="button" class="right best_next">
+                                    <i class="iconFt_long_right"></i>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- best_menu :: end -->
+    </body>
+</html>
