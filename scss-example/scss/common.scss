@@ -1,0 +1,18 @@
+
+/*전역변수*/
+$primary-color:#fffedb;
+$w-color: #4d0039;
+$box-color: #ffffff;
+$gray-color: #333;
+$w: 500px;
+$p20: 20px;
+
+body { $primary-color: #ddd; background-color: $primary-color; } //지역변수
+.box { 
+    width:$w;
+    color: $gray-color;
+    padding: $p20;
+    background-color:$primary-color; //전역변수
+    
+}
+

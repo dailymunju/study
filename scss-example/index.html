@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>scss 적용해보기</title>
+        <link rel="stylesheet" href="./css/common.css">
+    </head>
+    <script>
+        /*
+
+        sass와 scss
+        sass란?
+        -sass에는 두가지 의미를 담고 있는데, 
+        하나는 코드를 css로 해석하는 역할을 하는 '전처리기'로써의 의미와, 문법에서의 의미가 있다.
+        sass 문법을 기반으로 코드를 작성하면, sass 전처리기의 도움을 받아 css 파일을 만들어낼 수 있고
+        이 작업을 컴파일이라고 한다.
+
+
+        scss는 Sass의 3버전에서 등장한 언어로
+        자바나 php가 버전이 있듯이 sass도 시간이 지나면서 버전업되어 불편한점이 개선되었고, 
+        기존의 문법이 너무 불편하고 익숙하지 않아 퍼블리셔에게 익숙한 css와 비슷한 구문을 가지고 있으며, 
+        css와 완전히 호환되도록 새로운 구문을 도입한 css의 상위 호환 스타일 시트이다.
+
+        -SASS,SCSS에서의 기존의 CSS의 기능 부재, 단점을 보완한 다양한 기능추가
+        -SASS는 들여쓰기+줄바꿈 혀요식, SCSS는 중괄호+세미콜론 형식
+
+        SCSS문법을 기반으로 코드를 작성하면, Sass 전처리기의 도움을 받아 컴파일러가 이를 css로 빌드할 수 있다.
+        sass 공식 레퍼런스 조차도 sass보다 css와 더 비슷한 scss를 더 선호하며, 
+        다수의 라이브러리, 프레임워크가 scss 문법을 활용하며, 사용자수는 sass보다 scss가 압도적으로 차지한다.
+        
+
+        - node.js 설치 / npm scss 설치 
+        
+        Node js command prompt에 들어가서
+        > npm install -g node-sass
+        > node-sass -v # 만일 오류발생 시, npm rebuild node-sass를 쳐본다.)/ 
+        > node-sass --watch styles/common.scss styles/common.css (파일 저장시 자동으로 변경사항 컴파일)
+
+        - vscode extension 설치
+        vscode Live Sass Compiler , scss lint , scss formatter , scss snippet , scss Scope Helper , 
+        vscode 편집기 하단 메뉴-Watch Sass 아이콘 클릭(파일에 수정이 있어도 Warch를 끄게 되면 반영되지 않는다.) -> .css ,.map 이 생성된다.
+
+        .map 이라는 파일이 생긴걸 볼 수 있는데, 개발하는데 있어 굉장히 중요한 파일로 scss와 css를 매핑 시켜주는 역할을 한다.
+        아무리 뛰어난 전처리기 언어라해도 기본적으로 css와 문법스타일이 다르다.
+        웹브라우저는 css밖에 모르니, 통합된 css 파일을 보고 scss를 일일이 찾아가며 수정해줘야하지만, 
+        매핑된 .map파일이 있다면 브라우저에 scss 파일 선택자를 띄워준다.
+
+        -scss / css 폴더 분리
+        scss는 서버가 인식하지 못하는 파일로 서버에 올릴 필요가 없다
+        설정에서 scss에서 컴파일된 css파일은 css 폴더에 저장되게 처리를 하면
+        프로젝트 트리구성을 정리하는데 도움이 된다.
+
+        -----해당내용 아래 settings에 추가할것----
+        {
+            "liveSassCompile.settings.generateMap": false, // 만일 .map 파일 생성을 끄고 싶다면
+            "liveSassCompile.settings.formats": [
+            {
+                "format": "expanded",
+                "extensionName": ".css",
+                "savePath": 경로
+            }
+            ],
+            "liveServer.settings.donotShowInfoMsg": true
+        }
+        
+        
+            *Data Types (데이터 종류)*
+
+            - Numbers	숫자	1, .82, 20px, 2em…
+            - Strings	문자	bold, relative
+            - "/images/a.png", "dotum"
+            - Colors	색상 표현	red, blue #FFFF00 rgba(255,0,0,.5)
+            - Booleans	논리	true, false
+            - Nulls	아무것도 없음. 컴파일 하지 않음.	null
+            - Lists	공백이나 ,로 구분된 값의 목록	(apple, orange, banana)
+            - apple orange
+            - Maps	Lists와 유사하나 값이 Key: Value 형태	(apple: a, orange: o, banana: b)
+    
+            
+            scss 변수 사용
+            scss에서 변수로 사용이 가능한 형태는 숫자, 문자열, 색상, null ,lists, maps가 있다.
+            변수를 사용할때에는 php 같이 $ 문자를 사용한다.
+
+            **Sass 는 CSS에 변수 개념을 도입해줍니다.
+            변수로 사용 가능한 형태는 숫자, 문자열, 폰트, 색상, null, listsVisit Website 와 mapsVisit Website 가 있습니다.
+            변수를 사용 할 떄는 php같이 $ 문자를 사용합니다.
+
+            **변수의 유효범위(Variable Scope)
+            -sass의 변수에는 변수범위가 있다
+            변수를 특정 selector(선택자)에서 선언하면 해당selector에서만 접근이 가능하다.
+            -> 선언된 블록 내에서만 유효범위를 가진다.
+
+            **변수 재할당(Variable Reassignment)
+
+            $red: #FF0000;
+            $blue: #0000FF;
+
+            $color-primary: $blue;
+            $color-danger: $red;
+
+            .box {
+            color: $color-primary;
+            background: $color-danger;
+            }
+
+            **!global 전역설정
+            !global 플래그를 사용하면 변수의 유효범위를 전역(Global)으로 설정할 수 있다.
+            
+            $primary-color: #333;
+            body {
+            $primary-color: #eee !global;
+            background-color: $primary-color;
+            }
+
+            p {
+            color: $primary-color;
+            
+            **!default (초깃값 설정)
+            !default 플래그는 할당되지 않은 변수의 초깃값을 설정한다.
+            '변수와 값을 설정하겠지만, 혹시 기존 변수가 있을 경우에는 현재 설정하는 변수의 값은 사용하지 않겠다.'라는 의미
+
+            $color-primary: red;
+
+            .box {
+            $color-primary: blue !default;
+            background: $color-primary;
+            }
+            ---> css에서 .box의 background-color: red;
+            ---> 주로, 외부 라이브러리를 연결해서 사용하는 경우 변수이름이 같아 내가 작성한 코드들의 변수가 덮어쓰기 된다면 문제가 발생할 수 있다.background    
+            반대로, 내가 만든 코드가 다른 사용자 코드의 변수들을 덮는다면 문제가 생길 수 있다는 말로, 
+            이럴때 sass 라이브러리 혹은 새롭게 만든 모듈에서 사용하는 변수에 !default 플래그가 있다면, 기존 코드를 덮지 않고도 사용할 수 있다.
+​           
+            #{} 문자보간
+            자바스크립트의 백틱과 같다고 보면 편하다. 중괄호 안에 들어간 값은 문자열로 치환된다.
+            $family: unquote("Droid+Sans"); /* Sass의 내장 함수 unquote()는 문자에서 따옴표를 제거 
+
+        */
+
+    </script>
+    <body>
+        <div class="wrap">
+            <h2>SCSS 적용해보기</h2>
+            <div class="box">
+                <h3>scss 변수 사용</h3>
+                scss에서 변수로 사용이 가능한 형태는 숫자, 문자열, 색상, null ,lists, maps가 있다.
+                변수를 사용할때에는 php 같이 $ 문자를 사용한다.
+            </div>
+            
+            <h3>sass와 scss</h3>
+
+
+        </div>
+
+
+    </body>
+</html>

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/*전역변수*/
+body {
+  background-color: #ddd;
+}
+
+.box {
+  width: 500px;
+  color: #333;
+  padding: 20px;
+  background-color: #fffedb;
+}/*# sourceMappingURL=common.css.map */
