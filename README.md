@@ -1,3 +1,3 @@
-# web publisher study
+# web publisher 
 *2023 
 
