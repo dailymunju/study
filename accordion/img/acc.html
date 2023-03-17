@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>accordian menu</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <style>
+        .wrap { max-width: 1000px; margin: 100px auto; }
+        * { box-sizing: border-box; }
+        h2 { border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 50px; text-align: center;}
+        .quelist:first-child { border-top: 1px solid #333; }
+        .quelist { position: relative; padding: 20px; cursor: pointer; font-size: 22px; border-bottom: 1px solid #ddd; }
+        .quelist::before { content:'Q'; display: inline-block; color: palevioletred; margin: 0 5px; font-weight: 600; }
+        .quelist.on > span { font-weight: 600; color: palevioletred; }
+
+        .anw::before { content: 'A'; display: inline-block; font-size: 22px; font-weight: 600; color: palevioletred; margin: 0 5px; }
+        .anw { display: none; padding: 20px; background-color: #fff5f5; overflow: hidden; font-size: 22px; }
+        .arrow-box { position: absolute; top: 50%; right: 10px; transform: translate(0,-50%); }
+        
+        .quelist .arrow-top { display: none; }
+        .quelist .arrow-bottom { display: block; }
+        .quelist.on .arrow-bottom { display: none; }
+        .quelist.on .arrow-top { display: block; }
+    </style>
+    <body>
+        <div class="wrap">
+            <h2>accordion menu</h2>
+            <div class="quelist">
+                <span>first question</span>
+                <div class="arrow-box">
+                    <span class="arrow-top">↑</span>
+                    <span class="arrow-bottom">↓</span> 
+                </div>
+            </div>
+            <div class="anw">
+                <span>first answer</span>
+            </div>
+           
+            <div class="quelist">
+                <span>second question</span>
+                <div class="arrow-box">
+                    <span class="arrow-top">↑</span>
+                    <span class="arrow-bottom">↓</span> 
+                </div>
+            </div>
+            <div class="anw">
+                <span>second answer</span>
+            </div>
+
+            <div class="quelist">
+                <span>third question</span>
+                <div class="arrow-box">
+                    <span class="arrow-top">↑</span>
+                    <span class="arrow-bottom">↓</span> 
+                </div>
+            </div>
+            <div class="anw">
+                <span>third answer</span>
+            </div>
+        </div>
+        
+
+    </body>
+    <script>
+        $(document).ready( function(){
+            ///
+            $('.quelist').click( function(){
+                
+                $(this).next(".anw").stop().slideToggle(300);
+                $(this).toggleClass('on').siblings().removeClass('on');
+                $(this).next(".anw").siblings('.anw').slideUp(300);
+            });
+        });
+
+    </script>
+</html>
