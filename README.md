@@ -1,4 +1,2 @@
-# study
-*2023 study
-
-web publisher
+# web publisher 
+*2023 
