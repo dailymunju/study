@@ -7,113 +7,139 @@
         <title>tab click event</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
+	<style>
+		/* 초기화 */
+		html {overflow-y:scroll}
+		body {margin:0;padding:0;font-size:0.75em;font-family:'Malgun Gothic', dotum, sans-serif;background:#fff}
+		html, h1, h2, h3, h4, h5, h6, form, fieldset, img {margin:0;padding:0;border:0}
+		h1, h2, h3, h4, h5, h6 {font-size:1em;font-family:'Malgun Gothic', dotum, sans-serif}
+		article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block}
+
+		ul, dl,dt,dd {margin:0;padding:0;list-style:none}
+		legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+		label, input, button, select, img {vertical-align:middle;font-size:1em}
+		input, button {margin:0;padding:0;font-family:'Malgun Gothic', dotum, sans-serif;font-size:1em}
+		input[type="submit"] {cursor:pointer}
+		button {cursor:pointer}
+
+		textarea, select {font-family:'Malgun Gothic', dotum, sans-serif;font-size:1em}
+		select {margin:0}
+		p {margin:0;padding:0;word-break:break-all}
+		hr {display:none}
+		pre {overflow-x:scroll;font-size:1.1em}
+		a {color:#000;text-decoration:none}
+
+		*, :after, :before {
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+		}
+		.h2-tit-wrap .h2-tit{font-weight:bold;font-size:1.875rem;line-height:1.4;letter-spacing:-1px;}
+		.h2-tit-wrap:before{content:"XX한의원";color:#6291a7;font-weight:bold;font-size:1.25rem;margin-bottom:20px;display:block}
+		.h2-con02:before {content:"약력";color:#6291a7;font-weight:bold;font-size:1.25rem;margin-bottom:10px;display:block}
+
+		.h2-tit-wrap .h2-con{color:#898989; font-size:16.5px;margin-top:30px}
+		.h2-tit-wrap .h2-con02 {color:#adadad; font-size:16.5px;margin-top:25px; line-height:27px;}
+		.bg-txt{box-shadow:inset 0 -13px 5px #e5f4fb;color:#000}
+		.cinner { width: 1165px; margin: 0 auto; }
+		.main-intro{border-right:1px solid #d5d5d5;padding:140px 0; margin-bottom:200px;}
+		.main-intro .cinner{position:relative;display:flex;border-top:1px solid #d5d5d5;padding-top:90px}
+		.main-intro .txt-box{width:390px;flex-shrink:0;padding-left:60px}
+		.main-intro .info-box ul{display:flex;flex-wrap:wrap}
+		.main-intro .info-box li{width:25%;padding:5px;cursor: pointer; }
+		.main-intro .info-box .inner{display:flex;align-items:center;justify-content:space-between;padding:15px;height:80px;background-color:#6291a7;border-radius:15px;overflow:hidden}
+		.main-intro .info-box .txt{font-size:14px;font-weight:bold;margin-right:15px;color:white;}
+		.main-intro .info-box .txt:before{display:block;content:"#";color: white;font-weight: 900;}
+		.main-intro .info-box .img{border-radius:50%;background-color:#fff;display:flex;align-items:center;justify-content:center;padding:5px;width:45px;height:45px;flex-shrink:0}
+
+		.main-tab{  margin-bottom:200px;}
+		.main-tab .cinner{position:relative;display:flex; border-top: 1px solid #ddd; }
+		.main-tab .txt-box{width:390px;flex-shrink:0;padding-left:60px;padding-top:90px}
+		.main-tab .info-box{position:relative;border-left:1px solid #d5d5d5;flex-grow:1;height:600px;border-right:1px solid #d5d5d5}
+		.main-tab .info-box .tabs{position:absolute;width:100%;bottom:0;left:0;display:flex;border:2px solid #6291a7;background-color:#fff}
+		.main-tab .info-box .tabs li{width:25%}
+		.main-tab .info-box .tabs a{display:flex;align-items:center;justify-content:center;width:100%;height:40px;font-size:13px;font-weight:bold;border-right:2px solid #6291a7}
+		.main-tab .info-box .tabs li:last-child a{border-right:0}
+		.main-tab .info-box .tabs .tag{color:#6291a7;margin-right:10px}
+		.main-tab .info-box .tabs a.on .tag { color: white; }
+		.main-tab .info-box .tabs a.on,
+		.main-tab .info-box .tabs a:hover{background-color:#6291a7;color:#fff}
+		.main-tab .info-box .tabs a:hover .tag { color: white; }
+		.main-tab .info-box .tab-con{display:none;width:100%;height:100%;background:url('./img/tab01.png') right bottom/contain no-repeat;padding:50px;align-items:center;}
+		.main-tab .info-box .tab-con .inner { letter-spacing: -1px; }
+
+		.main-tab .info-box .tabs-con .tab-con:nth-child(2){background-image:url('./img/tab02.png')}
+		.main-tab .info-box .tabs-con .tab-con:nth-child(3){background-image:url('./img/tab03.png')}
+		.main-tab .info-box .tabs-con .tab-con:nth-child(4){background-image:url('./img/tab04.png')}
+		.main-tab .info-box .tit{font-size:30px;font-weight:bold}
+		.main-tab .info-box .stit{font-size:17px; margin:30px 0;line-height:30px;font-weight: 400;color: #afafaf;}
+		.main-tab .tab-con:first-child{display:flex}
+		.main-tab .tabs-con{width:100%;height:100%}
+		.main-tab .tabs-con ul li { margin-bottom:5px; }
+		.main-tab .info-box .txt-color { color: #6291a7; font-weight: 600; font-size: 18px; }
+		.main-tab .info-box .tab-txt { color: #adadad; font-size: 14.5px; margin-left:10px;  }
+	</style>
     <body>
-    <section class="main-intro" id="main-intro">
+    <section class="main-intro">
     	<div class="cinner">
-    		<div class="txt-box">
+			<div class="txt-box">
     			<div class="h2-tit-wrap">
     				<p class="h2-tit">
-
-    					<span class="bg-txt">이광호한의원의 <br />진료과목을 </span> <br />소개합니다.
+    					<span class="bg-txt">한의원의<br>진료과목을</span> <br>소개합니다.
     				</p>
-    				<p class="h2-con">이광호한의원의 <br />진료과목을 확인해보세요.</p>
+    				<p class="h2-con">한의원의 주요진료<br>진료과목을 확인해보세요.</p>
     			</div>
     		</div>
+
     		<div class="info-box">
     			<ul>
     				<li>
-						<a href="javascript:;">
     					<div class="inner">
     						<div class="txt">척추관절<br/> 통증클리닉</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico01.png" alt="척추관절통증클리닉" title="척추관절통증클리닉"></div>
+    						<div class="img"><img src="./img/ico01.png" alt="척추관절통증클리닉" title="척추관절통증클리닉"></div>
     					</div>
-						</a>
     				</li>
     				<li>
-						<a href="javascript:;">
     					<div class="inner">
     						<div class="txt">교통사고클리닉</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico02.png" alt="교통사고클리닉" title="교통사고클리닉"></div>
+							<div class="img"><img src="./img/ico02.png" alt="교통사고클리닉" title="교통사고클리닉"></div>
     					</div>
-						</a>
     				</li>
     				
     				<li>
-						<a href="javascript:;">
     					<div class="inner">
     						<div class="txt">여성질환</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico04.png" alt="여성질환" title="여성질환"></div>
+    						<div class="img"><img src="./img/ico03.png" alt="여성질환" title="여성질환"></div>
     					</div>
-						</a>
     				</li>
     				<li>
-						<a href="javascript:;">
     					<div class="inner">
     						<div class="txt">다이어트</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico05.png" alt="다이어트" title="다이어트"></div>
+    						<div class="img"><img src="./img/ico04.png" alt="다이어트" title="다이어트"></div>
     					</div>
-						</a>
     				</li>
-    				<li>
-						<a href="javascript:;">
-    					<div class="inner">
-    						<div class="txt">보약</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico06.png" alt="보약" title="보약"></div>
-    					</div>
-						</a>
-    				</li>
-					
-					<li>
-						<a href="javascript:;">
-    					<div class="inner">
-    						<div class="txt">추나요법</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico03.png" alt="추나요법" title="추나요법"></div>
-    					</div>
-						</a>
-    				</li>
-    				<li>
-						<a href="javascript:;">
-    					<div class="inner">
-    						<div class="txt">봉약침요법</div>
-    						<div class="img"><img src="<?php echo G5_THEME_IMG_URL ?>/ico07.png" alt="봉약침요법" title="봉약침요법"></div>
-    					</div>
-						</a>
-    				</li>
-    				
     			</ul>
     		</div>
     	</div>
     </section>
-	<script>
-		var obj = $('.main-intro .info-box li a');
-		obj.on("click",function(e){
-			var index = obj.index(this);
-			var offset = $('#main-tab').offset();
-			
-			$('html').animate({scrollTop:offset.top},400);
-			$(".main-tab ul.tabs li").eq(index).click();
-		});
-	</script>
-	
+
     <section class="main-tab" id="main-tab">
     	<div class="cinner">
-    		<div class="txt-box">
+			<div class="txt-box">
     			<div class="h2-tit-wrap">
     				<p class="h2-tit">
-    					<span class="bg-txt">이광호한의원의 <br />주요진료 내용을 </span><br />소개합니다.
+    					<span class="bg-txt">한의원의<br>주요진료 내용을 </span><br>소개합니다.
     				</p>
-    				<p class="h2-con">이광호한의원의 주요진료<br />내용을 확인해보세요.</p>
+    				<p class="h2-con">한의원의 주요진료<br>내용을 확인해보세요.</p>
     			</div>
     		</div>
+
     		<div class="info-box">
     			<ul class="tabs">
     				<li><a href="javascript:;" class="on"><span class="tag">#</span>척추관절<br/>통증클리닉</a></li>
     				<li><a href="javascript:;"><span class="tag">#</span>교통사고클리닉</a></li>
     				<li><a href="javascript:;"><span class="tag">#</span>여성질환</a></li>
     				<li><a href="javascript:;"><span class="tag">#</span>다이어트</a></li>
-    				<li><a href="javascript:;"><span class="tag">#</span>보약</a></li>
-					<li><a href="javascript:;"><span class="tag">#</span>추나요법</a></li>
-					<li><a href="javascript:;"><span class="tag">#</span>봉약침요법</a></li>
     			</ul>
     			<div class="tabs-con">
     				<div class="tab-con">
@@ -141,15 +167,11 @@
     					<div class="inner">
 	    					<div class="tit">교통사고 클리닉</div>
 	    					<div class="stit">
-								교통사고로 인한 손상의 경우 x-ray 등 검사 상 이상이 발견되지 <br/>
-								않더라도 근골격계 통증을 비롯하여 어지러움, 오심구토 같은 <br/>
-								내과 증상과 사고에 의한 불안, 불면 등 정신적인 증상이 발생하기도 합니다.<br/>
-								또, 사고 당시에는 아무런 증상이 없거나 심하지 않다가 나중에<br/>
-								예기치 못한 통증, 장애가 나타날 수도 있습니다.<br/>
-								이광호한의원에서는 침, 뜸, 부항, 약침, 추나, 한약치료 등을 통하여<br/> 
-								전신적인 장애를 해소하는데 도움을 드립니다. 
+								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus quas praesentium, dolores nihil libero
+								numquam alias assumenda velit voluptate dolorum omnis dignissimos, illo veniam adipisci? Blanditiis ipsa dolor
+								minus animi.
+
 							</div>
-							
 	    				</div>
     				</div>
     				<div class="tab-con">
@@ -157,17 +179,9 @@
 	    					<div class="tit">여성질환</div>
 							
 	    					<div class="stit">
-								월경은 자궁의 상태와 여성의 전반적인 건강 상태를 반영합니다.<br/>
-								생식기능을 담당하는 신기능의 저하, 스트레스로 인한 간 기능의 울체,<br/>
-								하복부의 냉증, 어혈의 정체 등 다양한 원인으로 월경이 정상적인 주기,<br/>
-								양, 색을 벗어날 수 있습니다. 심한 경우 생리통을 동반합니다.<br/>
-								이에 이광호한의원에서는 생리불순 원인이 되는 어혈을 제거하고<br/>
-								기혈순환을 도와 몸 전체의 생체흐름을 원활히 해 월경을 고르게 합니다. <br/><br/>
-
-								또 임신을 준비하는 부부를 대상으로 한의학적 진단과 치료를 적용해<br/>
-								건강한 임신을 유도하며, 임신 기간뿐만 아니라 체계적인 산후 관리를 도와드립니다.<br/>
-								폐경기 증상이 심한 중장년 환자를 대상으로는 갱년기 증상을 효과적으로<br/>
-								개선해 삶의 질을 향상될 수 있도록 합니다. <br/>
+								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus quas praesentium, dolores nihil libero
+								numquam alias assumenda velit voluptate dolorum omnis dignissimos, illo veniam adipisci? Blanditiis ipsa dolor
+								minus animi.
 
 							</div>
 	    				</div>
@@ -176,94 +190,86 @@
     					<div class="inner">
 	    					<div class="tit">다이어트</div>
 	    					<div class="stit">
-								비만은 고혈압, 당뇨 등 각종 성인병의 직접 또는<br/>
-								간접적인 원인으로 작용할 수 있습니다.<br/>
-								또한 건강상의 문제뿐만 아니라 정신적인 문제나 사회생활의<br/>
-								장애를 초래할 수도 있기 때문에 적극적인 관리가 필요합니다.<br/>
-								이광호한의원에서는 식습관 개선요법, 운동처방,<br/>
-								약물 및 침구요법 등을 통해 불필요한 체지방을 효과적으로<br/>
-								제거하여 균형있고 건강한 체형을 유지할 수 있도록 도움을 드립니다.
-							</div>
-	    				</div>
-    				</div>
-    				<div class="tab-con">
-    					<div class="inner">
-	    					<div class="tit">보약</div>
-	    					<div class="stit">
-								한의학의 가장 오래된 의서인 ≪황제내경≫에 의하면 “훌륭한 의사는<br/>
-								아직 병들지 않았을 때 치료하고 이미 병든 것을 치료하지 않는다<br/>
-								(上工治未病, 不治已病)”라고 하였습니다<br/>
-								 질병상태에 이르렀다는 것은 흔히 허약해진 상태를 의미하며<br/>
-								(邪氣所溱, 其氣必虛), 반드시 정기가 부족한 것을 보충하여야<br/>
-								건강한 상태를 유지할 수 있습니다(正氣奪則虛, 虛者補之, 正氣存內, 邪不可干).<br/>
-								허약한 체질의 어린이에서부터 장시간 공부하느라 항상 피곤한<br/>
-								수험생 또는 직장인, 큰 수술이나 항암치료로 체력과 면역력이<br/>
-								떨어진 환자들에게도 보약이 필요합니다.<br/>
-								또한 성인병 예방, 갱년기 장애 극복, 불면, 우울증 등의 증상에도 환자 맞춤형<br/>
-								보양 치료가 필요합니다. 이광호한의원에서는 환자들의 다양한 허증 상태<br/>
-								 대하여 공진단, 경옥고 및 맞춤형 한약 치료를 적용합니다. <br/>
-							</div>
-						
-	    				</div>
-    				</div>
-					
-					<div class="tab-con">
-    					<div class="inner">
-	    					<div class="tit">추나요법</div>
-	    					<div class="stit">
-								추나요법이란 한의 수기 치료법의 일종으로 인체 연부조직 및<br/>
-								골격의 기능과 구조의 장애를 해소하는 치료법입니다.<br/>
-								골반이나 척추의 변형은 근육, 인대의 긴장을 초래하고 궁극적으로<br/>
-								척추의 퇴행성 변화를 가속화시켜 만성적인 척추와 관절의 증상으로<br/>
-								고생하게 됩니다. 추나요법은 척추 구조의 이상을 직접적으로<br/>
-								교정하여 기혈의 순환을 돕고 구조적 장애를 해결하여<br/>
-								인체의 자연 치유능력을 증대시키는 치료법입니다.<br/>
-								추나요법은 다른 보존적 치료와 병행하여 질병의 치료 기간을<br/>
-								단축시키고 재발을 방지하는데 도움을 줍니다.<br/>
-								추간판탈출증을 비롯한 각종 척추질환, 관절질환뿐만 아니라<br/>
-								내과 질환에도 적용이 가능합니다. 
+								Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus quas praesentium, dolores nihil libero
+								numquam alias assumenda velit voluptate dolorum omnis dignissimos, illo veniam adipisci? Blanditiis ipsa dolor
+								minus animi.
 
 							</div>
-						
 	    				</div>
     				</div>
-					
-					<div class="tab-con">
-    					<div class="inner">
-	    					<div class="tit">봉약침요법</div>
-	    					<div class="stit">
-								봉약침은 살아있는 꿀벌의 독낭에서 벌독을 추출, 가공하여 약침제제로 만든 후,<br/> 
-								선정된 혈위에 적정량을 주입하여 침자극과 벌독의 약리학적 자극을 동시에 사용하는<br/>
-								침구의학의 전문적인 치료방법입니다. 벌독은 소염진통, 면역계 조절, 혈액순환 촉진 <br/>
-								등의 효과가 있으며 한의학적으로도 通經活絡, 補益精氣하는 효능이 알려져 있습니다.<br/>
-								일반적인 치료로 잘 낫지 않는 난치성 질환에도 많이 사용되고 있습니다.<br/>
-								이광호한의원에서는 오랜 기간 동안 축적된 봉약침에 대한 임상 경험과 연구를<br/> 
-								바탕으로 안전하고 효과적인 봉약침 치료를 약속합니다. 특히, 본원에서 사용하는<br/> 
-								봉약침은 알레르기 반응을 유발하는 물질을 제거한 효소제거봉독을 사용하여<br/> 
-								보다 안전한 시술이 이루어질 수 있도록 만전을 다하고 있습니다.<br/>
-
-							</div>
-						
-	    				</div>
-    				</div>
+    				
     			</div>
     		</div>
     	</div>
     </section>
-	<!--// 중점진료과목 끝-->
+
 
     <script type="text/javascript">
+		/*
+			*실행하고 싶은 이벤트
+			-아이콘을 클릭 했을 때 하단의 탭 내용에 맞게 각각의 내용으로 이동했으면 좋겠음.
+		*/
+
         $(document).ready(function(){
+			//탭메뉴 클릭 시 해야할 일
             $('.tabs li').click(function(){
-                $('.tab-con').hide();
+				//tab-con 모두 숨김처리
+				$('.tab-con').hide();
+				
+				//tabs a (탭메뉴) on 클래스 모두 제거
                 $('.tabs a').removeClass('on');
-                
+				// 클릭한 tabs a만 on 클래스 추가 
                 $(this).find('a').addClass('on');
+
                 $('.tab-con').eq($(this).index()).css('display','flex');
             });
-            
+			
+			//아이콘 클릭시 하단의 탭메뉴 각각 내용에 맞춰 이동하기
+			//.main-intro .info-box li a 를 변수 지정
+			var obj = $('.main-intro .info-box li');
+			
+			//obj 클릭시 실행 될 이벤트
+			obj.on("click",function(e){
+				//클릭한 함수의 index(순서)를 index라는 변수로 지정
+				var index = obj.index(this);
+				//#main-tab(하단 탭)의 위치값 변수로 지정
+				var offset = $('#main-tab').offset();
+				//클릭할때마다 html은 scrollTop 위치값으로 400속도로 이동한다.
+				$('html').animate({scrollTop:offset.top},400);
+				//#main-tab의 각각의 순서에 맞춰서 클릭함수 호출하여 강제로 탭을 클릭한 효과를 낸다.
+				$("#main-tab ul.tabs li").eq(index).click();
+			});
+
+
+			
         });
         </script>
+
+		<style>
+			.boxList { width: 100%; display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;  }
+			.boxList > div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 5.5rem;
+				height: 5.5rem;
+				margin-right: 2rem;
+				margin-bottom: 2rem;
+				background: #111;
+				font-size: 2rem;
+				font-weight: bold;
+				cursor: pointer;
+				color: #fff;
+				transition: .3s;
+			}
+
+			.boxList div:hover { color: #000; background: #febf00; }
+			.boxList div:active { background-color: #f03d3d; }
+
+
+		</style>
+		
+	
     </body>
 </html>
 

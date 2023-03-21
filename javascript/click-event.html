@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클릭한 요소의 index 구하기 예제</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <!--클릭한 요소의 index 구하기-->
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+		
+</body>
+<script>
+    //index() 메서드는 jQuery객체 index를 가져올 수 있는 가장 쉬운 방법이다.
+    
+    /*$(document)
+    .on("click", ".box > div", (e) => {
+        const index = $(e.target).index();
+        console.log(index);
+    });
+    */
+
+    $(document).ready( function(){
+        $('.box > div').click( function(e){
+            const index = $(e.target).index();
+            console.log(index);
+        });
+    });
+
+</script>
+</html>

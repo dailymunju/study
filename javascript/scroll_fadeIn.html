@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <style>
+        .wrap { height: 500vh; margin: 500px; }
+        .fade-div { opacity:0; margin-top: 500px;}
+    </style>
+    <body>
+        <div class="wrap">
+            <div class="fade-div">
+                <h1>샘플01</h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste saepe eum, numquam eveniet iure laborum mollitia a placeat ipsam doloribus. Explicabo quam sint aut atque laborum commodi minima, eveniet voluptas.
+                </p>
+            </div>
+    
+            <div class="fade-div">
+                <h1>샘플02</h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste saepe eum, numquam eveniet iure laborum mollitia a placeat ipsam doloribus. Explicabo quam sint aut atque laborum commodi minima, eveniet voluptas.
+                </p>
+            </div>
+
+            <div class="fade-div">
+                <h1>샘플03</h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste saepe eum, numquam eveniet iure laborum mollitia a placeat ipsam doloribus. Explicabo quam sint aut atque laborum commodi minima, eveniet voluptas.
+                </p>
+            </div>
+
+            <div class="fade-div">
+                <h1>샘플04</h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste saepe eum, numquam eveniet iure laborum mollitia a placeat ipsam doloribus. Explicabo quam sint aut atque laborum commodi minima, eveniet voluptas.
+                </p>
+            </div>
+        </div>
+
+        
+    </body>
+    
+    <!--스크롤 애니메이션-->
+    <script>
+    $(document).ready(function() {
+        $(window).scroll( function(){
+                
+            $('.fade-div').each( function(i){
+                
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight()/3;
+                var bottom_of_window = $(window).scrollTop() + $(window).height();
+                
+                if( bottom_of_window > bottom_of_element ){
+                    $(this).animate({'opacity':'1'},700);
+                }
+                
+            }); 
+        });
+    });
+    </script>
+</html>
