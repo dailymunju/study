@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>자바스크립트에서의 self</title>
+    </head>
+    <script>
+    /*
+        self는 읽기 전용 속성이며 WindowProxy로서의 window 자신을 반환함
+        변수명과 같은 속성의 이름 (this와 같은 키워드가 아님)
+
+        ---> self는 스크립트가 실행되는 컨텍스트의 전역객체를 반환하는 속성이다.
+    */
+        console.log(self === window);
+        console.log(window.self === window);
+        /*
+            self는 window.self와 동일한 코드임.
+            전역객체인 window를 생략해도 self가 컨텍스트의 스코프 내에 존재하지 않다면,
+            전역스코프인 window를 탐색하여 접근하기 때문임.(스코프 체이닝)
+        */
+        window.myVariable = 10;
+        function myFunc(){
+            console.log(myFunc);
+        }
+        myFunc();
+
+    </script>
+    <body>
+        
+    </body>
+</html>

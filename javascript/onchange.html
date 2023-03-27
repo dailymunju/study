@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Title </title>
+    <script>
+      
+          //select의 option값을 바꾸면 body의 배경색상을 변경
+          function bgChange( bgColor ){
+              document.getElementsByTagName( 'body' )[0].style.backgroundColor=bgColor;
+          }
+      
+      </script>
+  </head>
+
+  <body>
+
+    <select onchange="bgChange( this.value )">
+      <option value="white">흰색</option>
+      <option value="#ecff03">노란색</option>
+      <option value="blue">파란색</option>
+      <option value="#484444">회색</option>
+      <option value="#e2a3dd">분홍색</option>
+    </select>
+
+  </body>
+</html>

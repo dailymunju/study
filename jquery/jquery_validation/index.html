@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>폼유효성검사 jquery vaildation.js</title>
+	<link rel="stylesheet" href="reset.css">
+	<script src="jquery-3.2.1.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
+	<script src="../modal/js/jquery.easing.1.3.js"></script>
+	<style>
+		.form { position: absolute; width: 20%; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 40px; border: 1px solid #ddd;}
+		.form p { position: relative; width: 100%; height: 50px; margin-bottom: 40px;}
+		.form input { height: 50px; line-height: 50px; }
+		.form p:last-child { margin-bottom: 0; }
+		.form p .button { width: 100%; height: 50px; line-height: 50px; cursor: pointer; }
+		.form span.error { color:tomato;  width:100%; position: absolute; bottom: -20px; z-index: 10; font-size: 12px; padding: 0 20px; box-sizing: border-box; }
+	</style>
+
+	<script>
+		$(function(){
+			$(".form").validate({
+				//규칙
+				rules:{
+					name:{
+						required : true, //필수입력여부
+						minlength : 2 	//최소 입력 글자수
+					},
+					email:{
+						required : true, //필수입력여부
+						email : true 	//이메일형식
+					},
+					url:{
+						required : false, //필수입력여부
+						url : true 	//url형식
+					}
+				},
+
+				//메시지
+				messages:{
+					name:{
+						required : "이름은 필수 입력입니다.",
+						minlength : "최소 2글자 이상 입력해주세요."
+					},
+					email: {
+						required : "이메일은 필수 입력입니다.",
+						email : "이메일 형식을 지켜주세요." 
+					},
+					url:{
+						required : "url은 필수입력이 아닙니다.",
+						url : "url 형식을 지켜주세요." 
+					}
+				},
+
+				//메시지 태그
+				errorElement : 'span', 	//태그
+				errorClass: 'error',	//클레스 이름
+				validClass:'vaild' 
+			});
+		});
+
+		/*
+			
+			form 태그 novaildate 속성
+			-html5에서 새롭게 추가된 요소
+			<form novalidate = "novalidate">	
+			-폼 데이터를 서버로 제출할 때 해당 데이터의 유효성을 검사하지 않음을 명시함.
+			-novaildate (불리언과 같은 속성)
+			-불리언 속성은 해당 속성을 명시하지 않으면 자동으로 false값을 가지며, 명시하면 true값을 가짐.
+
+			*/
+	</script>
+</head>
+	<body>
+		<form class="form" action="#" method="POST" novalidate>
+			<fieldset>
+				<p class="clearfix">
+					<label for="name" class="text_hidden">이름</label>
+					<input type="text" id="name" name="name" placeholder="이름">
+				</p>
+
+				<p class="clearfix">
+					<label for="email" class="text_hidden">이메일</label>
+					<input type="email" id="email" name="email" placeholder="이메일">
+				</p>
+				
+				<p class="clearfix">
+					<label for="url" class="text_hidden">URL</label>
+					<input type="url" id="url" name="url"  placeholder="URL">
+				</p>
+
+				<p class="clearfix">
+					<input type="submit" value ="보내기" class="button">
+				</p>
+			</fieldset>
+		</form>	
+	</body>
+</html>
+
+

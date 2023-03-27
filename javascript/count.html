@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> count </title>
+
+
+
+    <style>
+        label {
+            float: left;
+        }
+
+        #cnt {
+            width: 50px;
+            padding: 5px;
+            float: left;
+            margin-left: 10px;
+            text-align: right;
+            margin-right: 5px;
+        }
+
+        input[type="button"] {
+            height: 14px;
+            border: 0;
+            display: block;
+            font-size: 10px;
+        }
+
+        div input:last-child {
+            margin-top: 1.9px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div>
+        <label for="cnt">수량</label>
+        <input type="text" id="cnt" value="1">
+        <input type="button" value="▲" onclick="numPlus()">
+        <input type="button" value="▼" onclick="numMinus()">
+    </div>
+
+    <script>
+        var num = 1;
+
+
+        function numPlus() {
+            num++;
+            document.getElementById('cnt').value = num;
+        }
+
+        function numMinus() {
+            if (num > 1) {
+                num--;
+                document.getElementById('cnt').value = num;
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

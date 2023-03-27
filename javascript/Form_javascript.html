@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>자바스크립트로 간단한 폼 유효성 검사</title>
+    </head>
+    <style>
+        td { padding: 8px; }
+        .buttons input { padding: 8px 30px; }
+        caption { padding: 8px; }
+        table { margin: 60px auto;width: 1200px;}
+        span { font-size: 12px; }
+    </style>
+    <script>
+        //window - document - forms[0] - text 객체이름
+        //document.폼이름.텍스트상자이름.속성
+        //                 type name value 
+        //document.폼이름.텍스트상자이름.메소드
+        //                focus() blur() select()
+
+        function func1(){
+            var obj = document.fr;
+            obj.id.focus();
+        }
+
+        function func2(){
+            var obj = document.fr;
+
+            if(obj.id.value == ''){
+                alert('아이디를 입력하세요.');
+                obj.id.focus();
+                return false;
+            }
+            if (obj.id.value.length < 4 || obj.id.value.length > 10){
+                alert('아이디는 4~10자 사이로 입력해주세요.');
+                obj.id.value = "";
+                obj.id.focus();
+                return false;
+            }
+            if(obj.pwd.value == ""){
+                alert('패스워드를 입력하세요');
+                obj.pwd.focus();
+                return false;
+            }
+            if(obj.pwd_c.value == '' || obj.pwd_c.value != obj.pwd.value){
+                alert('패스워드를 정확히 입력하세요.');
+                obj.pwd_c.value = "";
+                obj.pwd_c.focus();
+                return false;
+            }
+            if(obj.name.value == ''){
+                alert('이름을 입력하세요');
+                obj.name.focus();
+                return false;            
+            }
+            if(obj.gender.vaule == ''){
+                alert('성별을 선택해주세요');
+                obj.gender.focus();
+                return false;
+            }
+            if(obj.job.selectedIndex == 0){
+                alert('직업을 선택하세요.');
+                obj.job.focus();
+                return false;
+            }
+            if(document.fr.hobby[0].checked == false
+                && document.fr.hobby[1].checked == false
+                && document.fr.hobby[2].checked == false){
+                alert('취미를 선택해주세요.');
+                docuement.fr.hobby[0].focus();
+                return false;
+            }
+
+            if(obj.bio.value == ''){
+                alert('자기소개를 입력해주세요');
+                obj.bio.focus();
+                return false;
+            }
+
+            //obj submit();
+            alert('Success.. Contents Clear');
+            obj.reset();
+            document.getElementById("alert_text").innerHTML = ('<span style="color: #777">아이디를입력해주세요.</span>');
+            document.getElementById("alert_pwd").innerHTML = ('<span style="color: #777">패스워드를 한번 더 입력해주세요.</span>');
+        }
+
+        function func3(){
+            var obj = document.fr;
+            if( obj.id.value.length < 4 || obj.id.value.length > 10){
+                document.getElementById('alert_text').innerHTML = ('<span style="color:red;">아이디는 4~10자 사이로 입력하세요</span>');
+                return;
+            }else{
+                document.getElementById('alert_text').innerHTML = ('<span style="color:green">정상적으로 입력되었습니다.</span>');
+            }   
+        }
+
+        function func4(){
+            var obj = document.fr;
+            if(obj.pwd_c.value == '' || obj.pwd_c.value != obj.pwd.value){
+                docuement.getElementById("alert_pwd").innerHTML=('<span style="color:red;">패스워드가 일치하지 않습니다.</span>');
+                return;
+            }else{
+                docuement.getElementById('alert_pwd').innerHTML=('<span style="color:green">입력한 패스워드와 일치합니다.</span>');
+            }    
+        }
+    </script>
+    <body>
+        <form action="Form_javascript.html" method="post" name="fr">
+            <table width="600" cellspacing="0" style="border-collapse: collapse;">
+                <caption><strong>Form</strong></caption>
+                <tr>
+                    <td style="background-color: #ddd;" width="150">아이디</td>
+                    <td>
+                        <input type="text" name="id" onkeyup="func3()">
+                        <span id="alert_text"><span style="color: #777">아이디를 입력해주세요</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">패스워드</td>
+                    <td>
+                        <input type="password" name="pwd" onkeyup="func4()">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">패스워드확인</td>
+                    <td>
+                        <input type="password" name="pwd_c" onkeyup="func4()">
+                        <span id="alert_pwd"><span style="color: #777;">패스워드를 한번 더 입력해주세요</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">이름</td>
+                    <td>
+                        <input type="text" name="name">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">성별</td>
+                    <td>
+                        <input type="radio" name="gender" checked>남
+                        <input type="radio" name="gender">여
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">직업<td>
+                    <td>
+                        <select name="job">
+                            <option>직업을 선택하세요.</option>
+                            <option value="직장인">직장인</option>
+                            <option value="자영업">자영업</option>
+                            <option value="공무원">공무원</option>
+                            <option value="학생">학생</option>
+                            <option value="무직">무직</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">취미</td>
+                    <td>
+                        <input type="checkbox" name="hobby" value="독서">독서
+                        <input type="checkbox" name="hobby" value="게임">게임
+                        <input type="checkbox" name="hobby" value="축구">축구
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="background-color: #ddd;">자기소개</td>
+                    <td style="padding-right: 8px">
+                        <textarea name="bio" style="width: 99%;" cols="8" rows="3"></textarea>
+                    </td>
+                </tr>
+
+                <tr style="text-align: center;">
+                    <td colspan="2" class="buttons">
+                        <input type="button" value="테스트" onclick="func1()">
+                        <input type="button" value="전송" onclick="func2()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>tab2 example</title>
+        <script src="../js/jquery-1.12.4.min.js"></script>
+    </head>
+    <style>
+        ul { list-style: none; padding: 0; margin: 0; }
+        a { color: #333; text-decoration: none; }
+
+        .tab-area{position:relative;border-left:1px solid #d5d5d5;flex-grow:1;height:600px;border-right:1px solid #d5d5d5}
+        .main-tab .info-box { position: relative; border-left: 1px solid #d5d5d5; flex-grow: 1; height: 600px; border-right: 1px solid #d5d5d5; }
+        .tab-area .tabs{position:absolute;width:100%;bottom:0;left:0;display:flex;border:2px solid #ffd73e;background-color:#fff}
+        .tab-area .tabs li{width:20%}
+        .tab-area .tabs a{display:flex;align-items:center;justify-content:center;width:100%;height:40px;font-size:13px;font-weight:bold;border-right:2px solid #ffd73e}
+        .tab-area .tabs li:last-child a{border-right:0}
+        .tab-area .tabs .tag{color:#ae911f;margin-right:10px}
+        .tab-area .tabs a.on,
+        .tab-area .tabs a:hover{background-color:#ffd73e;color:#fff}
+        .tab-area .tab-con{display:none;width:100%;height:100%;}
+        .tab-con.active { display: block;}
+    </style>
+    <body>
+        <script>
+            $(document).ready( function(){
+                $('.tabs li').click(function(){
+                    $('.tab-con').hide();
+                    $('.tabs a').removeClass('on');
+                    
+                    $(this).find('a').addClass('on');
+                    $('.tab-con').eq($(this).index()).css('display','flex');
+                });
+            });
+        </script>
+        <section class="tab-area">
+            <div class="info-box">
+                <ul class="tabs">
+                    <li><a href="javascript:;" class="on"><span class="tag">#</span>탭타이틀01</a></li>
+                    <li><a href="javascript:;"><span class="tag">#</span>탭타이틀02</a></li>
+                    <li><a href="javascript:;"><span class="tag">#</span>탭타이틀03</a></li>
+                    <li><a href="javascript:;"><span class="tag">#</span>탭타이틀04</a></li>
+                    <li><a href="javascript:;"><span class="tag">#</span>탭타이틀05</a></li>
+                </ul>
+                
+                <div class="box">
+                    <div class="tab-con active">
+                        내용1
+                    </div>
+        
+                    <div class="tab-con">
+                        내용2
+                    </div>
+        
+                    <div class="tab-con">
+                        내용3
+                    </div>
+        
+                    <div class="tab-con">
+                        내용4
+                    </div>
+        
+                    <div class="tab-con">
+                        내용5
+                    </div>
+                </div>
+                
+            </div>
+           
+        </section>
+    </body>
+</html>

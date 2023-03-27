@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.lazyload.js"></script> 
+        <style>
+            td img { margin-bottom: 30px; margin-right: 30px; }
+        </style>
+        <script type="text/javascript">
+            $(function(){
+                $('img.gocoder').lazyload({        // 이미지를 동적으로 호출 하도록
+                    placeholder : 'loading.gif',    // 로딩 이미지
+                    threshold: 0,                 // 접근 ~px 이전에 로딩을 시도한다.
+                    load : function(){              // 로딩시에 이벤트
+                        $(this).attr('alt',$(this).attr("data-original"));
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <Table>
+            <tr>
+                <td><img data-original="img1.jpg"  class="gocoder" width="300"></td>
+                <td><img data-original="img2.jpg"  class="gocoder" width="300"></td>
+            </tr>
+            <tr>
+                <td><img data-original="img3.jpg"  class="gocoder" width="300"></td>
+                <td><img data-original="img4.jpg"  class="gocoder" width="300"></td>
+            </tr>
+        </Table>
+    </body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <canvas id="myCanvas" height=200 width=200 style="border:1px solid #000000;"></canvas> -->
+    <canvas width=100 height=100></canvas>
+</body>
+<script>
+
+    /*
+        canvas 원 그리기
+        arc()  
+        arcTo()  -> 이어진 곡선을 그리는데 사용함
+
+        arc(x, y, radius, startAngle, endAngle, clockwise)
+        -x,y 원을 그리게 될 가운데 위치
+        -startAngle: angle의 시작점
+        -radius: 반지름값
+        -endAngle: angle의 끝나는 점
+        -clockwise: 옵션값, 시계 또는 반시계 방향을 결정함(기본갑 false인 시계방향)
+
+        animation 효과 
+        -setTimeout() 타이머함수이용
+        -requestAnimationFrame()을 사용하는 방법
+
+
+
+    */
+    // set up initial variables
+    // var c = document.getElementById("myCanvas");
+    // var ctx = c.getContext("2d");
+
+    // ctx.beginPath();
+    // ctx.moveTo(100,0);
+    // ctx.lineTo(100,400);
+    // ctx.stroke();
+
+    // function drawCircle(x){
+    //     ctx.beginPath();
+    //     ctx.arc(x,100,10,0,2*Math.PI);
+    //     ctx.fillStyle="powderblue";
+    //     ctx.fill();
+    // }
+    // var x = 0;
+
+    // setInterval(function(){ 
+    //     ctx.clearRect(0,0,200,200);
+    //     drawCircle(x % 200);
+    //     x++;
+    // }, 25);
+
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(50,50,20,0,Math.PI * 2);
+    ctx.stroke();
+
+
+</script>
+</html>

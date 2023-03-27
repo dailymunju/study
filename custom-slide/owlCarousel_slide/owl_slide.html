@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>owl_slide example</title>
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="../owlCarousel_slide/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="../owlCarousel_slide/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css"></link>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet"> 
+
+<script>
+    $(function(){
+        var oldNum = "0";
+    
+        initialize_owl($('.slideCarousel0'));
+    
+        $('.product_tab li a').on('click', function (e) {
+            e.preventDefault();
+            var num = $(this).parent().index();
+            
+            //탭 active
+            $(".product_tab li").removeClass("active");
+            
+            //슬라이더 탭 active
+            $(this).parent().addClass("active");
+            $(".slideTab"+num).show();
+            $(".slideTab"+oldNum).hide();
+            
+            //슬라이더
+            initialize_owl($('.slideCarousel'+num));
+            destroy_owl($('.slideCarousel'+oldNum));
+        
+            oldNum = num;
+        });
+    
+        function initialize_owl(el) {
+
+            el.owlCarousel({
+                autoplay:true, // 오토 플레이
+                autoplayTimeout:3000, // 오토 플레이 시에 다음 슬라이드로 넘어가는 주기, 2초
+                loop:true,
+                nav:false,
+                items:3,
+                lazyLoad: true,
+                smartSpeed: 1000,
+                margin:10/*,
+                responsive: {
+                    0: {
+                    items: 2
+                    },
+                    600: {
+                    items: 3
+                    },
+                    1000: {
+                    items: 5
+                    }
+                    반응형은 이부분 활용
+                    }*/
+                });
+            }
+        
+            function destroy_owl(el) {
+                el.trigger('destroy.owl.carousel');
+            }
+    });
+</script>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }    
+        .product_tab_wrap {font-size: 0;margin-bottom:70px;text-align:center;border-bottom:1px solid #e8e8e8;}
+        .product_tab {overflow:hidden;display:inline-block;}
+        .product_tab li {float:left;margin: 0 20px; }
+        .product_tab li a {display:block;font-size:16px;color:#999999;font-weight:400;font-family: 'Montserrat', sans-serif;padding:15px 15px;position:relative;text-decoration:none;}
+        .product_tab li a:hover,
+        .product_tab li.active a {color: #e30413;}
+        .product_tab li.active a.active { border-bottom: 1px solid red; }
+        .slideTabWrap {max-width:500px;margin: 0 auto;}
+        .slideCarousel1,.slideCarousel2 { display: none; }
+    </style>
+    
+    <div class="product_tab_wrap">
+        <ul class="product_tab">
+            <li class="active">
+                <a href="#" class="active">SLIDE1</a>
+                <span></span>
+            </li>
+
+            <li>
+                <a href="#">SLIDE2</a>
+                <span></span>
+            </li>
+
+            <li>
+                <a href="#">SLIDE3</a>
+                <span></span>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="slideTabWrap">
+        <!-- slider1 Start -->
+        <div class="slideTab slideTab0">
+            <div class="owl-carousel slideCarousel0">
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-01.jpg" alt="banner image"></a></div>
+            </div>
+        </div>
+        <!-- slider1 End -->
+    
+        <!-- slider2 Start -->
+        <div class="slideTab slideTab1">
+            <div class="owl-carousel slideCarousel1">
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-02.jpg" alt="banner image"></a></div>
+            </div>
+        </div>
+        <!-- slider2 End -->
+    
+        <!-- slider3 Start -->
+        <div class="slideTab slideTab2">
+            <div class="owl-carousel slideCarousel2">
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+                <div class="item"><a href="#"><img src="../owlCarousel_slide/images/banner-03.jpg" alt="banner image"></a></div>
+            </div>
+        </div>
+        <!-- slider3 End -->
+    </div>
+</body>
+</html>

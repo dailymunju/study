@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script>
+    /*
+        이벤트 리스너, v-on directive
+
+        v-on:이벤트이름="method 이름"
+
+        -v-on 디렉티브를 사용하여 DOM 이벤트를 듣고 트리거 될때 javascript를 실행할 수 있다 -VueJS 공식문서
+        ex_) 사용자가 로그인페이지에 접속을한다. 아이디와 패스워드를 입력하고, 로그인 버튼을 클릭하는 순간 로그인이 된다.
+        여기서 버튼을 클릭하는 순간에 -입력된 아이디와 패스워드가 맞는 지 검사해줘! 라는 이벤트가 실행됨을 추측할 수 있음
+        -> 이때 로그인 버튼은 클릭되는 순간에 이벤트를 실행 시키게 되는데, 여기서 로그인 버튼 클릭-이벤트를 연결 해주는 것을 "이벤트 리스너"라고 한다.
+
+        예시) 주사위 던지기
+        1. 로직
+        1) 주사위 수를 나타내는 값
+        2) 주사위를 던졌을 때, 1-6사이의 랜덤한 숫자 반환
+        -->
+        1) 주사위 수를 나타내는 값을 정해서 data에 선언
+        2-1) methods 내에 1-6사이의 랜덤한 숫자를 반환하여 data에 선언하는 값을 바꿔주는 함수 생성
+        2-2) 주사위를 던졌을 때 함수를 실행할 수 있도록 이벤트 리스너인 v-on을 사용한다. 
+
+
+        cf)
+        Vue인스턴스의 data객체에 주사위의 숫자를 저장할 number를 생성하고, 주사위를 던졌을때
+        1과 6사이의 임의의 수를 생성하고, 생성된 임의의 숫자를 data.number로 다시 할당할 rollDice()함수를 
+        methods 객체 내에 생성함 
+        주사위 버튼을 클릭하는 행위와 rollDice()함수를 이벤트 리스너 v-on을 사용해 연결하는 것
+
+        함수에 인자값 받기
+        -javascript에서 index라는 인자를 받는 함수처럼, v-on 디렉티브를 통해 함수를 실행시킬때 함수 자체의 event object뿐아니라
+        임의로 생성한 값도 인수로 받아 함수에서 인자로 사용할 수 있다. 
+            
+            function(index){
+                console.log(index);
+            }
+        ++++ "마우스 클릭"이라는 이벤트를 통해 함수를 실행시키는 역할을 하는 v-on 디렉티브 ++++
+
+
+        ->이외에도 다양한 동작을 위해 v-on:click="함수" 디렉티브는 Click위치에 여러가지 다른 이벤트 들을 위치 시킬 수 있다
+        dbclick
+        v-on:click="doubleClick()" 을 통해 더블클릭을 하면 doubleClick()함수를 실행시킨다
+        
+    */
+    </script>
+    <body>
+        <div id="app">
+            {{ number }}  <!-- 주사위 숫자 --> 
+            <button v-on:click="rollDice">주사위 던지기</button>
+        </div>
+
+        <div id="plus">
+            <p>{{ count }}</p>
+            <button v-on:click="addCount(2)">버튼을 클릭하면 2를 더해</button>
+        </div>
+
+        <div id="doubleClick">
+            <button v-on:dblclick="doubleClick()">더블클릭</button>
+        </div>
+
+        <div id="mouseMove">
+            <p>{{ count }}</p>
+            <div v-on:mousemove="addCount">마우스를 올리면?</div>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: "#app",
+            data: {
+                number: 0 //주사위의 숫자를 저장할 변수
+            },
+            methods: {
+                //주사위를 던졌을 때 실행되는 함수
+                rollDice: function(){
+                    //임의의 변수 N을 설정하여 1-6 사이의 임의의 숫자를 반환함
+                    var N = Math.floor(Math.random() * (6)) + 1;
+                    //인스턴스 내부의 값을 불러올 때는 this를 사용함
+                    this.number = N;
+                }
+            }
+        })
+
+        new Vue({
+            el: "#plus",
+            data: {
+                count: 0
+            },
+            methods: {
+                addCount(number) {
+                    this.count = this.count + number
+                } //addCount함수 실행시 count에 1이 아닌 number를 더해주도록 정의함
+            }
+        })
+
+        new Vue({
+            el: "#doubleClick",
+            methods : {
+                doubleClick(){
+                    console.log('더블클릭')
+                }
+            }
+        })
+
+        new Vue({
+            //v-on 디렉티브를 사용하여 mousemove이벤트를 실행
+            //count에 1을 더해주는 addCount() 함수를 실행시키고 결과를 p태그 안의 {{ count }}로 확인할 수 있음
+            el:"#mouseMove",
+            data: {
+                count: 0,
+            },
+            methods: {
+                //mouseMove동작을 했을 때 실행되는 함수
+                addCount(){
+                    this.count ++
+                }
+            }
+
+        })
+    </script>
+</html>  

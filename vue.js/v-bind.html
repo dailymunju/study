@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VueJS html 속성에 접근하기</title>
+    </head>
+
+    <body>
+        <div id="app">
+            <a v-bind:href="link">링크</a>
+        </div>
+
+        <div id="box">
+            <a :href="https://naver.com">링크2</a>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue ({
+            el: "#app",
+            data: {
+                link : "https://naver.com"
+            }
+        })
+        new Vue ({
+            el: '#box',
+            data: {
+                link: "https://naver.com"
+            }
+        })
+
+    /*
+
+        1. {{ mustached }}기호를 통해 Vue내의 값 혹은 함수를 불러왔는데, 
+        화면에 출력해야하는 경우가 아니라 HTML속성 내에서 Vue에 선언된 값을 사용하고 싶다면?
+
+        <a href="{{ link }}">링크</a> => 사용할 수 없음
+        
+        => HTML의 속성에는 {{ mustached }}를 사용할 수 없음 대신 v-bind 디렉티브를 사용해야함
+
+        2.디렉티브 Directive 
+        -html태그 안에 들어가는 속성역할을 하며, "v-"라는 접두사가 붙음
+        
+        3.html 속성에 접근하는 v-bind
+
+        4. v- 접두사는 템플릿의 Vue 특정 속성을 식별하기 위한 시각적인 신호 역할을 합니다. 
+        이 기능은 Vue.js를 사용하여 기존의 마크업에 동적인 동작을 적용할 때 
+        유용하지만 일부 자주 사용되는 디렉티브에 대해 너무 장황하다고 느껴질 수 있습니다. 
+        동시에 Vue.js가 모든 템플릿을 관리하는 SPA를 만들 때 v- 접두어의 필요성이 떨어집니다. 
+        따라서 가장 자주 사용되는 두개의 디렉티브인 v-bind와 v-on에 대해 특별한 약어를 제공합니다. — VueJS 공식 가이드 중
+        
+        -> 때문에 Vue에서는 자주 사용되는 v-bind와 v-on 디렉티브에 대해서만 특별한 약어를 제공한다
+
+        5. v-bind 약어
+        - v-bind:href="url" 을 줄여서 :href="url"
+        <a v-bind:href="url">...</a>  =>> <a :href="url">...</a>
+        - v-on:click="doSomething"을 줄여 @click="doSomething"
+        <a v-on:click="doSomething">...</a> =>> <a @click="doSomething">...</a>
+
+    */
+    </script>
+</html>  

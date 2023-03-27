@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Math random</title>
+    </head>
+    <script>
+        /*
+            Math.random() 난수 랜덤숫자 생성
+            +--
+            0.673172894273546와 같은 0 이상 1 미만의 난수를 생성함
+        */
+    var Random = Math.random();
+    document.write('<p>' + Random + '</p>');
+    
+    /* Math.floor() 난수를 0부터 9까지의 정수로 변환*/
+    //0123456789 -> 10개 이므로 * 10
+        var tenNumber = Math.random();
+        document.write('<p>' + Math.floor(tenNumber*10) + '</p>');
+        
+        function rand(min,max){
+            return Math.floor(Math.random() * ( max - min + 1)) + min;
+        }
+        //document.writeln 자동 줄바꿈 
+        document.writeln(rand(1, 3));
+        document.writeln(rand(77, 88));
+
+    </script>
+    <body>
+        
+    </body>
+</html>

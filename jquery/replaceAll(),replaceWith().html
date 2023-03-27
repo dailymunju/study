@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소 대체 replaceAll(), replaceWith()</title>
+    <!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<script>
+    /*
+        jquery 요소의 대체
+
+        .replaceAll() 메소드
+        -선택한 요소를 지정된 요소로 대체함 ( 인수로 선택자나 제이쿼리 객체, HTML DOM 요소, 배열등으로 전달 받을 수 있음)
+        
+        .replaceWith() 메소드
+        -선택한 모든 요소를 지정된 요소로 대체
+        replaceAll() 메소드와 비슷하지만, 소스와 타겟이 반대임 
+        .replaceWith() 메소드는 지정된 요소로 대체외어 제거된 기존 요소를 반환함
+
+    */
+
+    $(document).ready( function(){
+        $('.replaceAll_btn').click( function(){
+            $('#firstItem1').replaceAll(".replace_item");
+        });
+        
+        $('.replaceWith_btn').click( function(){
+            $('.item2').replaceWith($('#firstItem2'));
+        });
+    });
+</script>
+<body>
+    <h1>.replaceAll() 메소드</h1>
+    <ul>
+        <li class="replace_item" id="firstItem1">첫번째</li>
+        <li class="replace_item" id="secondItem1">두번째</li>
+        <li class="replace_item" id="thirdItem1">세번째</li>
+    </ul>
+    <button class="replaceAll_btn">아이템대체</button>
+
+    <h1>.replaceWith() 메소드</h1>
+    <ul>
+        <li class="item2" id="firstItem2">첫번째</li>
+        <li class="item2" id="secondItem2">두번째</li>
+        <li class="item2" id="thirdItem2">세번째</li>
+    </ul>
+    <button class="replaceWith_btn">아이템대체</button>
+</body>
+</html>

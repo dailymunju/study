@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>리스트 렌더링 v-for</title>
+
+    </head>
+    <body>
+        <div id="app">
+            <h1>여행지 리스트</h1>
+            <ul>
+                <!-- object가 그대로 렌더링 되서 출력됨 -->
+                <!-- <li v-for="city in travelList">{{ city }}</li> -->
+                
+                <!-- 반복되는 city안의 속성들을 city.속성의 형태로 불러와서 사용
+                name에 해당하는 '강릉'이라는 값을 사용하고 싶다면 city.name
+                -->
+                <!-- <li v-for="city in travelList">{{city.name}} - {{city.distance}}</li> -->
+
+                <!-- key값 선언 -->
+                <li v-for="city in travelList" :key="city.name">{{ city.name }} - {{ city.distance }}</li>
+            </ul>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        /*
+            -> string이 아닌 object의 반복
+            -> v-for로 반복되어 렌더링이 된 태그들을 vue가 기억하기 위한 방법은 key값
+            - v-for로 반복된 city들은 순서에 의해 travelList내에서의 포지션을 찾고, 만약 세번째 지역을 바꾸게 된다면
+                
+                {name: '오이도',distance:'차로 1시간 반'}-> 순서에 의해 변경된 값을 적용하려고 할것이나, 조금만 복잡한 구조를
+                가지거나 템플릿 내에서 재배열 되었다면 정확한 위치를 찾기 어려워짐. 
+                따라서 Vue는 v-for 디렉티브에 항상 유니크한 key값을 선언해주는 것을 권한다
+            -key="city.name"와 같이 city의 name값을 key값으로 정해주고, travelList 내에 중복된 name값이 없으므로 문제없이 작동함.
+            
+        */
+        
+
+        new Vue({
+            el: "#app",
+            data: {
+                travelList:[
+                    {name: '강릉', distance: '차로 3시간'},
+                    {name: '부산', distance: '차로 5시간'},
+                    {name: '춘천', distance: '차로 2시간'},
+                    {name: '타이베이', distance: '비행기로 3시간'},
+                    {name: '마닐라', distance: '비행기로 5시간'},
+                    {name: '스페인', distance: '비행기로 17시간'},
+                ]
+            }
+        })
+
+        //object
+    </script>
+</html>

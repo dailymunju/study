@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 체크 유효성 검사예제3(기본) submit onSubmit</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    function check(){
+        var id = $.trim($('#id').val());
+        if(id == ""){
+            alert('아이디를 입력하세요.');
+        }
+        $('#id').focus();
+        return false;
+    }
+
+    // return false
+    
+</script>
+<body>
+    <form action="" onSubmit="return check()" name="myform" method="post" action="">
+        아이디 : <input type="text" id="id" name="id">
+        <input type="submit" value="가입하기">
+    </form>
+</body>
+</html>

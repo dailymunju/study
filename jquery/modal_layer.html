@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modal layer</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<script>
+    $(document).ready( function(){
+        $('.btn,.modal_bg,i').click( function(){
+            $('.modal_wrap,.modal_bg').toggle();
+        });
+    });
+</script>
+<style>
+    .modal { position: relative; }
+    .modal_wrap,.modal_bg { display: none; }
+    /* .modal_bg { position: fixed; top: 0; left: 0; background-color: #000000b3; width: 100%; height: 100%; cursor: pointer;  } */
+    .modal_bg {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        z-index: 1;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #000;
+        background-color: rgba(0,0,0,0.75);
+        text-align: center;
+    }
+    /* .modal_wrap { position: absolute; width: 1000px; padding: 30px; background-color: white; z-index: 100; top: 300px;
+    left: 460px;  } */
+    .modal_wrap {
+        display: none;
+        position: absolute;
+        left: 38%;
+        z-index: 2;
+        max-width: 500px;
+        box-sizing: border-box;
+        width: 90%;
+        background: #fff;
+        padding: 15px 30px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -o-border-radius: 8px;
+        -ms-border-radius: 8px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 0 10px #000;
+        -moz-box-shadow: 0 0 10px #000;
+        -o-box-shadow: 0 0 10px #000;
+        -ms-box-shadow: 0 0 10px #000;
+        box-shadow: 0 0 10px #000;
+        text-align: left;
+    }
+    i { position: absolute; top: 14px; right: 20px; font-size: 30px; cursor: pointer; }
+</style>
+<body>
+    <div class="modal_bg"></div>
+    <button class="btn">클릭</button>
+
+    <div class="modal">
+        <div class="modal_wrap">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit explicabo nemo assumenda minima perferendis unde eaque dolores, tempora eos distinctio labore totam blanditiis eum quis eligendi? Pariatur asperiores sed eum neque iste voluptas totam consectetur, nesciunt expedita ex facere debitis soluta unde numquam cum maiores similique nulla in ipsa id porro quo. Beatae nesciunt quidem nemo iure voluptate. Porro officiis, quis aperiam voluptates totam molestias doloribus vel suscipit nulla incidunt unde odit ut laudantium sapiente in laborum asperiores eius blanditiis quibusdam facere. Sapiente velit, similique soluta, dolorem sit rem repellendus voluptatibus qui optio earum fuga consectetur voluptatum, sint incidunt pariatur.
+            </p>    
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>apply()메서드를 이용한 명시적인 this바인딩</title>
+</head>
+<script>
+    function Person(name,age,gender){
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    //빈객체 생성,리터럴 방식
+    var foo = {};
+    //apply 메서드 호출
+    Person.apply(foo,['foo',30,'man']);
+    console.dir(foo);    
+    /*
+        apply() 메소드를 사용해서 Person()함수를 호출함
+        -첫번째 인자로 넘긴 foo가 Person()함수에서 this로 바인딩 되고, apply()메서드의
+        두번째 인자로 넘긴 배열 ['foo',30,'man']은 호출하려는 Person()함수의 인자 name,age,gender로
+        각각 전달됨, Person('foo',30,'man')함수를 호출하면서 this를 foo객체에 명시적으로 바인딩 된것
+    */
+    Person.call(foo,'foo',30,'man');
+    //call()메서드의 경우에는 apply()메서드와 기능은 같지만 apply() 두번째 인자에서 배열형태로 넘긴것을 각각 하나의 인자로 넘긴다
+    //call(),apply()메서드는 this를 원하는 값으로 명시적으로 매핑해서 특정함수나 매서드를 호출 할 수 있다는 장점이 있다. 
+
+</script>
+<body>
+    
+</body>
+</html>

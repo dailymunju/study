@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>fade() 효과</title>
+    <style>
+        #divBox,#divBox1,#divBox2,#divBox3 { width: 100px; height: 100px; background-color: yellow; border: 5px solid orange; margin-top: 20px; }
+    </style>
+</head>
+<script>
+    /*
+        .fadeIn() 선택한 요소의 CSS opacity 속성값을 높여가며 요소를 나타나게함
+        .fadeOut() 선택한 요소의 css opacity 속성값을 높여가며 요소를 사라지게함
+        .fadeToggle() 선택한 요소에 fadeIn() 메소드와 fadeOut() 메소드를 번갈아가며 적용함
+        .fadeTo() 페이드 효과에서 사용하는 opacity 속성값을 직접 설정함
+    */
+    $(document).ready( function(){
+        $('#fadeInBtn').click( function(){
+            $('#divBox').fadeIn("slow");
+        });
+        $('#fadeOutBtn').click( function(){
+            $('#divBox').fadeOut(2000);
+        });
+        $('#fadeToggleBtn').click( function(){
+            $("#divBox").fadeToggle(1000);
+        });
+        $('#fadeToBtn').click( function(){
+            $("#divBox1").fadeTo(2000, 0.2);
+            $("#divBox2").fadeTo(2000, 0.5);
+            $("#divBox3").fadeTo(2000, 0.8);
+        }); 
+        //페이드 효과의 속도 조절
+        // $('#fadeInBtn').click( function(){
+        //     $('#divBox').fadeIn("slow");
+        // });
+        // $('#fadeOutBtn').click( function(){
+        //     $('#divBox').fadeOut(2000);
+        // });
+        
+    });
+</script>
+<body>
+    <h1>fadeIn() 과 fadeOut()</h1>
+    <button id="fadeInBtn">페이드 인</button>
+    <button id="fadeOutBtn">페이드 아웃</button>
+    <button id="fadeToggleBtn">페이드 토글</button>
+    <button id="fadeToBtn">페이드 투</button>
+    <div id="divBox"></div>
+    <p>제이쿼리 페이드 효과는 CSS opacity 속성값을 빠르게 변경함</p>
+    <div id="divBox1"></div>
+    <div id="divBox2"></div>
+    <div id="divBox3"></div>
+</body>
+</html>

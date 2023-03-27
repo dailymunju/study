@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <style>
+        ul { list-style: none; }
+        #container { width: 768px; margin: 0 auto; text-align: center; }
+        .tab { margin: 0; padding: 0; overflow: hidden; background-color: #e8e8e8; }
+        .tab li { float: left; width: 25%; }
+        .tab::after { content: ''; display: block; overflow: hidden; clear: both; }
+        
+        .tab li a { display: inline-block; font-weight: 600; color: #000; text-align: center; text-decoration: none; padding: 14px 16px; font-size: 17px; transition: .3s; }
+        .tab li.current a { color: white; }
+        .tabcontent { display: none; background-color: powderblue; color: #ffff; padding: 6px 12px; }
+        .tab li.current { background-color: rgb(0,154,200); color: white; }
+        .active { display: block; }
+
+    </style>
+   
+    <div id="container">
+        <h2>How to develop a tab menu with jquery</h2>
+
+        <ul class="tab">
+            <li class="tablinks current" data-tab="tab1"><a href="#">About</a></li>
+            <li class="tablinks" data-tab="tab2"><a href="#">Portfolio</a></li>
+            <li class="tablinks" data-tab="tab3"><a href="#">Contact</a></li>
+            <li class="tablinks" data-tab="tab4"><a href="#">Travel</a></li>
+        </ul>
+
+        <div id="tab1" class="tabcontent active">
+            <h3>About</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error quasi at nesciunt. Illum quisquam rem earum tenetur veniam dignissimos facilis magni, consequatur repudiandae dolorum minima dolorem, soluta consectetur atque molestias.</p>
+        </div>
+
+        <div id="tab2" class="tabcontent">
+            <h3>Portfolio</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error quasi at nesciunt. Illum quisquam rem earum tenetur veniam dignissimos facilis magni, consequatur repudiandae dolorum minima dolorem, soluta consectetur atque molestias.</p>
+        </div>
+
+        <div id="tab3" class="tabcontent">
+            <h3>Contact</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error quasi at nesciunt. Illum quisquam rem earum tenetur veniam dignissimos facilis magni, consequatur repudiandae dolorum minima dolorem, soluta consectetur atque molestias.</p>
+        </div>
+
+        <div id="tab4" class="tabcontent">
+            <h3>Travel</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error quasi at nesciunt. Illum quisquam rem earum tenetur veniam dignissimos facilis magni, consequatur repudiandae dolorum minima dolorem, soluta consectetur atque molestias.</p>
+        </div>
+    </div>
+    <script>
+        $(document).ready( function(){
+            $('.tablinks').each( function(){
+
+                $(this).click( function(){
+                    
+                    $('.tablinks').removeClass('current');
+                    $(this).addClass('current');
+
+                    $('.tabcontent').removeClass('active');
+                    $('.tabcontent').css('display','none');
+
+                    var activeTab = $(this).attr('data-tab');
+                    $('#' + activeTab).css('display','block');
+
+                });
+                
+            });
+        });
+    </script>
+</body>
+</html> 

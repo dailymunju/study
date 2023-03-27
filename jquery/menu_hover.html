@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu hover jquery</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    }
+    a,a:active, a:visited,a:hover, a:link, a:focus
+    {text-decoration:none; color:#000; }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+    display: block;
+    }
+    body {
+    line-height: 1;
+    }
+
+    ol, ul {list-style: none;}
+    ul { margin: 0; padding: 0; }
+    blockquote, q {quotes: none;}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+    content: '';
+    content: none;
+    }
+    table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+    #header {
+    width: 100%;
+    height: 90px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    z-index: 500;
+    -webkit-transition: height 400ms;
+    transition: height 400ms;
+    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 6px rgba(0,0,0,.05);
+    }
+    #skipnavi {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    background-color: #333;
+    z-index: 999999;
+    }
+    #logo {
+    position: absolute;
+    left: 70px;
+    top: 35px;
+    -webkit-transition: top 400ms;
+    transition: top 400ms;
+    z-index: 549;
+    }
+    #logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    }
+    .main_product_menu_container {
+    position: relative;
+    }
+    #main_product_menu {
+    text-align: center;
+    padding: 0 320px 0 320px;
+    margin-top: 20px;
+    }
+    #main_product_menu li {
+    display: inline-block;
+    }
+    #main_product_menu li a {
+    display: inline-block;
+    padding: 11px 20px;
+    font-family: 'NotoSansKR',sans-serif;
+    font-weight: 500;
+    color: #213429;
+    position: relative;
+    font-size: 16px;
+    }
+    #menu_line {
+    display: none;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    margin-left: -3px;
+    background: #731d09;
+    border-radius: 50%;
+    }
+    .sub_menu_container {
+    display: block;
+    position: absolute;
+    top: 29px;
+    right: 118px;
+    z-index: 551;
+    -webkit-transition: top 400ms;
+    transition: top 400ms;
+    }
+    #sub_menu {
+    display: block;
+    width: 100%;
+    }
+    #sub_menu>li#search_open_btn {
+    margin-right: 32px;
+    }
+
+    #sub_menu>li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 22px;
+    display: block;
+    position: relative;
+    }
+    .search_container {
+    display: block;
+    }
+
+    #sub_menu>li.search_container>a {
+    background: none;
+    }
+    #sub_menu>li>a {
+    padding: 0;
+    position: relative;
+    font-size: 11px;
+    font-weight: 600;
+    color: #213429;
+    -webkit-transition: color 300ms;
+    transition: color 300ms;
+    display: block;
+    height: 100%;
+    }
+    #sub_menu>li.search_container>a:before {
+    content: '\e96c';
+    left: 5px;
+    top: 6px;
+    }
+    #sub_menu>li>a:before {
+    content: "";
+    font-family: 'jt-font';
+    font-size: 19px;
+    margin-left: 0;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-weight: normal;
+    z-index: 1;
+    }
+    .sr_only {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    }
+    #sub_menu>li.menu_item_account {
+    margin-right: 28px;
+    }
+    #sub_menu>li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 22px;
+    display: block;
+    position: relative;
+    }
+    #sub_menu>li>a {
+    padding: 0;
+    position: relative;
+    font-size: 11px;
+    font-weight: 600;
+    color: #213429;
+    -webkit-transition: color 300ms;
+    transition: color 300ms;
+    display: block;
+    height: 100%;
+    }
+    #sub_menu>li.menu_item_cart>a:before {
+    content: '\e959';
+    display: block;
+    font-size: 19px;
+    top: 6px;
+    left: 6px;
+    }
+
+    #sub_menu>li>a:before {
+    content: "";
+    font-family: 'jt-font';
+    font-size: 19px;
+    margin-left: 0;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-weight: normal;
+    z-index: 1;
+    }
+    .sr_only {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    }
+    .menu_item_cart .menu_item_cart_count {
+    display: none;
+    min-width: 4px;
+    height: 6px;
+    padding: 0 1px;
+    position: absolute;
+    vertical-align: middle;
+    font-size: 10px;
+    font-style: normal;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    background: #731d09;
+    border-radius: 30px;
+    right: -2px;
+    top: 2px;
+    -ms-transform: scale(0.85);
+    -webkit-transform: scale(0.85);
+    transform: scale(.85);
+    }
+
+</style>
+<script>
+   function special_event_hover( event ) {
+    var $menu_nav = $(".main_product_menu_container"),
+        $menu = $('#main_product_menu'),
+        $current, $el, flag = true;
+
+        /* add menu line markup via javascript */
+        $menu_nav.append("<div id='menu_line'></div>");
+        var $menu_line = $("#menu_line");
+
+    /* hover effect */
+    $menu.find("> li").not('.' + event ).hover(function() {
+        $el = $(this);
+        leftPos = $el.position().left + ($el.width()/2);
+
+        if(flag){
+            $menu_line.stop().animate({
+                left: leftPos
+            });
+        } else {
+            $menu_line.stop().animate({
+                opacity: 1,
+                left: leftPos
+            });
+        }
+    }, function() {
+        if(flag){
+            $menu_line.stop().animate({
+                left: $menu_line.data("origLeft")
+            });
+        } else {
+            $menu_line.stop().animate({
+                opacity: 0
+            });
+        }
+    });
+
+    $('.' + event + '.current-menu-item').parent('ul').siblings('#menu_line').hide();
+
+    }
+
+        /* line position setting */
+        function gnb_hover_effect_pos(){
+            if(flag){
+                var dump_left = $current.position().left + ($current.width()/2);
+                $menu_line.css("left", dump_left)
+                        .data("origLeft", dump_left);
+            } else {
+                $menu_line.css("opacity", 0)
+                        .css("left", '50%');
+            }
+        }
+        
+
+</script>
+
+<body>
+    <header id="header">
+
+        <h1 id="logo">
+            <a href="https://lanbelle.com">
+                <img src="https://lanbelle.com/wp-content/themes/lanbelleshop/images/layout/logo.svg" alt="LANBELLE">
+                <img class="logo_reverse" src="https://lanbelle.com/wp-content/themes/lanbelleshop/images/layout/logo-light.svg" alt=" 랑벨">
+            </a>
+        </h1><!-- #logo -->
+        <nav class="main_product_menu_container menu_cnt_5">
+            <ul id="main_product_menu" class="menu">
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-380"><a
+                        href="#"><span>랑벨 시그니처</span></a></li>
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-381"><a
+                        href="#"><span>크림 이상의 크림</span></a></li>
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-379"><a
+                        href="#"><span>데일리 케어</span></a></li>
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-382"><a
+                        href="#"><span>클렌징 케어</span></a></li>
+                <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-607"><a
+                        href="#"><span>엄청난 조합</span></a></li>
+            </ul>
+            <div id="menu_line"></div>
+        </nav><!-- .main_product_menu_container -->
+
+        <!-- <nav class="sub_menu_container">
+            <ul id="sub_menu" class="sub_menu">
+                <li id="search_open_btn" class="search_container"><a href="#" class="search_btn"><span
+                            class="sr_only">search</span></a></li>
+                <li class="menu-item menu_item_account">
+                    <a class="menu_item_account_link" href="https://lanbelle.com/my-account/">
+                        <span class="sr_only">MY ACCOUNT</span>
+                    </a>
+                </li>
+
+                <li class="menu-item menu_item_wishlist">
+                    <a href="https://lanbelle.com/wishlist/">
+                        <span class="sr_only">WISHLIST</span>
+                    </a>
+                </li>
+
+                <li class="menu-item menu_item_cart">
+                    <a href="https://lanbelle.com/cart/">
+                        <span class="sr_only">MY CART</span>
+                        <i class="menu_item_cart_count" style="display: none;"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </nav> -->
+        <!-- <div id="menu_btn">
+            <button>
+                <span class="sr_only">메뉴 컨트롤 버튼</span>
+                <span class="menu_btn_line menu_btn_line_01"></span>
+                <span class="menu_btn_line menu_btn_line_02"></span>
+                <span class="menu_btn_line menu_btn_line_03"></span>
+            </button>
+        </div> -->
+
+        <div id="menu_overlay"></div>
+        <nav class="menu_container" style="visibility: hidden; opacity: 0;">
+            <ul id="menu" class="menu">
+                <li
+                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-37">
+                    <a href="https://lanbelle.com/shop/"><span>제품</span></a>
+                    <ul class="sub-menu">
+                        <li class="menu_first_item"><a href="#">제품</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-199"><a
+                                href="https://lanbelle.com/shop/"><span>전체 제품</span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-201"><a
+                                href="https://lanbelle.com/product-category/랑벨-시그니처/"><span>랑벨 시그니처</span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-202"><a
+                                href="https://lanbelle.com/product-category/크림-이상의-크림/"><span>크림 이상의 크림</span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-200"><a
+                                href="https://lanbelle.com/product-category/데일리-케어/"><span>데일리 케어</span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-203"><a
+                                href="https://lanbelle.com/product-category/클렌징-케어/"><span>클렌징 케어</span></a></li>
+                        <li class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-2010"><a
+                                href="https://lanbelle.com/product-category/엄청난-조합/"><span>엄청난 조합</span></a></li>
+                    </ul>
+                </li>
+                <li
+                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-237">
+                    <a href="https://lanbelle.com/랑벨의-철학/"><span>랑벨의 철학</span></a>
+                    <ul class="sub-menu">
+                        <li class="menu_first_item"><a href="#">랑벨의 철학</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-238"><a
+                                href="https://lanbelle.com/랑벨의-철학/심플퍼펙션/"><span>심플퍼펙션</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-239"><a
+                                href="https://lanbelle.com/랑벨의-철학/라니의-메시지/"><span>라니의 메시지</span></a></li>
+                    </ul>
+                </li>
+                <li
+                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-240">
+                    <a href="https://lanbelle.com/체험하기/"><span>체험하기</span></a>
+                    <ul class="sub-menu">
+                        <li class="menu_first_item"><a href="#">체험하기</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-342"><a
+                                href="https://lanbelle.com/체험하기/고객-리뷰/"><span>고객 리뷰</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-244"><a
+                                href="https://lanbelle.com/체험하기/랑스-레커먼데이션/"><span>랑스 레코멘데이션</span></a></li>
+                    </ul>
+                </li>
+                <li
+                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-245">
+                    <a href="https://lanbelle.com/고객지원/"><span>고객지원</span></a>
+                    <ul class="sub-menu">
+                        <li class="menu_first_item"><a href="#">고객지원</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-243"><a
+                                href="https://lanbelle.com/고객지원/랑벨-이벤트/"><span>랑벨 이벤트</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-247"><a
+                                href="https://lanbelle.com/고객지원/notice/"><span>뉴스</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-249"><a
+                                href="https://lanbelle.com/고객지원/faq/"><span>FAQ</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-248"><a
+                                href="https://lanbelle.com/고객지원/pr-media/"><span>미디어</span></a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-250"><a
+                                href="https://lanbelle.com/고객지원/스토어/"><span>스토어</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="selectric-wrapper selectric-jt_selectric selectric-menu_container_lang">
+                <div class="selectric-hide-select"><select class="jt_selectric menu_container_lang" tabindex="0">
+                        <option value="">KOR</option>
+                        <option value="en">ENG</option>
+                        <option value="jp">JPN</option>
+                    </select></div>
+                <div class="selectric"><span class="label">KOR</span><b class="button">▾</b></div>
+                <div class="selectric-items" tabindex="-1">
+                    <div class="selectric-scroll">
+                        <ul>
+                            <li data-index="0" class="selected">KOR</li>
+                            <li data-index="1" class="">ENG</li>
+                            <li data-index="2" class="last">JPN</li>
+                        </ul>
+                    </div>
+                </div><input class="selectric-input" tabindex="0">
+            </div>
+
+            <img class="menu_bg" src="https://lanbelle.com/wp-content/themes/lanbelleshop/images/layout/bg-menu.jpg"
+                alt="vegetal">
+
+        </nav><!-- .menu_container -->
+
+    </header>
+</body>
+</html>

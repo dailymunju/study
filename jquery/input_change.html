@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입력양식이벤트</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        입력양식이벤트
+        -입력양식에서 발생하는 알림을 처리 할 경우 입력양식 이벤트를 사용함
+
+        1. change  입력양식의 내용을 변경할 때 발생
+        2. focus 입력양식에 초점을 맞추면 발생
+        3. focusin 입력양식에 초점이 맞춰지기 바로 전에 발생
+        4. blur 입력 양식에 초점이 사라질때 발생
+        5. select 입력양식을 선택할때 발생 *type이 text,textarea 제외
+        6. submit 버튼을 누를 때 발생
+    */
+    $(document).ready( function(){
+        $("#all_check").change( function(){
+            if(this.checked){
+                $("#check_item").children().prop('checked',true);
+            }else{
+                $("#check_item").children().prop('checked',false);
+            }
+        });
+
+    });
+
+</script>
+<body>
+    <input type="checkbox" id="all_check">
+    <label for="">All</label>
+
+    <div id="check_item">
+        <input type="checkbox">
+        <label>A Option</label>
+        <input type="checkbox">
+        <label>B Option</label>
+        <input type="checkbox">
+        <label>C Option</label>
+        <input type="checkbox">
+        <label>D Option</label>
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title> if 조건문</title>
+    </head>
+    <script>
+
+        /*
+        1.  if 조건문
+            ~(이)가 ~~(이)면 
+            
+            if (조건) 조건이 참인 경우 실행 할 내용;
+            if( 2 < 5 ) console.log("확인");   --->console 확인
+            
+        2.  참일때와 거짓일때를 나눌때,
+            if ( 조건 ){
+                조건이 참인 경우 실행 할 내용;
+            }else{
+                조건이 거짓인 경우 실행 할 내용;
+            }
+            
+            age 변수 나이를 입력 받고 값이 20이상이면(조건문) "환영합니다!" 출력, 
+            20보다 작으면 "미성년자는 이용하실 수 없습니다" 출력
+            
+            var age = prompt("당신의 나이를 입력하시오 ex)19")
+            if( age >= 20){
+                alert("환영합니다!");
+            }else{
+                alert("미성년자는 이용하실 수 없습니다.");
+            }
+            
+        3. 조건이 여러개
+        
+        num 변수에 주민번호 뒷자리의 첫글자를 입력받고 입력받은 값이
+        1이면 남자, 2면 여자, 3이면 2000년 이후의출생의 남자, 
+        4면 2000년 이후 출생의 여자
+        
+        var num=prompt("주민번호 뒷자리의 첫글자를 입력하시오")
+            if( num==1 ){
+                alert("남자");
+            }else if( num==2 ){
+                alert("여자");
+            }else if( num==3 ){
+                alert("2000년 이후 출생의 남자");
+            }else if( num==4 ){
+                alert("2000년 이후 출생의 여자");
+            }else{
+                alert("입력값을 확인하세요");
+            }
+            
+            num 변수에 평균값을 입력받고 ( 0~100 ) 입력받은 값이
+            60점 미만 F
+            60점 이상 D
+            70점 이상 C
+            80점 이상 B
+            90점 이상 A
+            높은 숫자가 위에서부터 내려가야함
+                var num=prompt("평균값을 입력하시오")
+            if(num>=90){
+                alert("A학점");
+            }else if(num>=80){
+                alert("B학점");
+            }else if(num>=70){
+                alert("C학점");
+            }else if(num>=60){
+                alert("D학점");
+            }else{
+                alert("F학점");
+            }
+            
+            4. 조건이 여러개이고 한꺼번에 비교해야할때
+            
+            if( 조건1&& 조건2 && 조건3){
+                    모든 조건이 참인 경우 실행할 내용;
+            }else{
+                하나라도 거짓인 경우 실행 할 내용;
+            }
+        
+            
+            if( 조건1 || 조건2 || 조건3 ){
+                조건이 하나라도 함인 경우 실행 할 내용;
+            }else{
+                모두 거짓인 경우 실행 할 내용;
+            }
+            ------조건이 하나라도 참이면 참으로 나옴
+            
+            
+        */
+            var bool1=true;
+            var bool2=false;
+            if(bool1 || bool2){
+                alert("조건이 하나라도  참");
+            }else{
+                alert("모든 조건이 거짓");
+            }
+    
+            
+    
+                
+                
+        </script>
+    <body>
+    
+
+    </body>
+</html>

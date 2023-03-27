@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>이름으로 보는 2021년 운세 (Ver 0.1)</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    </head>
+
+    <body>
+        <h2>이름으로 보는 2021년 운세</h2>
+        <div id="app">
+            <input v-model="message" type=text placeholder="이름을 입력하세요" v-on:keyup.enter="hashing">
+            <button v-on:click="hashing" id=searchBtn>검색</button>
+            <pre>{{text}}</pre>
+        </div>
+        
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: '',
+                    md5: '',
+                    text: '',
+                    sentences: null
+                },
+                methods: {
+                    hashing: function(e) {
+                        // 이름을 입력하면 md5 해시값을 생성
+                        var hashed = md5(this.message).replace(/a/g, 0)
+                            .replace(/b/g, 1).replace(/c/g, 2).replace(/d/g, 3).replace(/e/g, 4).replace(/f/g, 5)
+                        this.md5 = hashed
+                        
+                        // 이름에 따라 생성한 해시값을 3등분해 금전, 사업, 생명 수치로 환산 -변수 키이름
+                        var wealth = hashed.substring(0, 2)
+                        var biz = hashed.substring(2, 4)
+                        var life = hashed.substring(4, 6)
+                        
+                        console.log(wealth, biz, life)
+                        
+                        // makeSentence 에서의 참조를 위해 self 변수를 생성
+                        var self = this
+
+                        function makeSentence(category, num) {
+
+                            num = parseInt(num)
+                            var outputSentence = "";
+                            
+                            // 20점 간격으로 문장 배열의 0, 1, 2, 3, 4 번 원소를 불러온다.
+                            if (num >= 0 && num <= 80) {
+                                outputSentence = self.sentences[category][Math.ceil(num / 20) - 1]
+                            } else {
+                                outputSentence = self.sentences[category][4]
+                            }
+                            return outputSentence;
+
+                        }
+                        
+                        // 최종 텍스트를 생성해 이 인스턴스의 this.text로 값을 전송
+                        this.text = "금전운: " + wealth + " | " + makeSentence("wealth", wealth) +
+                            "\n사업운: " + biz + " | " + makeSentence("biz", biz) +
+                            "\n생명운: " + life + " | " + makeSentence("life", life)
+                    }
+                },
+                created: function() {
+                    
+                    var sentences = {
+                        wealth: ["매우 안좋습니다. 거지가 될거에요", "약간 안좋네요", "그냥 그렇습니다", "올해엔 좀 돈맛좀 볼지도?", "당신은 부자가 됩니다."],
+                        biz: ["매우 안좋습니다. 가만히 있으세요", "약간 안좋네요", "그냥 그렇습니다", "부루마블 좀 하셨나봐요?", "당신은 이재용이 됩니다."],
+                        life: ["매우 안좋습니다. 내일 죽을수도..", "약간 안좋네요", "그냥 그렇습니다", "욕 좀 드셨나봐요?", "당신은 200살까지 삽니다."]
+                    }
+                    
+                    // 이 인스턴스 data 내에 있는 senetence 변수에 데이터를 할당
+                    this.sentences = sentences
+                }
+            })
+
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>jquery fx 프로퍼티</title>
+</head>
+<style>
+    #divBox,#divBox2 { width: 100px; height: 100px; background-color: yellow;  border: 5px solid red; margin-top: 20px; }
+</style>
+<script>
+    /*
+        jquery fx 객체
+        - effect 효과가 구현되는 방법을 제어하는 프로퍼티
+        - jQuery.fx.speeds
+        ->밀리초에 해당하는 slow(200),normal(400),fast(600)등의 값을 가지고 이펙트 효과의 속도를 나타냄
+
+        - jQuery.fx.interval
+        -> jQuery.fx 객체의 interval 프로퍼티는 이펙트 효과가 보여지는 동안의 초당 프레임수를 나타냄
+        연속적인 프레임에서의 초당 프레임수는 13으로 기본설정으로 되어있음
+        초당프레임수를 interval 프로퍼티를 이용하여 사용 목적에 맞게 변경할 수 있음
+
+        - jQuery.fx.off 
+        -> jQuery.fx 객체의 off 프로퍼티를 true로 설정하면, 모든 이펙트 효과를 사용할 수 없도록 비활성화시킴
+        -이펙트 효과가 비활성화되면, 이펙트 효과는 실행되지 않으며 이펙트 효과의 마지막 상태로 즉시 변경됨
+        off 프로퍼티는 특히 구형 버전의 브라우저를 다룰 때 유용하게 사용될 수 있음
+
+
+    
+    */
+   $(document).ready( function(){
+       $('#toggleBtn').click(function(){
+            $("#divBox").slideToggle("fast");
+       });
+
+       $('#setBtn').click( function(){
+           //jQuery.fx 객체의 speeds 프로퍼티의 fast의 기본값을 1초로 변경함
+           jQuery.fx.speeds.fast = 1000;
+       });
+
+       $('#toggleBtn2').click( function(){
+            $('#divBox2').slideToggle(1000); 
+       });
+       $('#forbidBtn2').click( function(){
+            jQuery.fx.off = true;
+       });
+
+   });
+</script>
+<body>
+    <h1>jQuery.fx.speeds 프로퍼티</h1>
+    <button id="toggleBtn">이펙트효과 토글</button>
+    <button id="setBtn">이펙트 효과 속도 변경</button>
+    <div id="divBox"></div>
+
+    <h1>jQuery.fx.off 프로퍼티</h1>
+    <button id="toggleBtn2">이펙트 효과 토글</button>
+    <button id="forbidBtn2">이펙트 효과 금지</button>
+    <div id="divBox2"></div>
+</body>
+</html>

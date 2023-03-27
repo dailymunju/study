@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.clone()메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        .clone() 메소드
+        -> 선택한 요소를 복사하여 새로운 요소를 생성함
+    
+    */
+    $(document).ready( function(){
+        $('button').click( function(){
+            //firstItem을 복사하여 list에 추가하시오
+            $('#firstItem').clone().appendTo('#list');
+
+        });
+    });
+</script>
+<body>
+    <h1>.clone() 메소드</h1>
+    <ul id="list">
+        <li id="firstItem">첫 번째아이템</li>
+        <li>두 번째아이템</li>
+        <li>세 번째아이템</li>
+    </ul>
+    <button>아이템 복사</button>
+</body>
+</html>

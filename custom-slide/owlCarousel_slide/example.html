@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>owl-Carousel_slide example1</title>
+    <link rel="stylesheet" href="../owlCarousel_slide/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css"><link>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../owlCarousel_slide/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <!-- <script src="../owlCarousel_slide/OwlCarousel2-2.3.4/src/js/owl.autoplay.js"></script>
+    <script src="../owlCarousel_slide/OwlCarousel2-2.3.4/src/js/owl.navigation.js"></script> -->
+</head>
+<style>
+    .wrap { width: 100%; max-width: 1200px; margin: 0 auto; }
+    .owl-carousel div { height: 250px; }
+    .content1 { background-color: rgb(255, 219, 219); }
+    .content2 { background-color: rgb(185, 185, 255); }
+    .content3 { background-color: rgb(234, 212, 255); }
+</style>
+<script>
+    $(document).ready( function(){
+        $('.owl-carousel').owlCarousel({
+            items:3, //슬라이드 보여줄 갯수
+            loop:true, 
+            center:true,
+            nav: true,
+            margin: 20,
+            autoplay:true, 
+            autoplayTimeout: 3000,
+            dots:true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        });
+    });
+    
+</script>
+<body>
+    <div class="wrap">
+        <div class="owl-carousel">
+            <div class="content1">content1</div>
+            <div class="content2">content2</div>
+            <div class="content3">content3</div>
+        </div>
+    </div>
+</body>
+</html>

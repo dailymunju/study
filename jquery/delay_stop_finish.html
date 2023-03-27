@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>제이쿼리 effect 효과 제어하기</title>
+</head>
+<style>
+    #divBox,#divBox2 { width: 100px; height: 100px; background-color: yellow; border: 5px solid #ddd; margin-top: 20px; }
+</style>
+<script>
+    /*ccccc
+        delay()
+        -effect 효과의 지연설정
+        -delay() 메소드는 실행 중인 큐 안에서 연속적으로 실행되는 이펙트 효과 사이의 지연 시간을 설정함
+
+        stop()
+        -effect 효과의 중지
+        -.stop()메소드는 선택한 요소에서 실행 중인 모든 이펙트 효과를 중지시킴
+       
+        finish()
+        -.finish()메소드는 선택한 요소가 포함된 큐까지 제거하여 모든 이펙트 효과를 전부 종료시킴
+    */
+    $(document).ready( function(){
+        $('#startBtn').click( function(){
+            //divBox를 0.5초에 걸쳐 사라지게 하고
+            //1초 딜레이 후에 다시 2초동안 나타남
+            $('#divBox').fadeOut(500).delay(1000).fadeIn(2000);
+        });
+        $("#toggle_btn").click( function(){
+            $('#divBox2').slideToggle(2000);
+        });
+        $("#stop_btn").click( function(){
+            $('#divBox2').stop();
+        });
+        $('#finish_btn').click( function(){
+            $('#divBox2').finish();
+        });
+    });
+</script>
+<body>
+    <h1>이펙트 효과의 지연 설정</h1>
+    <button id="startBtn">이펙트효과시작</button>
+    <div id="divBox"></div>
+
+    <h1>이펙트 효과의 정지와 중지</h1>
+    <p></p>
+    <button id="toggle_btn">slideToggle</button>
+    <button id="stop_btn">stop()</button>
+    <button id="finish_btn">finish()</button>
+    <div id="divBox2"></div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript object native method hasOwnProperty</title>
+</head>
+<script>
+    // hasOwnProperty 메소드가 하는 일은 객체가 특정프로퍼티에 대한 소유여부를 반환함
+    const obj = {
+        a: 1
+    };
+    obj.hasOwnProperty('a'); //true
+    obj.hasOwnProperty('b'); //false
+
+    /*
+        해당 객체에 특정 프로퍼티가 존재하면 true, 그렇지않으면 false를 반환하는데
+        단, 프로토타입 체인은 확인하지않고, 해당객체가 스스로정의한 프로퍼티만을 판단함
+    */
+
+   obj.b = 2;
+   Object.prototype = 3;
+   obj.b; //2
+   obj.c; //3
+   obj.hasOwnProperty('b'); //true
+   obj.hasOwnProperty('c'); //false
+
+
+   
+</script>
+<body>
+    
+</body>
+</html>

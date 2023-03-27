@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slide tab menu effect</title>
+    <!--jqeury CDN-->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<style>
+    body { background-color: #d4d4d4; }
+    #menu ul { width: 100%; max-width: 1200px;  position: relative; text-align: center; margin: 0 auto; list-style: none; background-color: white; padding: 0;margin-top: 80px; }
+    #menu ul li { float: left; position: relative; width: 25%; cursor: pointer; font-size: 20px; padding: 20px 0; }
+    #menu ul::after { content: ''; display: block; overflow: hidden; clear: both; }
+    #menu ul li.current { color: teal; font-weight: 600; /* background-color: #c7f3e0; */ border-bottom: 3px solid teal; transition: all .2s linear; }
+    #menu ul li:hover:not(.current) { top: -0.25rem; transition: top 0.25s; }
+    #menu .sub_content { width: 100%; max-width: 1200px; text-align: left; margin: 10px auto; }
+    #menu .sub_content .tab_content { display: none; margin-bottom: 20px; font-size: 18px; }
+    #menu .sub_content .tab_content.active { display: block; }
+</style>
+<script>
+    $(document).ready( function(){
+
+        $('.tab_links').each( function(){
+            $(this).click( function(){
+                $('.tab_links').removeClass('current');
+                $(this).addClass('current');
+                $('.tab_content').removeClass('active');
+                $('.tab_content').css('display','none');
+                // $(this).addClass('active');
+
+                var activeTab = $(this).attr('data-tab');
+                $('#' + activeTab).css('display','block');
+
+            });
+        });
+
+    });
+</script>
+<body>
+    <div id="menu">
+        <ul id="tab_menu">
+           <li class="tab_links current" data-tab="tab1"><i class="fas fa-home"></i> Home</li>
+           <li class="tab_links" data-tab="tab2"><i class="fas fa-id-card"></i> Profile</li>
+           <li class="tab_links" data-tab="tab3"><i class="fas fa-map-signs"></i> Contact</li>
+           <li class="tab_links" data-tab="tab4"><i class="fas fa-cogs"></i> Settings</li> 
+        </ul>
+
+        <div class="sub_content">
+            <div class="tab_content active" id="tab1">Home</div>
+            <div class="tab_content" id="tab2">Profile</div>
+            <div class="tab_content" id="tab3">Contact</div>
+            <div class="tab_content" id="tab4">Settings</div>
+        </div>
+    </div>
+
+
+
+    <div class="wrapper">
+        <style>
+            * { box-sizing: border-box; }
+            /* body { font-family: "Open Sans"; background: #2c3e50; color: #ecf0f1; line-height: 1.618em; } */
+            .wrapper { max-width: 50rem; width: 100%; margin: 0 auto; }
+            .tabs { position: relative; margin: 3rem 0; background: #1abc9c; height: 14.75rem; }
+            .tabs::before,.tabs::after { content: ""; display: table; }
+            .tabs::after { clear: both; }
+            .tab { float: left; }
+            .tab-switch { display: none; }
+            .tab-label {
+                position: relative;
+                display: block;
+                line-height: 2.75em;
+                height: 3em;
+                padding: 0 1.618em;
+                background: #1abc9c;
+                border-right: 0.125rem solid #16a085;
+                color: #fff;
+                cursor: pointer;
+                top: 0;
+                transition: all 0.25s;
+            }
+            .tab-label:hover { top: -0.25rem; transition: top 0.25s; }
+            .tab-content {
+                height: 12rem;
+                position: absolute;
+                z-index: 1;
+                top: 2.75em;
+                left: 0;
+                padding: 1.618rem;
+                background: #fff;
+                color: #2c3e50;
+                opacity: 0;
+                transition: all 0.35s;
+            }
+            .tab-switch:checked + .tab-label {
+                background: #fff;
+                color: #2c3e50;
+                border-bottom: 0;
+                border-right: 0.125rem solid #fff;
+                transition: all 0.35s;
+                z-index: 1;
+                top: -0.0625rem;
+            }
+            .tab-switch:checked + label + .tab-content { z-index: 2; opacity: 1; transition: all 0.35s; }
+        </style>
+        <div class="tabs">
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+            <label for="tab-1" class="tab-label">Tab One</label>
+            <div class="tab-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni cupiditate provident in fugiat excepturi tempora libero id, consequuntur dolorum dolorem nobis earum qui explicabo tempore dolor repellat esse illum reiciendis.</div>
+          </div>
+
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+            <label for="tab-2" class="tab-label">Tab Two</label>
+            <div class="tab-content">My father now and then sending me small sums of money, I laid them out in learning navigation, and other parts of the mathematics, useful to those who intend to travel, as I always believed it would be, some time or other, my fortune to do. </div>
+          </div>
+
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+            <label for="tab-3" class="tab-label">Tab Three</label>
+            <div class="tab-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt temporibus eius, quasi veniam eaque commodi maxime incidunt molestias ex magnam maiores placeat nostrum, consequuntur necessitatibus dolores saepe soluta? Quisquam, odit.</div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

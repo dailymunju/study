@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        .prop() 메소드
+        -지정한 선택자를 가진 첫번째 요소의 속성값을 가져오거나 속성값을 추가함
+
+        속성(attribute)과 프로퍼티(property)의 차이점
+        ex> 속성
+        <input id="check" type="checkbox" name="lecture" checked="checked">
+        -> 속성값이 checked인 input
+        
+        프로퍼티(property)는 위와 같은 속성을 객체화하였을 때의 HTML DOM 트리 내부에서의 값을 가리킴
+        -> 만약 체크박스가 체크되면 <check> 노드의 프로퍼티 값은 true가 됨
+        -사용자가 HTML문서에 있는 <input> 요소를 체크하거나 자바스크립트를 이용해 값을 변경하면
+        속선값은 변하지 않지만 프로퍼티의 값은 변함
+    
+        
+    */
+
+    $(document).ready( function(){
+        $('#setBtn').click( function(){
+            $('input[value="jquery"]').prop({
+                checked: true
+            });
+        });
+        $('#removeBtn').click( function(){
+            $("input[value='jquery']").removeProp('checked');
+        });
+
+        $('#check').change(function(){
+            //checked 속성의 속성값을 반환함.
+            $('#text').html("checked 속성의 속성값:" + $(this).attr("cheked") + $(this).attr("checked") + "<br>checked 프로퍼티값: " + $(this).prop("checked"));
+        }).change();
+
+    });
+</script>
+<body>
+    <h1>.prop() 메소드</h1>
+    <form action="">
+        <input type="checkbox" name="lecture" value="html" checked>HTML<br>
+        <input type="checkbox" name="lecture" value="jquery">jQuery
+    </form>
+    <button id="setBtn">jQuery에 프로퍼티 값 설정</button>
+    <button id="removeBtn">프로퍼티 제거</button>
+
+    <h1>.attr()메소드와 .prop()메소드의 차이점</h1>
+    <input type="checkbox" id="check" name="lecture" checked="checkbox">
+    <label for="check">체크박스를 체크해보세요</label>
+    <p id="text"></p>
+</body>
+</html>

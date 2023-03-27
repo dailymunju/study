@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js tab</title>
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(function () {	
+	    tab('#tab',0);	
+    });
+
+    function tab(e, num){
+        var num = num || 0;
+        var menu = $(e).children();
+        var con = $(e+'_con').children();
+        var select = $(menu).eq(num);
+        var i = num;
+
+        select.addClass('on');
+        con.eq(num).show();
+
+        menu.click(function(){
+            if(select!==null){
+                select.removeClass("on");
+                con.eq(i).hide();
+            }
+
+            select = $(this);	
+            i = $(this).index();
+
+            select.addClass('on');
+            con.eq(i).show();
+        });
+    }
+</script>
+<style>
+    * { margin:0; padding:0; }
+    ul,li { list-style:none; }
+    a { text-decoration:none; color:#000; }
+    .tab { border:1px solid #ddd; border-left:none; background:#fff; overflow:hidden; }
+    .tab li { float:left; width:33.3%; border-left:1px solid #ddd; text-align:center; box-sizing:border-box; }
+    .tab li { display:inline-block; padding:20px; cursor:pointer; }
+    .tab li.on { background-color:#eee; color:#f00; }
+    .tab_con { clear:both; margin-top:5px; border:1px solid #ddd; }
+    .tab_con div { display:none; height:100px; background:#fff; line-height:100px; text-align:center; }
+</style>
+<body>
+    <ul class="tab" id="tab">
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>	
+    </ul>
+    
+    <div class="tab_con" id="tab_con">
+        <div>1st Contents</div>	
+        <div>2nd Contents</div>
+        <div>3rd Contents</div>
+    </div>
+</body>
+</html>

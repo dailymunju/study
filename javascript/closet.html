@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <title>Document</title>
+    </head>
+    <style>
+        .container, .demo { background-color: rgb(238, 151, 151); color: white; padding: 20px; margin: 10px; }
+    </style>
+    <body>
+        <div class="demo"> Grandparent
+            <div class="demo container">Parent
+            <div id="children" class="demo">The parent of this div element will be selected.</div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        /*
+            첫번째 부모 엘리먼트를 찾고 싶은 경우에는 closest를 사용함
+            현재 엘리먼트에서 가장 가까운 조상을 반환하고, 만약 조상이 없다면 null 값을 반환함
+        */
+        $(document).ready( function(){
+            var children = $('#children'); //부모요소를 찾고싶어하는 대상 
+            var closest = children.closest('.container'); //조상 > 부모 > 자식
+
+            if(closest) { //만약 parent div인 '.container'가 있다면
+                closest.css('border','10px solid #ddd');
+            }
+        });
+    </script>
+</html>

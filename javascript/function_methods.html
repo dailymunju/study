@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 메소드 call,apply,bind</title>
+</head>
+<script>
+    var example = function(a,b,c) {
+        return a + b + c;
+    };
+    
+    console.log(example(1,2,3));
+    console.log(example.call(null,1,2,3));
+    console.log(example.apply(null,[1,2,3]));
+    /*
+        call은 함수인자와 똑같이 넣고, apply는 인자를 하나로 묶어 배열형태로 넣는다
+        null 인자의 역할은 this를 대체한다는 것인데,
+    */
+
+    var obj = {
+        string: 'zero',
+        yell: function(){
+            alert(this.string);
+        }
+    };
+
+    var obj2 = {
+        string: 'what'
+    };
+    // obj.yell();
+    // obj.yell.call(obj2);
+
+    var yell2 = obj.yell.bind(obj2);
+    yell2();
+    /*
+        bind는 함수가 가리키는 this만 바꾸고 호출은 하지 않는다. 
+        var yell2 = obj.yell.bind(obj2); -> yell의 함수 this가 obj2로 바뀌었다, call이나 apply와 비슷하지만 호출을 하지 않고 함수만 반환한다 
+        call(this,1,2,3)는 bind(this)(1,2,3)과 같다
+
+    */
+
+    /*
+        -this가 가리키는 것을 obj에서 obj2로 바꾸었음, yell은 obj의 메소드인데, zero대신에 what이 alert됨, 다른객체의 함수를 자기것처럼 쓸 수 있음.
+        -this는 기본적으로 window이지만, window를 다른것으로 바꿀 수 있다.
+        -주로 함수의 메소드들을 쓰는 예로 함수의 arguments를 조작할 때 사용한다. arguments는 함수라면 처음부터 가지고 있는 속성으로, 
+        함수에 들어온 인자를 배열형식으로 (유사배열, 배열은 아님) 반환한다.
+    */
+
+    function example1() {
+        console.log(arguments);
+    }
+    example1(1,'string',true);
+    
+    // function example2() {
+    //     console.log(arguments.join());
+    // }
+    // example2(1,'string',true);
+    //생긴건 배열이지만 배열이 아니라 유사배열이기 때문에 배열의 메소드는 쓸 수 없다 join();
+    //error function_methods.html:46 Uncaught TypeError: arguments.join is not a functionfunction_methods.html:46 Uncaught TypeError: arguments.join is not a function
+
+    // function example3(){
+    //     console.log(Array.prototype.join.call(arguments));
+    // }
+    // example3(1,'string',true);  // '1,string,true'
+    //배열의 프로토타입에있는 join함수를 빌려 쓰고, this는 arguments를 가리키게 한다
+
+    //join()
+    function func(){
+        var a = [1,2,3,4,5];
+        document.write(a.join(''));
+    }
+    func();
+
+</script>
+<body>
+    
+</body>
+</html>

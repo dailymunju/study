@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=ed
+    ge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECMAScript 6</title>
+    <!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
+</head>
+<script>
+    /*
+        ECMA9버전까지 나와있긴 하지만 
+        ECMAScript2015 버전을 많이 사용함
+        
+        ES6 -const와 let,의 블록 레벨 스코프
+        ES5에서는 var 키워드 사용
+        var의 특징
+        1. 함수 레벨 스코프(Function-level scope)
+        -전역변수의 남발
+        - for loop 초기화식에서 사용한 변수를 for loop외부 또는 전역에서 참조할 수 있음.
+        
+        2. var 키워드 생략 허용
+        -의도하지 않은 변수의 전역화
+        
+        3. 중복선언의 허용
+        -의도하지 않은 변수값 변경
+        
+        4. 변수호이스팅
+        -변수를 선언하기 전에 참조가 가능함.
+        => 대부분문제는 전역변수로 인해 생기는데, 전역변수는 간단한 어플리케이션의 경우 
+        사용이 편리하다는 장점이있지만 불가피한 상황을 제외하고 사용을 억제해야함.
+        전역변수는 유효범위가 넓어서 어디에서 어떻게 사용될 것인지 파악하기 힘들고, 
+        비순수함수에 의해 의도하지 않게 변경될 수 있어 복잡성을 증가시키는 원인임.
+        변수의 유효볌위는 좁을수록 좋고 ES6는 이러한 var의 단점을 보완하기 위해 let과 const키워드를 도입함.
+
+        let
+        블록 레벨 스코프
+        대부분의 C-family 언어는 블록 레벨 스코프를 지원하지만 자바스크립트는 함수 레벨스코프를 갖는다.
+        
+        함수레벨스코프
+        -함수내에서 선언된 변수는 함수내에서만 유효하며 함수외부에서는 참조할 수 없음, 즉 함수내부에서 선언한 변수는
+        지역 변수이며 함수외부에서 선언한 변수는 모두 전역변수임.
+         
+        블록레벨 스코프
+        -코드블록내에서 선언된 변수는 코드 블록 내에서만 유효하며 코드 블록 외부에서는 참조할수 없다.
+
+   */
+
+    console.log(foo); //undefined
+    var foo = 123; 
+    console.log(foo);  //123
+    { var foo = 456; }
+    console.log(foo);  //456
+
+    /*
+        var 키워드를 사용하여 선언한 변수는 중복선언이 허용되므로 코드는 문법적으로 문제가 없으나,
+        블록레벨 스코프를 지원하지 않는 var의 키워드 특성상, 코드블록내의 변수 foo는 전역변수이기때문에
+        전역에서 선언된 변수 foo의 값 123을 대체하는 새로운 값 456을 재할당한다.
+    */
+
+  
+    let fooo = 123;
+    {
+        let fooo = 345;
+        let bar = 345;
+    }
+    console.log(fooo); // 123
+    console.log(bar);  // ReferenceError : bar is not defined..
+
+    /*
+        ES6는 블록레벨스코프를 갖는 변수를 선언하기 위해 let키워드를 제공함.
+        let키워드로 선언된 변수는 블록레벨스코프를 갖는데(블록외부에서는 참조할수 없음)
+        코드블록내세 선언된 foo는 블록레벨스코프를 갖는 지역변수, 전역에서 선언된 변수foo와는 
+        다른 변수, 변수 bar로 블록레벨 스코프를 갖는 지역변수이므로, 전역에서는 변수 bar를 참조할 수 없음 
+    */ 
+
+    var foo2 = 123;
+    var foo2 = 456; 
+    //중복 선언 허용
+    
+    // let bar2 = 123;
+    // let bar2 = 456; 
+    // Uncaught SyntaxError : Identifier 'bar' has already been declared
+
+    /*
+        호이스팅(Hoisting)
+        -자바스크립트는 ES6에서 도입된 let,const를 포함하여 모든 선언 *(var,let,const,function,function*,cla
+        ss)을 호이스팅함.
+        호이스팅이란, var선언문이나 function선언문등을 해당 스코프의 선두로 옮긴것처럼 동작하는 특성을 말함.
+        (해당스코프의 선두로 옮긴것처럼 동작하는 특성을 말함)
+
+    */
+    console.log(foo3); 
+    var foo3;
+
+    console.log(bar3); // Error: Uncaught ReferenceError bar3 is not defined.
+    let bar3; 
+
+    let ffoo = 1; //전역변수
+    {
+        console.log(ffoo); //ReferenceError : ffoo is not defined
+        let ffoo = 2;
+    }
+</script>
+<script>
+    // 클로져
+    /*
+        블록레벨스코프를 지원하는 let은 var보다 직관적임
+    */ 
+    
+    var funcs = [];
+    //함수의 배열을 생성하는 for루프의 i는 전역변수
+    for ( var i = 0; i < 3; i++ ){
+        funcs.push( function(){ console.log(i); })
+    }
+
+    //배열에서 함수를 꺼내어 호출함
+    for (var j = 0; j < 3; j++) {
+        funcs[j](); //3(3)
+    }
+    //0,1,2가 아니라 3이 세번 출력되는데, var i가 전역변수이기 때문에 0,1,2가 나오지 않음. 
+
+    /*
+        전역객체와 let
+        var키워드로 선언된 변수를 전역변수로 사용하면 전역객체의 프로퍼티가 되는데
+    */
+    var abc = 789;
+    console.log(window.abc); //789
+
+    let def = 456;
+    console.log(window.def);
+    /*
+        let 키워드로 선언된 변수를 전역변수로 사용하는 경우에는, let전역변수는 전역객체의 프로퍼티가 아님.        
+        window abc와 같이 접근할 수 없으며, let전역 변수는 보이지 않는 개념적인 블록내에 존재하게 됨.
+    */
+
+    /*
+        const
+        const는 상수(변하지않는 값)를 위해 사용하는데,
+        반드시 상수만을 위해 사용하진 않는다. const의 특징은 let과 대부분 동일하므로 let과 다른점만 보면됨.
+   
+    // const FOO = 123;
+    // FOO = 345; 
+    //Uncaught TypeError: Assignment to constant variable.
+
+    /*
+        -let은 재할당이 자유로우나 const는 재할당이 금지된다.
+        -const는 반드시 선언과 동시에 할당이 이루어져야함.(아니면 문법에러 발생)
+    */
+    // const FOOP;
+    //Uncaught SyntaxError: Missing initializer in const declaration
+
+    {
+        const FOOO = 10;
+        console.log(FOOO); //10
+    }
+    console.log(FOOO); //Uncaught ReferenceError: FOOO is not defined
+    // const는 let과 마찬가지로 블록레벨스코프를 갖는다. (블록내에서만 유효,밖에서는 참조X)
+
+    /*
+        if(row > 10){
+        }
+        => 10의 의미를 알기 어렵기 때문에 가독성이 좋지않음
+        
+        const MAXROWS = 10;
+        if(rows > MAXROWS){
+        }
+        => 값의 의미를 명확히 기술하여 가독성이 향상됨
+        ( 조건문 내의 10은 어떤의미로 사용하였는지 파악하기가 어렵지만, 네이밍이 적절한 
+        상수로 선언되면 가독성과 유지보수성이 향상된다. )
+
+    */ 
+    const obj = { foo: 123 };
+    obj = { bar: 456 };
+    
+    const user = { name : 'Lee'};
+    //const 변수는 재할당이 금지됨
+
+    //객체의 내용은 변경할 수 있음
+    user.name = 'kim';
+    console.log(user); //{name:'kim'}
+    /*
+        결론
+        -ES6를 사용한다면 var 키워드는 사용하지 않는다.
+        -재할당이 필요한 변수에는 let을 사용한다.
+        -변경이 발생하지 않는(재할당이 필요없는) 기본형 변수와 객체형 변수에는 const를 사용한다.
+    */ 
+
+    
+
+</script>
+<body>
+</body>
+<script>
+    /*
+        1. 모듈 (모듈내보내고 가져오기)
+        모듈은 기능별 또는 화면별로 분리해서 js파일로 따로 만들어 저장해둔 뒤 
+        필요할 때마다 import하여 사용할 수 있게 하는 기술로 
+        재활용할 수 있기때문에 프로젝트 진행 시 쉽고 빠르게 구축을 할 수 있음
+        1) export
+        2) import
+        -> 모듈을 만들고 남들이 불러와 사용할 수 있기를 바라는 변수, 함수, 객체, 클래스
+        에 대해 export를 써주면 다른 모듈에서 import로 끌어다 사용할 수 있음.
+
+        2. 클래스 ES2015 버전 CLASS
+        3. let과 const
+        : 기존 javascript 에서 변수를 선언할 때는 무조건 var 를 사용했었으나, 
+        var는 Hosting 블론 단위 스코프 미지원, 중복선언 허용 등 몇가지 문제가 있었음.
+        ES2015에서는 let키워드를 사용함으로써 호이스팅문제도 해결하고 블록 단위 스코프도 지원하게됨
+        let이 제정 되었어도 var도 같이 사용가능하지만, 가능하면 let 을 사용할것.
+    */
+</script>
+</html>

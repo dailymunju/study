@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script>
+        /*
+            Routing(라우팅)
+            -웹페이지 간의 이동 방법으로, 주로 웹앱 형태인 싱글페이지 애플리케이션(SPA Single Page Application)에서 사용하며
+            *싱글페이지애플리케이션-페이지를 이동할 때마다 서버에 웹페이지를 요청하여 새로 갱신하는것이 아닌, 미리 해당페이지를 받아놓고
+            페이지 이동 시에 클라이언트의 라우팅을 이용하여 화면을 갱신하는 패턴을 적용함. 
+            
+            -라우팅을 이용하면 화면전환이 매끄러울 뿐만 아니라 더 빠르게 화면을 조작할 수 있어 사용자 경험이 향상됨.
+            
+            Router(라우터)
+            -뷰 라우터는 뷰에서 라우팅 기능을 구현할 수 있도록 지원하는 공식 라이브러리로 뷰로 만든 페이지간에 자유롭게 이동할 수 있음.
+            
+            1. <router-link to='URL값'>
+            -> 페이지 이동 태그, 화면에서는 <a>로 표시되며, 클릭하면 to에 지정한 url로 이동함.
+            
+            2. <router-view>
+            -> 페이지 표시 태그, 변경되는 url에 따라 해당 컴포넌트를 뿌려주는 영역
+
+            *cf*
+                <router-link to="/main">Main 컴포넌트로 이동</router-link>
+                <router-link to="/login">login 컴포넌트로 이동</router-link>
+            : 각 router-link 화면상에서 Main컴포넌트로 이동, Login컴포넌트로 이동이라는 a태그로 변환되어 표시된다
+            각 버튼을 클릭하면 to=""에 정의된 텍스트값이 브라우저 url끝에 추가되며, /main, /login 이 url끝에 추가된다.
+
+            <router-view>는 갱신된 URL에 해당하는 화면을 보여주는 영역임. <router-view>에서 보여질 화면은 script에서 정의함
+            
+            
+
+        */
+    </script>
+    <body>
+        <div id="app">
+            <h1>뷰 라우터 예제</h1>
+            <p>
+                <router-link to="/main">Main 컴포넌트로 이동</router-link>
+                <router-link to="/login">login 컴포넌트로 이동</router-link>
+            </p>
+
+            <router-view></router-view>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script>
+        
+        var Main = { template: '<div>main</div>'};
+        var Login = { template: '<div>login</div>'};
+        //Main, Login 컴포넌트 정의
+
+        var routes = [
+            { path: '/main', component: Main},
+            { path: '/login', component: Login }
+        ]; 
+        //각 url에 맞춰 표시할 컴포넌트 지정
+
+        var router = new VueRouter ({
+            routes
+        }); //뷰 라우터 정의
+
+        var app = new Vue({
+            router
+        }).$mount('#app');
+        //뷰인스턴스에 라우터 추가
+    </script>
+</html>

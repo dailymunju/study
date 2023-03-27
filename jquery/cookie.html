@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie plugin</title>
+    <!--jquery-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!--cookie.js-->
+    <script src="cookie_js/jquery.cookie.js"></script>
+</head>
+<script>
+   
+
+    $(document).ready( function(){
+        var login_id = $.cookie('login_id');
+
+        if( login_id != undefined){ //최초 쿠키에 login_id 쿠키값이 존재하면,
+            $('#login_id').val(login_id);
+            $('#rememberID').prop("checked",true); //아이디 저장 체크박스에 체크드속성추가
+        }
+
+        $('#login_button').click( function(){ //아이디를 입력하지 않았을 경우
+
+            if($.trim($('#login_id').val()) == "") {
+                
+                alert("아이디를 입력하세요");
+                return;
+            
+            }else{ //그렇지 않고 아이디를 입력했을 경우에는
+
+                //아이디저장 체크되어 있으면 쿠키를 저장하고,
+                if($('#rememberID').prop('checked')){
+                    $.cookie('login_id',$('#login_id').val());                    
+                }else{
+                    $.removeCookie("login_id");
+                }
+                alert('로그인!');
+            }
+        });
+    });
+</script>
+<body>
+    아이디: <input type="text" id="login_id"><br/>
+    아이디 저장 <input type="checkbox" id="rememberID"><br/>
+    <input type="button" id="login_button" value="로그인">
+</body>
+</html>

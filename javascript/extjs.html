@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery -->
+    <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<style>
+    input,select { outline: none; }
+    .custom-combobox {
+      position: relative;
+      display: inline-block;
+    }
+    .custom-combobox-toggle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin-left: -1px;
+      padding: 0;
+    }
+    .custom-combobox-input {
+      margin: 0;
+      padding: 5px 10px;
+    }
+</style>
+  
+<script>
+    $(function(){
+        // $(function() {
+
+        //     var availableCity = ["서울","부산","대구","광주","울산"];
+        //     $("#city").autocomplete({
+        //         source: availableCity,
+        //         select: function(event, ui) {
+        //             console.log(ui.item);
+        //         },
+        //         focus: function(event, ui) {
+        //             return false;
+        //             //event.preventDefault();
+        //         }
+        //     });
+        // });
+
+        $(function() {
+        $.widget("custom.combobox", {
+            _create: function() {
+                this.wrapper = $("<span>").addClass("custom-combobox").insertAfter(this.element);
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+
+            _createAutocomplete: function() {
+                var selected = this.element.children(":selected"), value = selected.val() ? selected.text() : "";
+
+                this.input = $("<input>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("title", "")
+                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                    .autocomplete({
+
+                        delay: 0,
+                        minLength: 0,
+                        source: $.proxy(this, "_source"),
+                        // 한글 항목 커서로 선택시 오류방지
+                        focus: function(event, ui) {
+                            return false;
+                        },
+
+                        select: function(event, ui) {
+                        // 선택했을때 처리가 여기에 옵니다.
+                        }
+                    })
+
+                    .tooltip({
+                        classes: {"ui-tooltip": "ui-state-highlight"}
+                    });
+
+                this._on( this.input, {
+                    autocompleteselect: function( event, ui ) {
+                        ui.item.option.selected = true;
+                        this._trigger( "select", event, {item: ui.item.option});
+                    },
+                    autocompletechange: "_removeIfInvalid"
+
+                });
+
+            },
+            _createShowAllButton: function() {
+                var input = this.input, wasOpen = false;
+
+                $("<a>")
+                    .attr("tabIndex", -1)
+                    .attr("title", "모두보기")
+                    .tooltip()
+                    .appendTo( this.wrapper )
+                    .button({
+                        icons: {primary: "ui-icon-triangle-1-s"},
+                        text: false
+
+                    })
+                    .removeClass( "ui-corner-all" )
+                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .on("mousedown", function() {
+                        wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+
+                    .on("click", function() {
+                        input.trigger( "focus" );
+                        // 이미 보여지고 있다면 닫음
+                        if(wasOpen) {
+                            return;
+                        }
+
+                        // 모든 결과 출력을 위해서 빈문자열을 보냄
+                        input.autocomplete("search", "");
+                    }
+                );
+            },
+
+            _source: function(request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response( this.element.children("option").map(function() {
+                    var text = $(this).text();
+                    if(this.value && (!request.term || matcher.test(text))) {
+                        return {
+                            label: text,
+                            value: text,
+                            option: this
+                        };
+                    }
+                }));
+            },
+
+            _removeIfInvalid: function(event, ui) {
+                // 아이템을 선택합니다. 아무것도 하지 않습니다.
+                if(ui.item) {
+                    return;
+                }
+                // 일치하는것을 찾습니다. (대소문자를 구분하지 않습니다.)
+                var value = this.input.val(), valueLowerCase = value.toLowerCase(), valid = false;
+                this.element.children( "option" ).each(function() {
+                    if($(this).text().toLowerCase() === valueLowerCase) {
+                        this.selected = valid = true;
+                        return false;
+                    }
+                });
+
+                // 일치하는것을 찾으면 아무것도 하지 않습니다.
+                if(valid) {
+                    return;
+                }
+                // 빈값 항목을 삭제합니다.
+                this.input
+                    .val("")
+                    .attr("title", value + " 일치하는 항목이 없습니다.")
+                    .tooltip("open");
+                this.element.val("");
+                this._delay(function() {
+                    this.input.tooltip("close").attr("title", "");
+                }, 2500);
+                this.input.autocomplete("instance").term = "";
+            },
+
+            _destroy: function() {
+                this.wrapper.remove();
+                this.element.show();
+            }
+        });
+
+        $("#city").combobox();
+        });
+
+    })
+
+    /*
+        $('#city').autocomplete() -> 자동완성기능
+        source:avalibleCity -> 타이핑 시 보여질 내용
+        select: function(event,ui){} -> 아이템 선택 시 실행됨
+        ui.item-> 선택된 항목을 나타내는 객체, 선택된 옵섭의 label과 value 값을 가짐
+        focus: function(event,ui){ return false; } -> jquery UI autocomplete를 한글을 사용할때 
+        커서를 사용해서 선택하면 나머지가 사라져버리는 버그를 방지하기 위해 추가함
+        return false 또는 event.preventDefault();를 사용하여 이벤트를 무시함
+
+
+    */
+
+</script>
+
+<body>
+    <!-- <div class="ui-widget">
+        <label for="city">도시: </label>
+        <input id="city">
+    </div> -->
+    <div class="ui-widget">
+        <label for="city">도시: </label>
+        <select id="city">
+            <option value="서울">서울</option>
+            <option value="부산">부산</option>
+            <option value="대구">대구</option>
+            <option value="광주">광주</option>
+            <option value="울산">울산</option>
+        </select>
+    </div>
+      
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 유효성 검사 체크 패턴</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+
+        /*
+            test()함수는 정규식과 비교하여 포함되면 true반환, 포함되지 않으면 false반환함.
+            pattern에 맞으면 true, pattern과 맞지 않으면 false
+        */
+        $('#first_form').submit( function(){
+            // ^ 는 시작하는 문자 $ 는 끝나는 문자
+            var pattern = /^[a-z]+[a-z0-9_]+[a-z0-9_]$/;  
+            var num = /^[0-9]+$/;   
+
+            //아이디 체크 , 앞뒤 공백 제거
+            var id = $.trim($('#id').val()); 
+            if(id ==''){
+                alert('아이디를 입력하세요');
+                $('#id').focus();
+                return false;
+            }else{
+                if(!pattern.test(id)){ 
+                    // alert("아이디는 영문소문자로 시작하고\r\n영문소문자, 숫자, 언더바(_)만 사용하실 수 있습니다!");
+                    alert('')
+                    $('#id').val('').focus();
+                    return false;
+                }
+            }
+
+            // 비밀번호 체크
+            var pss = $.trim($("#pss").val());
+            if(pss ==''){
+                alert('비밀번호를 입력하세요');
+                $('#pss').focus();
+                return false;
+            }else {
+                if(!num.test(pss)){
+                    alert('비밀번호는 숫자만 가능합니다.');
+                    $('#pss').val('');
+                    $('#pss').focus();
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+<style>
+    #second_form { margin-top: 100px; }
+    .input_box { margin-bottom: 10px; }
+    .id_box { margin-left: 14px; }
+</style>
+<body>
+    <form action="" method="post" id="first_form">
+        id: <input type="text" id="id" name="post_id"><br>
+        비밀번호: <input type="text" id="pss" name="post_pss"><br><br>
+        <input type="submit" id="join_button" value="폼체크">
+    </form>
+
+
+    <form method="post" id="second_form">
+        <div class="input_box id_box">
+            <span>아이디</span>: <input type="text" name="ID" id="ID">
+        </div>
+
+        <div class="input_box">
+            <span>비밀번호</span>: <input type="text" name="PW" id="PW">
+        </div>
+        <div class=""><button type="submit">보내기</button></div>
+    </form>
+
+    <script>
+        $(document).ready( function(){
+
+            $('#second_form').submit( function(){
+                // 아이디 체크
+                var ID_2 = $('#ID').val();
+                if(ID_2 == ''){
+                    alert('아이디를 입력해주세요');
+                    $('#ID').focus();
+                    return false;
+                }
+                
+                var PW_2 = $('#PW').val();
+                if(PW_2 == ''){
+                    alert('비밀번호를 입력해주세요');
+                    $('#PW').focus();
+                    return false;
+                }
+                alert('회원가입이 완료되었습니다. 다시 로그인해주세요.');
+            });
+        }); 
+    </script>
+</body>
+</html>

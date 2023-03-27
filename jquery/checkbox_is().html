@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>checkbox is() 체크여부확인 & CSS변경</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<script>
+    /*
+        체크여부확인
+    
+        
+    */
+</script>
+<style>
+    input[type="checkbox"] + label { display: inline-block; width: 20px; height: 20px; border: 1px solid #bcbcbc; cursor: pointer; }
+    /* 라벨을 클릭했을때의 모양 */
+    input[type="checkbox"]:checked + label { background-color: #f1e1e1; border: 2px solid rgb(243, 182, 182); }
+    /* 체크박스를 보이지 않게함 */
+    input[id="box"] { display: none; }
+</style>
+<body>
+    <h3>Checkbox</h3>
+    <input type="checkbox" id="box">
+    <label for="box"></label>
+</body>
+</html>

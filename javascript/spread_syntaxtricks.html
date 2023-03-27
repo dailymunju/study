@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전개구문활용</title>
+</head>
+<script>
+    /*
+    * Spread syntax trick 1
+    * Rest parameter
+    */
+
+   const sum = (acc,...nums) => {
+       for(let num of nums){
+           acc += num
+       }
+       return acc
+   }
+   sum(0,10,20,30); //60
+   //23-03-27 뭔소린지모르겠음 
+</script>
+<body>
+    
+</body>
+</html>

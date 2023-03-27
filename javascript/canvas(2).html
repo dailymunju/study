@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas19_3.html</title>
+    <script>
+        window.addEventListener('load', function () {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath(); // 시작 (생략해도 무방하긴함)
+            ctx.strokeStyle = 'red'; // 선 색깔 설정
+            ctx.moveTo(60, 313); // 펜을 x, y 좌표로 옮김
+            ctx.lineTo(120, 166); // 선을 x, y 좌표로 긋는다
+            ctx.lineTo(180, 76);
+            ctx.lineTo(240, 256);
+            ctx.lineTo(300, 70);
+            ctx.lineTo(360, 200);
+            ctx.lineTo(420, 120);
+            ctx.lineTo(480, 70);
+            ctx.stroke(); // 실제 선을 표시
+            ctx.closePath(); // 끝
+
+            // 이미지 그리기용
+            var canvasimg = document.getElementById("canvasimg");
+            ctx = canvasimg.getContext('2d');
+            var image = new Image();
+            image.src = 'Images/terran.jpg';
+            // 이미지 로드 후 그리자
+            image.onload = function () {
+                // 이미지 원본 크기대로 그려줌 (이미지객체, x, y)
+                //ctx.drawImage(image, 0, 0);
+                // 이미지 크기 조정 (이미지객체, x, y, width, height)
+                ctx.drawImage(image, 0, 0, 100, 100);
+                ctx.drawImage(image, 100, 100, 100, 100);
+            };
+        });
+    </script>
+</head>
+<body>
+    <h2>&lt;canvas&gt; 태그</h2>
+    <!-- 캔버스의 가로폭 세로폭은 css로 주면 안된다. 반드시 속성으로 줄 것-->
+    <canvas width="550" height="450" id="canvas" style="background-color:yellow; "></canvas>
+    <canvas width="300" height="300" id="canvasimg" style="border:1px green solid;"></canvas>
+</body>
+</html>

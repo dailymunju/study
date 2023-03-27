@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코드를 직접 template에 넣어주는 v-html / VueJS Directive</title>
+</head>
+<script>
+    /*
+        v-html은 HTML 코드를 직접적으로 입력해줄 때 사용되는 디렉티브
+        -HTML코드 자체를 data내에서 선언해주고 해당하는 값을 HTML코드 형태로
+        출력해주어야 할때 사용함
+    */
+</script>
+    <body>
+        <div id= "app">
+            <p v-html = "aLinkToMedium"></p>
+        </div>
+
+        <div id="app2">
+            <p v-html = "alink2"></p>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el : "#app",
+            data : {
+                aLinkToMedium: "<a href='http://naver.com'>링크</a>"
+            }
+        })
+
+        new Vue({
+            el: "#app2",
+            data: {
+                alink2: "<a href='http://naver.com'>링크</a>"
+            }
+        });
+
+        // {{aLinkToMedium}}을 p태그 안에 직접 넣어주지 않고 v-html 디렉티브를 사용하여 p태그의 속성값으로 넣어줌
+    </script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modal example</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+</head>
+<body>
+    <!-- <div class="modal" id="ex1">
+        <p>모달의 내용이 들어갈 부분</p>
+        <a href="#" rel="modal:close">닫기</a>
+    </div>
+    <p><a href="#ex1" rel="modal:open">모달창띄우기1</a></p> -->
+
+    <!-- <p><a class="btn" href="#ex7">도달창띄우기2</a></p>
+    <div id="ex7" class="modal">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+    <script>
+        $('a[href="#ex7"]').click(function(event) {
+            event.preventDefault();
+            $(this).modal({
+                fadeDuration: 250
+            });
+        });
+    </script> -->
+
+    <!-- 로드 시 바로 모달창나옴 -->
+    <p><a class="btn" href="#ex7"></a></p>
+    <div id="ex7" class="modal">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+     
+    <script>
+         $('a[href="#ex7"]').modal({
+            fadeDuration: 250
+         });
+    </script>
+</body>
+</html>

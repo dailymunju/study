@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<script>
+    /*
+    */
+//    function sum(a,b) {
+//        return a + b;
+//    }
+
+//    var result = sum(1,2);
+//    var expected = 5;
+//    if( result !== expected) {
+//        throw new Error (result + 'is not equal to' + expected);
+//    }
+
+//API형태로 사용할 수 있는 함수로 변환하기
+//    expect(result).toBe(expected)
+// function sum(a,b){
+//     return a + b;
+// }
+// function expect(result){
+//     return{
+//         toBe: function(expected){
+//             if(result !== expected){
+//                 throw new Error(result + 'is not equal to' + expected);
+//             }
+//         }
+//     }
+// }
+// expect(sum(1,2)).toBe(5);
+
+//위의 예제는 몇번째 줄에서 오류가 났는지 추적하기가 어렵다는 단점이 있음. (각 테스트 함수의 역할이 구분되지 않고)
+/**************************************************************************/
+//테스트 라이브러리의 API형태와 비슷하게 함수만들기
+function sum(a,b){
+    return a + b;
+}
+function test(titles,testCode){
+    try{
+        testCode();
+    } catch (error){
+        console.error(error);
+    }
+}
+function expect(result){
+    return {
+        toBe: function(expected){
+            if(result !== expected){
+                throw new Error(result + 'is not equal to' + expected);
+            }
+        }
+    }
+}
+//위의 코드는 전형적인 API의 형태와 비슷함.앞의 예제와 동일한 오류를 발생시키지만 추적하기가 용이함. 
+// test('sum(1,2) is not equal 5' , function(){    
+//     expect(sum(1,2)).toBe(5); 
+// });
+
+</script>
+<body>
+    
+</body>
+</html>

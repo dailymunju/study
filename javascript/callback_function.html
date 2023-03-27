@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--jquery-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        callback function
+        콜백함수  -> 나중에 호출되는 함수
+        - 다른 함수의 매개변수로 함수를 전달하고, 어떠한 이벤트가 발생한 후 매개변수로 전달한 함수가 다시 호출되는 것을 의미함.
+        - 콜백함수는 코드를 통해 명시적으로 호출하는 함수가 아니라, 단지 함수를 등록하기만 하고, 어떤 이벤트가 발생했거나 특정 
+        시점에 도달했을 때 시스템에서 호출하는 함수를 말한다. (호출방식에 의한 구분이다)
+        -특정 함수에 전달되어 특정함수가 어떤 조건에 의해 호출하는 함수
+        
+        -콜백함수를 사용하는 이유는 자바스크립트에서 비동기적 프로그래밍을 할 수 있기 때문인데, 
+        1. 사용자 이벤트 처리
+         -브라우저 화면에서 발생하는 사용자의 이벤트는 예측이 불가능하므로 특정이벤트가 발생할 때 호출을 원하는 내용을 콜백함수에 전달하게된다.
+        2. 네트워크 응답 처리
+         -화면단에서 서버에게 요청을 보냈을 때, 응답이 언제오는 지 알 수 없기 때문에, 서버에 대한 응답처리도 비동기적으로 처리한다.
+        3. 파일을 읽고 쓰는 등의 파일 시스템작업, 의도적으로 지연을 사용하는 기능*알람 등 ..
+        
+
+    */
+</script>
+<script>
+    function first(a,b,callback) {
+        let v = a + b;
+        callback(v);
+    }
+
+    first(1,2,function(v) {
+        console.log(v); //3
+    });
+    /*
+        -> first 함수를 호출하는데, 호출할 때 익명함수를 parameter로 넘겨줌
+        first 함수에서는 파라미터를 callback이라는 이름으로 받음
+        first가 실행되면 a,b를 곱한 결과값을 callback함수의 파라미터로 넣어주게 됨,
+        -callback함수는 익명함수이므로 익명함수가 실행되어 3(1+2)가 됨
+    */
+
+
+    function button1_click(){
+        alert('버튼1을 눌렀습니다.');
+    }
+
+    /**/
+</script>
+<body>
+    <button id="button1" onclick="button1_click()">버튼1</button>
+</body>
+</html>

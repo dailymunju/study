@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    var COMMON = {};
+
+//basic
+COMMON.basic = {
+    isMobile : function()
+    {
+        function isMobile() 
+        {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }        
+    },
+    getVersionIE : function ()
+    {
+        var word; 
+
+        var agent = navigator.userAgent.toLowerCase(); 
+   
+        // IE old version ( IE 10 or Lower ) 
+        if ( navigator.appName == "Microsoft Internet Explorer" ) word = "msie "; 
+   
+        // IE 11 
+        else if ( agent.search( "trident" ) > -1 ) word = "trident/.*rv:"; 
+   
+        // Microsoft Edge  
+        else if ( agent.search( "edge/" ) > -1 ) word = "edge/"; 
+   
+        // 그외, IE가 아니라면 ( If it's not IE or Edge )  
+        else return -1; 
+   
+        var reg = new RegExp( word + "([0-9]{1,})(\\.{0,}[0-9]{0,1})" ); 
+   
+        if (  reg.exec( agent ) != null  ) return parseFloat( RegExp.$1 + RegExp.$2 ); 
+   
+        return -1;
+    },
+    browserVersionChk : function ()
+    {
+        var verNumber = this.getVersionIE();
+        return verNumber;
+    },
+    removeTag : function(txt) 
+    {
+         return txt.replace(/(<([^>]+)>)/gi, "");
+    }    
+};
+
+/**
+ * @brief 현재 날짜 시간 구하는 함수
+ * @retruns  {string}    date string
+ */
+COMMON.date = {
+    todayYMD : function()
+    {
+        var date    = new Date();
+
+        var year    = date.getFullYear();
+        var month   = date.getMonth() + 1;
+        var day     = date.getDate();
+        var hours   = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        
+        return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    }    
+};
+
+/**
+ * @brief cookie object
+ */
+COMMON.cookie = {
+    /**
+     * @brief 쿠카값 가져오기
+     * @param {string} cName 
+     * @returns {string} unescape value
+     */
+    getCookie : function (cName)
+    {
+        cName = cName + '=';
+        var cookieData = document.cookie;
+        var start = cookieData.indexOf(cName);
+        var cValue = '';
+        if(start != -1){
+            start += cName.length;
+            var end = cookieData.indexOf(';', start);
+            if(end == -1)end = cookieData.length;
+            cValue = cookieData.substring(start, end);
+        }
+        return unescape(cValue);
+    },
+    /**
+     * @brief 쿠키 설정
+     * @param {string} cName
+     * @param {string} cValue
+     * @param {number} cDay
+     */
+    setCookie : function (cName, cValue, cDay)
+    {
+        var expire = new Date();
+        expire.setDate(expire.getDate() + cDay);
+        cookies = cName + '=' + escape(cValue) + '; path=/ '; // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
+        if(typeof cDay != 'undefined') cookies += ';expires=' + expire.toGMTString() + ';';
+        document.cookie = cookies;
+    },
+    /**
+     * @brief cookie delete
+     * @param {string} name 
+     */
+    delCookie : function (name)
+    {
+        var today = new Date();
+
+        today.setTime(today.getTime() - 1);
+        var value = get_cookie(name);
+        if(value != "")
+        {
+            document.cookie = name + "=" + value + "; path=/; expires=" + today.toGMTString();
+        }
+    }
+};
+
+
+/**
+ * @brief   form data check & change
+ */
+COMMON.form = {
+    /**
+     * @brief 콤마찍기
+     * @param {string} str 
+     */
+    comma : function(str)
+    {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    },
+    /**
+     * @brief   콤마 풀기
+     * @param {string} str 
+     */
+    uncomma : function(str) 
+    {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');        
+    },
+    inputNumComma : function(obj) //input num comma
+    {
+        obj.value = this.comma(this.uncomma(obj.value));
+    },
+    /**
+     * @brief   숫자만 추출
+     * @param {string} str 
+     */
+    str_num : function(str)
+    {
+        var res = str.replace(/[^0-9]/g,"");    
+        return res;
+    },
+    /**
+     * @biref 자리수 채우기
+     * @param {string} n 
+     * @param {number} width
+     * @returns {string} 
+     */
+    left_pad : function(n, width)
+    {
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;        
+    },
+    /**
+     * @brief   공백제거
+     * @param {string} stringToTrim 
+     * @returns {string} trim string
+     */
+    trim : function(stringToTrim)
+    {
+        var str = stringToTrim.replace(/^\s+|\s+$/g,"");
+	
+        if(str == "" || str == "undefined")
+        {
+            str = null;
+        }
+        
+        return str;
+    },
+    /**
+     * 
+     * @param {string} str 
+     * @param {number} limit 
+     */
+    limitText : function(str, limit)
+    {        
+        if(str.length > limit)
+        {
+            alert("글자수가 " + limit + " 자로 제한되어 있습니다.");
+        }
+    },
+    /**
+     * @brief input:text -> number check
+     * @param {string} event 
+     */
+    onlyNumber : function(event)
+    {
+        event = event || window.event;
+        var keyID = (event.which) ? event.which : event.keyCode;
+        if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+            return;
+        else
+            return false;
+    },
+    /**
+     * @brief input:text -> string remove
+     * @param {string} event 
+     */
+    removeString : function(event)
+    {
+        event = event || window.event;
+        var keyID = (event.which) ? event.which : event.keyCode;
+        if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+            return;
+        else
+            event.target.value = event.target.value.replace(/[^0-9]/g, "");
+    }
+};
+
+</script>
+
+<script>
+    $(document).ready( function(){
+
+        //global variable
+        var pd_price = Number(COMMON.form.str_num($('.product_price').text()));     //상품가격
+        var total_price = Number(COMMON.form.str_num($('.total_price').text()));    //총 금액
+        var product_amount = Number(COMMON.form.str_num($('.cnt_input').val()));    // 상품수량
+
+        var sum_price = 0;                                                          // 총 더한 가격 변수
+        var sum_price = product_amount;                                             // 총 값은 상품수량과 동일함
+        var option_price = 0;                                                       //옵션 가격
+        var sum_amount = product_amount; //총수량 = 상품수량
+        var chk_amount = parseInt($("#cnt").val()); //재고 수량 체크 parseInt 문자열을 정수로 리턴
+        var chk_option_price = 0;                                                     //옵션 가격 체크 변수
+        var option_name = null;     //옵션명(초기화) ->  null (옵션이름은 문자, 나머지 0인것은 숫자 구별위함)
+        var total_amount = chk_amount;
+        var pd_min_quantity = 1;             //임의로 최소, 최대 수량을 넣음
+        var pd_max_quantity = 2;
+
+        //옵션이 바뀌면 해야 할 일
+        $('#pd_option').change( function(){
+            option_price = parseInt($(this).val()); // $('#pd_price')문자열을 해석해서 정수로 리턴함.
+            option_name = $('#pd_option option:selected').text(); //select 옵션에서 선택된 애들만 text 값을 가져옴
+            
+            if( option_price > 0 ) { //옵션을 선택했을 때가 0보다 큰것이라면 
+
+                total_price = pd_price + option_price;   //총 더한 가격 = 상품가격 + 옵션가격
+                chk_option_price = option_price;   //옵션 가격은 옵션가격 체크하는 변수와 동일하다
+
+            }else {  //옵션을 선택하지 않을 때가 0보다 작은 것이라면
+                
+                chk_option_price = 0;
+                total_price = pd_price - chk_option_price;  //총가격은 상품가격에서 옵션 가격을 뺀것
+                
+            }
+            total_amount = pd_min_quantity;  //총 수량은 최소 수량값이어야함 (최소수량값은  pd_min_qantity = 1; 로 선언했음)
+            $('#cnt').val(pd_min_quantity);   // 상품 수량은 최소수량값인 pd_min_qantity 와 동일해야함
+            
+            $(".total_price").text(COMMON.form.comma(total_price)); //옵션이 바뀔때마다 총금액도 바뀌어야하므로
+            var pro_name = $('.pro_name').text();   // 메인 상풍명을 가져와서 옵션에 더해야 옵션이 계속 추가 되지 않음
+            console.log(option_name);
+            $('.option_name').text(pro_name + '선택옵션 : ' + option_name); //옵션이름은 메인상품명 + 선택옵션 + option_name
+
+
+        });
+
+        $('#plus').click( function(){
+            // console.log('1');
+            sum_amount += 1;   //sum_amount = sum_amout + 1
+            $(".cnt_input").val(sum_amount);
+            sum_price = (pd_price + option_price) * sum_amount;
+            $(".total_price").text(COMMON.form.comma(sum_price));
+        });
+        
+        $('#minus').click( function(){
+            // console.log( '1' );
+            sum_amount -= 1;   //sum_amount = sum_amount - 1 
+            
+            if(sum_amount >= product_amount){
+                $(".cnt_input").val(sum_amount);
+                sum_price = sum_price - (pd_price + option_price);
+                $(".total_price").text(COMMON.form.comma(sum_price));
+            }else {
+                $(".cnt_input").val(product_amount);
+                sum_amount = product_amount;
+                alert("최소 구매수량 1개입니다.");
+            }
+
+
+        });
+        
+
+
+
+
+
+
+
+    });
+ 
+
+</script>
+
+<style>
+    ul { margin: 0; list-style: none; padding: 0; }
+    .p_middle { margin: 10vh; }
+    .p_middle::after { content: ''; display: block; overflow: hidden; clear: both; }
+    .p_middle .p_left { float: left; width: 40%;  }
+    .p_middle .p_right { float: right; width: 60%; }
+    .p_middle .p_left .sub_img ul li { float: left; width: 28%; }
+    .p_middle .p_left .sub_img ul::after { content: ''; display: block; overflow: hidden; clear: both; }
+    .f22 { font-size: 22px; }
+    .f24 { font-size: 24px; }
+    .mt10px { margin-top: 10px; }
+    .mtb10px { margin: 10px 0; }
+    .mb10px { margin-bottom: 10px; }
+    .mb20px { margin-bottom: 20px; }
+    .fw_bold { font-weight: 600; }
+    .outline_none { outline: none; }
+    .mb3px { margin-bottom: 3px; }
+    .pro_price ul li { float: left; width: 50%; }
+    .pro_price ul::after { content: ''; display: block; overflow: hidden; clear: both; }
+
+</style>
+
+<body>
+    <div class="p_middle">
+        <div class="p_left">
+            <div class="main_img">
+                <a href="javascript:;"><img src="./img/product_main.png" alt="product main image"></a>
+            </div>
+
+            <div class="sub_img mt10px">
+                <ul>
+                    <li><a href="javascript:;"><img src="./img/product_sub1.png" alt="product sub image1"></a></li>
+                    <li><a href="javascript:;"><img src="./img/product_sub2.png" alt="product sub image2"></a></li>
+                    <li><a href="javascript:;"><img src="./img/product_sub1.png" alt="product sub image3"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <form action="" class="pro_form">
+            <div class="p_right">
+                <div class="pro_name">
+                    <p class="f22">[경성표고버섯농장] 백화고 3종 세트 130g/흑과고 120g/슬라이스 90g</p>
+                </div>
+
+                <div class="pro_info mt20px">
+                    <ul>
+                        <li class="mb20px"><span class="f24 fw_bold product_price">78,000</span> 원</li>
+                        <li class="mt10px">가용 포인트 : <span class="f_color_red">4,680</span> 원</li>
+                        <li class="mt10px">리턴 캐쉬 : <span class="f_color_red">4,680</span> 원</li>
+                        <li class="mt10px">공유 포인트 : <span class="f_color_red">0</span> P</li>
+                        <li class="mt10px">
+                            <ul>
+                                <li class="mb10px">배송비 &nbsp; 2,500 원</li>
+                            </ul>                                     
+                        </li>
+
+                        <li class="mb10px">
+                            <ul>
+                                <li>재고수량 &nbsp; 999개</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pro_price mtb20px">
+                    <ul>
+                        <li class="f22 fw_bold mb10px">총 금액</li>
+                        <li class="f22 fw_bold mb10px"><span class="total_price">78,000 </span>원</li>
+                    </ul>
+                </div>
+
+                <div class="pro_select">
+                    <select class="pro_select_list w100 outline_none" id="pd_option" name="pd_option">
+                        <option>선택하세요.</option>
+                        <option value="1000" opt_amount="100">파랑&nbsp;(+ 1,000 원)</option>
+                        <option value="2000" opt_amount="100">노랑&nbsp;(+ 2,000 원)</option>
+                        <option value="3000" opt_amount="100">분홍&nbsp;(+ 3,000 원)</option>
+                    </select>
+                </div>
+
+                <div class="amount mtb10px">
+                    <div class="mtb10px pro_title">
+                        <p class="option_name">[경성표고버섯농장] 백화고 3종 세트 130g/흑과고 120g/슬라이스 90g</p>
+                    </div>
+
+                    <div class="count_box mtb10px">
+                        <div class="count_input">
+                            <input type="text" id="cnt" class="cnt_input outline_none" value="1">
+                        </div>
+
+                        <div class="count_button">
+                            <input type="button" class="outline_none mb3px" id="plus" value="▲">
+                            <input type="button" class="outline_none" id="minus" value="▼">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p_btn mt30px">
+                    <div class="t_center"><button class="fw_bold f_color_5454 f18 purchase">장바구니</button></div>
+                    <div class="t_center"><button class="fw_bold f_color_5454 f18 cart">바로구매</button></div>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

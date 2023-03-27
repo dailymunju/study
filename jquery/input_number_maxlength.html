@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--jquery-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /**
+     * @date 21-01-18 munju
+     * @brief input maxlength 추가
+     * memo input type = text인경우에는 maxlength만 지정해주면 제한되지만 type이 number인 경우에는 스크립트를 써야함
+     */
+    function maxLengthCheck(object) {
+        if(object.value.length > object.maxLength) {
+            object.value = object.value.slice(0, object.maxLength);
+        }
+    }
+
+    /**
+     * @date 21-01-18 munju
+     * @brief 카드 input 자동커서이동 추가
+     */
+    $( function(){
+        $(".c_input,.period_input").keyup (function () {
+            var charLimit = $(this).attr("maxlength");
+            if (this.value.length >= charLimit) {
+                $(this).next('.c_input,.period_input').focus();
+                return false;
+            }
+        });
+    });
+
+    //숫자만입력
+    function onlyNumber(){
+        if((event.keyCode<48)||(event.keyCode>57))
+        event.returnValue=false;
+    }
+</script>
+<body>
+    <div class="pay_layer">
+        <div class="credit_box mb10px">
+            <span class="mr10px f14">카드번호</span>
+            <input type="number" numberonly class="c_input" name="card_num_1" id="" maxlength="4" oninput="maxLengthCheck(this)" onkeyup="return COMMON.form.removeString(event);">
+            <input type="number" numberonly class="c_input" name="card_num_2" id="" maxlength="4" oninput="maxLengthCheck(this)" onkeyup="return COMMON.form.removeString(event);">
+            <input type="number" numberonly class="c_input" name="card_num_3" id="" maxlength="4" oninput="maxLengthCheck(this)" onkeyup="return COMMON.form.removeString(event);">
+            <input type="number" numberonly class="c_input" name="card_num_4" id="" maxlength="4" oninput="maxLengthCheck(this)" onkeyup="return COMMON.form.removeString(event);">
+        </div>
+
+        <div class="credit_box mb10px">
+            <span class="mr10px f14">유효기간</span>
+            <input type="number" class="period_input" placeholder="MM" name="card_num_mm" id="" maxlength="2" oninput="maxLengthCheck(this);" onkeyup="return COMMON.form.removeString(event);">
+            <input type="number" class="period_input" placeholder="YY" name="card_num_yy" id="" maxlength="2" oninput="maxLengthCheck(this);" onkeyup="return COMMON.form.removeString(event);">
+        </div>
+        
+        <div class="credit_box mb10px">
+            <span class="mr10px f14">숫자만입력할수있게</span>
+            <input type="text" class="period_input" onkeypress="onlyNumber();"  name="card_num_mm" id="" maxlength="2" oninput="maxLengthCheck(this);" onkeyup="return COMMON.form.removeString(event);">
+        </div>
+
+        <div class="credit_box">
+            <span class="mr10px f14">할부기간</span>
+            <select name="install_period" class="install_period">
+                <option value="">선택하세요.</option>
+                <option value="00">일시불</option>
+                <option value="01">1개월</option>
+                <option value="02">2개월</option>
+                <option value="03">3개월</option>
+                <option value="04">4개월</option>
+                <option value="05">5개월</option>
+                <option value="06">6개월</option>
+                <option value="07">7개월</option>
+                <option value="08">8개월</option>
+                <option value="09">9개월</option>
+                <option value="10">10개월</option>
+                <option value="11">11개월</option>
+                <option value="12">12개월</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>

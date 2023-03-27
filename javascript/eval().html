@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eval()</title>
+    <script>
+        /*
+            eval() : 문자로 표현된 javascript코드를 실행하는 함수
+
+            - eval()은 전역객체의 함수 속성으로 인자는 문자열로 표현식을 평가하는데,
+            인자가 하나 이상의 javascript 명령문을 나타낸다면 모두실행함.
+            
+
+        */
+
+        // console.log(eval('2 + 2'));
+        // 4
+
+        // console.log(eval(new String('2 + 2')));
+        // 2 + 2
+
+        // console.log(eval('2 + 2') === eval('4'));
+        // true
+
+        // console.log(eval('2 + 2') === eval(new String('2 + 2')));
+        // false
+
+        //eval()이 문자열이 아니면 인자를 그대로 반환하고, 문자열을 계산하는 대신 String객체를 반환한다
+        console.log(eval(new String("2 + 2"))); //"2+2"를 포함한 String객체를 반환
+        console.log(eval("2+2"));  // 4를 반환
+
+        var expression = new String("2 + 2");
+        console.log(eval(expression.toString())); //4를 반환
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>replace() 함수 / 정규표현식</title>
+</head>
+<script>
+    /*
+        replace() 함수
+        -str_text.replace('찾을문자열','바꿀문자열');
+
+        정규표현식
+        => str_text.replace(/찾을문자열/gi,'변경할문자열')
+        -정해진 규칙을 사용해 모든 문자를 변환할 수 있고, 숫자만 변환하거나, 맨 처음, 맨 뒤만 변환할 수 있음
+        -슬래쉬(/)표시 안에 넣는 텍스트의 따옴표는 없어야함.
+
+        gi
+        g -> 전체 모든 문자열 변경(global)
+        i -> 영문 대소문자를 무시하고, 모두 일치하는 패턴을 검색(ig)
+
+        형식 str_text.replace(/\./gi."-")
+        -특수기호를 맨 처음 적을 때에는 항상 역슬래쉬 부분이 정규식 맨앞에 존재해야함.
+        -[] 안에 특수기호를 넣으면 하나하나 개별적으로 변환
+        -[] 없이 특수기호를 여러개 작성하면 하나의 묶음으로 인식해서 변환함
+
+        ex_)  4asdf/.asdf/.fsdd4df".replace(/[/4]/gi,"@");  => @asdf@@asdf@@fsdd@df
+        : 대괄호 안에 들어 있는 /, 4 , . 을 개별적으로 하나하나 변환함
+
+        ex_) asdf/.asdf/.fsdddf.replace(/\/.gi,"@"); => asdf@asdf@fsdddf
+
+        ----정규식에서 문자가 의미하는 것----
+        [a-z] : a ~ z 사이의 문자를 찾음
+        [abc] : a, b, c 중에 하나를 찾음
+        [^abc] : a, b, c 를 제외한 문자를 찾음
+
+        .replace('','')     첫번째 공백 제거
+        .replace(/\-/g,'')  특정문자(-) 제거   (특수기호를 맨 처음 적을 때에는 항상 역슬래쉬 부분이 정규식 맨앞에 존재해야함.)
+        .replace(/,/g,'')   특정문자(,) 제거
+        .replace(/^\s+/,'')	앞의 공백 제거
+        .replace(/\s+$/,'') 뒤의 공백 제거 
+        .replace(/^\s+|\s+$/g,'') 앞뒤 공백 제거 
+        .replace(/\s/g,'') 문자열 내의 모든 공백 제거 
+        .replace(/\n/g,'') n개행 제거 .replace(/\r/g,'')  엔터 제거
+
+    */
+</script>
+<body>
+    
+</body>
+</html>

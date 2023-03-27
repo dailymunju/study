@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery ui dragable</title>
+    <script src="../jquery_ui/lib/jquery-1.11.1.min.js"></script>
+    <script src="../jquery_ui/lib/jquery-ui.js"></script>
+    <script src="../jquery_ui/lib/jquery.easing.1.3.js"></script>
+</head>
+<script>
+    $(function() {
+        
+        $('#box').draggable(
+            { containment: 'parent'},
+            { snap: '#wrap' },
+            { start:function(){
+                // console.log("드래그 시작");
+            } },
+            
+            { drag : function(){
+            //    console.log("드래그 중"); 
+            } },
+            { stop : function(){
+                // console.log("드래그 종료");
+            }}
+        );
+    });
+</script>
+<style>
+    #wrap { width: 800px; height: 400px; border: 1px solid rgb(255, 178, 178); }
+    #box { width: 100px; height: 100px; border: 1px solid rgb(255, 141, 141); background-color: rgb(255, 132, 132); }
+</style>
+
+<body>
+    <div id="wrap">
+        <div id="box">dragable</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--jquery-->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <h1>Typewriter</h1>
+
+    <button onclick="typeWriter()">Click me</button>
+
+    <p id="demo"></p>
+</body>
+<script>
+  /*
+    charAt : 문자열에서 인자로 주어진 값에 해당하는 문자를 리턴함
+    charAt(index)
+    index 필수, 0보다 큰 정수
+    -문자열에 속하는 문자는 왼쪽부터 오른쪽까지 0부터 인덱싱되어 있음
+    -인덱스는 0부터 시작하기 때문에 index로 들어갈 수 있는 가장 큰 수는 (문자열.length-1)이다
+    -존재하지 않는 index를 인자로 전달하면 공백이 출력됨
+    -charAt는 index에 해당하는 문자를 리턴하고, charCodeAt -> 유니코드 값을 리턴하는 차이가 있다.
+
+  */
+    var i = 0;
+    var txt = 'setTimeout을 이용한 텍스트 애니메이션';
+    var speed = 50;
+    
+    function typeWriter() {
+      if (i < txt.length) {
+        document.getElementById("demo").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    var stringName = 'coding everybody';
+    alert(stringName.charAt(0)); //index는 0부터 시작, ,c글자 출력
+    alert(stringName.length-1);  //출력할 수 있는 index의 범위는 0 ~ 15까지이므로 (0포함16글자) .length-1 은 15로 출력됨
+    alert(stringName.charAt(1000) == '' ); // index의 범위를 벗어나면 ''공백이 맞으므로 true로 출력됨(공백이 리턴되서, 문자가 리턴되면 false출력)
+
+</script>
+</html>

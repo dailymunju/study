@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>객체지향 프로그래밍</title>
+    </head>
+    <script>
+        // var speaker = {
+        //     volume: 0,
+        //     volumeUp : function(){
+        //         this.volume += 10;
+        //     },
+        //     volumeDown: function(){
+        //         this.volume -= 10;
+        //     }
+        // };
+        // speaker.volumeUp();
+        // speaker.volumeDown();
+        // speaker.volume = 10000;
+
+        /*
+            캡슐화 (Encapsulation)
+
+        */ 
+
+        var speaker = ( function(){
+            var volume = 0;
+            return {
+                volumeUp : function(){
+                    volume += 10;
+                },
+                volumeDown: function(){
+                    volume -= 10;
+                }
+            }
+        })();
+        speaker.volumeUp();
+        speaker.volumeDown();
+        console.log(volumeUp());
+        
+
+
+    </script>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.on()메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        이벤트 핸들러*(event handler)
+        -특정 요소에서 발생하는 이벤트를 처리하기 위해서는 이벤트 핸들러라는 함수를 작성하여
+        연결해야하는데, 이벤트 핸들러가 연결된 특정 요소에서 지정된 타입의 이벤트가 발생하면, 웹브라우저는 
+        연결된 이벤트 핸들러를 실행하게 됨.
+    */
+    $(document).ready( function(){
+        $('button').on({
+            mouseenter: function(){
+                $("#text").append('마우스가 버튼 위로 진입</br>');
+            },
+            click: function(){
+                $("#text").append('마우스가 버튼을 클릭함</br>');
+            },
+            mouseleave: function(){
+                $("#text").append('마우스가 버튼 위에서 빠져나감</br>');
+            }
+        });
+    });
+</script>
+<body>
+    <h1>.on() 메소드</h1>
+    <button>마우스를 버튼 위로 가져가거나 클릭해보시오!</button>
+    <p id="text"></p>
+</body>
+</html>

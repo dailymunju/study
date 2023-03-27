@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>계산된 속성 computed </title>
+    </head>
+    <script>
+        /*
+            VueJS 의 자동 계산된 속성 computed
+            -> 계산식을 계산해서 값을 return해주는 "계산된 속성"
+            - 버튼을 클릭하면 count가 1씩 증가하고 "10보다 큽니다" 문장 출력
+        */
+    </script>
+    <body>
+        <h1>버튼을 클릭하면 count가 1씩 증가하고 "10보다 큽니다" 문장 출력</h1>
+        <div id= "app">
+            {{ isLargerThanTen  }} <!-- 클릭횟수 -->
+            <button v-on:click="count ++">클릭</button>
+        </div>
+
+        <div id="example1">
+            <p>원본메세지 : "{{ message }}"</p>
+            <p>역순으로 표시한 메세지 : "{{ reverseMessage }}"</p>
+        </div>
+
+        <div id="example2">
+            <p>원본메세지 : "{{ message }}"</p>
+            <p>역순으로 표시한 메세지 : "{{ reversedMessage() }}"</p>
+        </div>
+
+        <div id="example3">
+            <p>원본메세지: "{{ message }}"</p>
+            <p>역순으로 표시한 메시지: "{{ reversedMessageBycomputed }}"</p>
+            <p>역순으로 표시한 메시지: "{{ reversedMessageBycomputed }}"</p>
+            <p>역순으로 표시한 메시지: "{{ reversedMessageBymethods() }}"</p>
+            <p>역순으로 표시한 메시지: "{{ reversedMessageBymethods() }}"</p>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+
+        /*
+            computed 객체 안에 isLargerThanTen 이라는 함수를 선언해주고, count에 3을 곱한 값이 10보다 큰경우
+            "10보다 큽니다" 라는 문자열을, 그 외의 경우에는 "10보다 작거나 같습니다" 를 return
+            4번 이상을 클릭하면 "10보다 큽니다" 출력됨
+
+            computed의 캐싱과 methods
+            
+        */
+        new Vue ({
+            el: "#app",
+            data: {
+                count: 0
+            },
+            computed: {
+                isLargerThanTen : function() {
+                    return this.count * 3 > 10 ? "10보다 큽니다" : "10보다 작거나 같습니다."
+                }
+            }
+        })
+
+        //computed
+        new Vue ({
+            el: "#example1",
+            data: {
+                message: '안녕하세요',
+            },
+            computed: {
+                //계산된 getter
+                reversedMessage: function(){
+                    //this는 vm인스턴스를 가리킴
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        /*
+            ------------------------------------#example1-----------------------------------------
+            computed로 reverseMessage를 선언했음, reverseMessage를 getter함수로 사용할 수 있게 됨, 
+            reversedMessage는 message에 의존적이기 때문에(종속성) message의 값이 바뀌면 reversedMessage의 값도 바뀜, 
+            message가 바뀔 때 reversedMessage도 변경되며, reversedMessage와 바인딩 된 DOM이 업데이트 됨.
+
+            cf) getter함수
+            -객체 안에 Getter함수와 Setter함수를 설정할 수 있는데, 
+            특정 값을 조회하려고 하거나 바꾸려고 할때, 원하는 코드를 실행할 수 있다
+
+            const numbers = {
+                a : 1,
+                b : 2,
+                get sum() { //함수명 앞에 get 키워드 붙인다!
+                    console.log('sum 함수가 실행됩니다!');
+                return this.a + this.b;	//Getter 함수에서는 무조건 어떤 값을 반환해줘야 함
+                //여기서 this는 numbers 의미!
+                }
+            };
+
+            console.log(numbers.sum); //'sum 함수가 실행됩니다! \n3' 출력
+            numbers.b = 5;
+            console.log(numbers.sum); //'sum 함수가 실행됩니다! \n3' 출력
+
+
+        */
+        
+        //methods
+        new Vue ({
+            el: "#example2",
+            data: {
+                message: '안녕하세요',
+            },
+            methods: {
+                reversedMessage: function (){
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        /*
+        -----------------------------------#example2--------------------------------------------
+        템플릿 문법의 javascript 표현식에서 methods를 사용하여 computed를 사용한 결과와 동일한 결과를 얻을 수 있는데, 
+        computed와 methods의 차이점은 computed는 종속 대상(reversedMessage의 종속대상은 message)을 캐싱한다는 것,
+        
+        cf)캐시-> 잠시 저장해준다는 의미로 캐시의 원리를 이용한 cdn같은 서비스를 활용이 예시,
+        먼 곳의 파일을 매번 가져와야한다면 네트워크 구간이 멀어 실패율도 높고, 전송속도가 느릴 수 있음=> 자주 쓰는 파일들을 가까운 서버에 올려놓고
+        빠른 접근이 가능하도록함, 데이터를 고속으로 엑세스 할 수 있는 장점이 있으나, 영구적인 메모리 공간이 아니기 때문에 캐시는 되도록 빈도수가 높은(자주 사용하는)
+        위주로 데이터량이 많지 않은 것이 좋다 
+
+        그렇기 때문에 computed는 종속 대상이 변경 될 때만 함수를 호출 한다. message값이 변하지 않는 한 reversedMessage를 여러번 호출해도
+        다시 계산하지 않고 캐싱한 결과를 즉시 반환한다 따라서 시간이 많이 걸리는 계산을 할때는 computed를 사용하여 더 좋은 효율을 내도록하고, 
+        캐싱을 하지 않고 호출 할때마다 새롭게 계산을 해야할 경우에는 methods를 사용해야한다 
+        */
+
+        new Vue({
+            el: "#example3",
+            data: {
+                message: 'computed와 methods를 같이 쓸때에는',
+            },
+            computed: {
+                reversedMessageBycomputed(){
+                    console.log('computed reversedMessage')
+                    return this.message.split('').reverse().join('')
+                }
+            },
+            methods: {
+                reversedMessageBymethods: function(){
+                    console.log('methods reversedMessage')
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</html>

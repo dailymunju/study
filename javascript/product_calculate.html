@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!--jquery-->
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  html,
+  body {
+    height: 100%;
+    font-size: 14px/1.5 'verdana', sans-serif;
+  }
+
+  .wrap {
+    width: 700px;
+    margin: 10px auto;
+    border: 4px solid #ddd;
+  }
+
+  h1 {
+    margin: 10px;
+  }
+
+  h2 {
+    margin: 10px 0;
+  }
+
+  div.box {
+    margin: 10px;
+  }
+
+  ul.list:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  ul.list li {
+    float: left;
+    margin-right: 20px;
+  }
+
+  p.point input {
+    width: 200px;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #999;
+    text-align: right;
+  }
+
+  select {
+    border: 1px solid #999;
+    width: 200px;
+    height: 23px;
+  }
+
+  em.price {
+    font-size: 15px;
+    color: #ff9900;
+    font-style: normal;
+  }
+</style>
+<script>
+  /*
+Math.ceil
+-> Math.ceil([숫자]);
+-소수값이 존재할 때 값을 올리는 반올림 함수
+
+Math.floor
+-소수값을 버리는 역할을 하는 함수
+
+Math.round
+-소수값에 따라 올리거나 버리는 역할을 하는 함수
+
+*/
+  $(document).ready(function () {
+
+    var total = $('.box input, .box select').on('change', function () {
+
+      var sum = 0,
+        point = parseInt($('#point').val().replace(/,/g, '') || '0'), //콤마제거 /,/g, '' 후 parseInt 문자열을 숫자로 추출
+        discount = parseInt($('#discount').val()); //할인
+      installment = $('#installment').val(); //할부
+
+      $('.box input:checked').each(function () { //input에 체크되면 각각 할일 each문
+        sum += parseInt($(this).val());
+      });
+
+      var _add = sum + point; //총 합계 구하기
+
+      total = (_add * (1 - discount / 100) / installment)
+
+      var _result = Math.ceil(total).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,
+      '$1,'); //소수점 반올림 하고 comma 찍기
+
+      $('#price').text(_result);
+    });
+
+    // 포인트 숫자만 입력, comma 찍기
+    $(function () {
+      $('#point').on('keyup', function () {
+        if ($(this).val() != null && $(this).val() != '') {
+          var tmps = parseInt($(this).val().replace(/[^0-9]/g, '')) || '0';
+          //숫자만추출 하거나 0
+          var tmps2 = tmps.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+          $(this).val(tmps2);
+        }
+      });
+    });
+  });
+</script>
+
+<body>
+  <div class="wrap">
+    <h1>상품 계산기</h1>
+    <div class="box">
+      <h2>상품</h2>
+      <ul class="list">
+        <li><input type="checkbox" name="snack" id="snack_01" value="15000"><label for="snack_01">상품1 15,000원</label>
+        </li>
+        <li><input type="checkbox" name="snack" id="snack_02" value="17000"><label for="snack_02">상품2 17,000원</label>
+        </li>
+        <li><input type="checkbox" name="snack" id="snack_03" value="14000"><label for="snack_03">상품3 14,000원</label>
+        </li>
+        <li><input type="checkbox" name="snack" id="snack_04" value="16000"><label for="snack_04">상품4 16,000원</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>옵션</h2>
+      <ul class="list">
+        <li><input type="checkbox" name="drink" id="drink_01" value="4000"><label for="drink_01">추가상품1 4,000원</label>
+        </li>
+        <li><input type="checkbox" name="drink" id="drink_02" value="4500"><label for="drink_02">추가상품2 4,500원</label>
+        </li>
+        <li><input type="checkbox" name="drink" id="drink_03" value="3500"><label for="drink_03">추가상품3 3,500원</label>
+        </li>
+        <li><input type="checkbox" name="drink" id="drink_04" value="10000"><label for="drink_04">추가상품4 10,000원</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>포인트</h2>
+      <p class="point">
+        <input type="text" name="point" id="point" class="point" /> P</p>
+    </div>
+
+    <div class="box">
+      <h2>할인</h2>
+      <select id="discount">
+        <option value="0">선택</option>
+        <option value="10">10%</option>
+        <option value="20">20%</option>
+        <option value="30">30%</option>
+        <option value="40">40%</option>
+        <option value="50">50%</option>
+      </select>
+    </div>
+
+    <div class="box">
+      <h2>할부</h2>
+      <select id="installment">
+        <option value="1">일시불</option>
+        <option value="2">2개월</option>
+        <option value="3">3개월</option>
+        <option value="4">4개월</option>
+        <option value="5">5개월</option>
+      </select>
+    </div>
+
+    <div class="box">
+      <p>가격 : <em class="price" id="price">0</em>원</p>
+    </div>
+
+  </div>
+</body>
+
+</html>

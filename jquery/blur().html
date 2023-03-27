@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blur 이벤트</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+
+    /*
+        자바스크립트 이벤트 blur - 이벤트 핸들러에 바인딩하거나 요소에 이벤트를 발생시킴
+        .blur(handler(eventObject))
+        포커스를 잃을 때 발생하는 이벤트임.
+        
+        첫번째 필드에 포커스를 위치시켰다가 다른곳을 클릭하거나, 탭키를 사용해서 포커스를 이동시키면
+        alert()가 발생함
+    */
+    $(document).ready( function(){
+        $('#target').blur( function(){
+            alert('Handler for blur() called');
+        });
+    });
+    
+
+</script>
+<body>
+    <form action="">
+        <input id="target" type="text" value="Field1"/>
+        <input type="text" value="Field2">
+    </form>
+    <div id="other">
+        Trigger the handler
+    </div>
+    The event handler can be bound to the first input field: 
+</body>
+</html>

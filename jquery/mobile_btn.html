@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모바일 button ui</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="../js/COMMON.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400&display=swap');
+    body { padding: 0; margin: 0; text-align: -webkit-center;  font-family: 'Nunito Sans', sans-serif;}
+    button,input[type="button"] { outline: none; }
+    p { padding: 0; margin: 0; }
+    ul { padding: 0; margin: 0; }
+    li { list-style: none; }
+    .wrap { width: 100%; max-width: 700px; height: 300px; margin: 0 auto; margin-top: 60px;/*  border-radius: 100px; */ background-color: #000000; color: white;  }
+    /* .btn_wrap ul { float: left; }
+    .btn_wrap::after { content: ''; display: block; overflow: hidden; clear: both; } */
+    .btn_wrap { padding: 50px; position: relative; }
+    .btn_wrap ul:not(.price_box,.add_box) > li  { float: left; width: 32%; font-size: 20px; }
+    .btn_wrap ul::after { content: ''; display: block; overflow: hidden; clear: both; }
+    .size,.color,.total_box,.count_box { width: 120px; border: 2px solid #696969; border-radius: 27px; text-align: center; padding: 10px 20px; }
+    .size p:first-child { margin-bottom: 10px; }
+    .count_box { overflow: hidden; border: 2px solid #696969; border-radius: 27px; text-align: center; padding: 27px 20px; }
+    .count_box .count_input input { float: left; width: 32%; border: none; background-color: transparent; color: white; font-size: 23px; text-align: center; }
+    .cart_box { position: absolute; top: 51px; right: 112px; cursor: pointer; height: 194px; background-color: #6236ff; border-radius: 10px; }
+    .add_box li:last-child { font-size: 25px; margin-top: 30px; color: white; font-weight: 600; } 
+    .add_cart { width: 116px; border: none; background-color: #6236ff; border-radius: 10px; margin-top: 55px; }
+    .add_cart i { color: white; font-size: 22px; }
+    .color { padding: 18px 20px; }
+    .color,.total_box { margin-top: 30px; }
+    .color .dp_color { width: 100%; background-color: #6236ff; height: 10px; border-radius: 10px; margin-top: 10px;  }
+    .total_box .price_box li:first-child { margin-bottom: 10px; }
+
+</style>
+
+<body>
+    <div class="wrap">
+        <div class="btn_wrap">
+            <ul>
+                <li>
+                    <div class="size">
+                        <p>Size</p>
+                        <p>Small</p>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="count_box">
+                        <div class="t_right count_input"> 
+                            <input type="hidden" name="pd_seq" class="pd_seq" value = "" price_number="10000">
+                            <input type="button" id="minus" class="minus" value="-">
+                            <input type="text" id="cnt" class="cnt_input t_center" value="1" readonly>
+                            <input type="button" id="plus" class="plus" value="+">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <ul>
+                <li>
+                    <div class="color">
+                        <p>Color</p>
+                        <div class="dp_color"></div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="total_box">
+                        <ul class="price_box">
+                            <li>Price</li>
+                            <li><span id="last_price">0</span>원</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <script>
+                $(document).ready( function(){
+                    //총합 초기화
+                    var total_price = 0;
+            
+                    // input hidden에 넣은 pd_price(상품가격)를 가지고 오기위한 배열
+                    var pd_seq = [];      //상품이름 ,input hidden
+                    var pd_price = [];   //가격
+                    var pd_amount = [];  //수량
+                    //시작 input val값을 0으로 지정
+                    $('.cnt_input').val('0');
+            
+                    //plus버튼을 각각 클릭했을때 상품이 늘어나거나 줄어들어도 한번에 각각 처리할 수 있도록하기위함,선언한 배열의 인덱스번호를 사용함 (i)
+                    $('.plus').each( function(i){
+                        //배열값 초기화 001
+                        pd_seq[i] = 0;
+                        pd_price[i] = 0;
+                        pd_amount[i] = 0;
+            
+                        $(this).click( function(){
+                            var price = parseInt($(this).siblings('.pd_seq').attr('price_number')); //상품의 가격이지정 되어있는 price_number를 숫자만 추출
+                            var amount = parseInt($(this).siblings('.cnt_input').val()); //수량값을 지정하기 위한 val
+                            amount += 1; //plus버튼을 누를때마다 수량이 1씩 증가하므로 
+            
+                            console.log(amount);
+                            //수량배열(pd_amount)에 각각의 index값에 val값으로 위에서 지정한 변수 amount와 동일하게해야 1씩 증가하는것을 배열이 반영할 수 있음
+                            pd_amount[i] = amount;
+                            $(this).siblings('.cnt_input').val(amount); // .cnt_input의 val값을 amount와 동일하게 해야 수량이 늘어날때마다 1증가됨을 반영함
+                            pd_price[i] += price; //가격값배열은 플러스를 누를때마다 가격값을 더해줌
+                            total_price = 0;
+                            
+                            //상품의 가격이 들어있는 pd_price배열의 인덱스 갯수만큼 반복문 실행(상품갯수만큼 돌림)
+                            for( var k = 0; k < pd_price.length; k++ ){
+                                if(pd_price[k] > 0 ){//무조건한개이상의 상품이 들어있으므로 항상 참으로 실행시키기 위한 비교문 0보다는 항상 크니까
+                                    total_price += pd_price[k];
+                                    //총합은 가격배열이 들어있는 인덱스 값을 각각 더함 A += B ===> A = A + B
+                                }
+                            }
+                            $('#last_price').text(COMMON.form.comma(total_price)); //총합은 total_price값과 같으므로
+            
+                        }); 
+                    });
+            
+                    
+                    $('.minus').each( function(i){
+                        $(this).click( function(){
+            
+                            var price = parseInt($(this).siblings('.pd_seq').attr('price_number'));
+                            var amount = parseInt($(this).siblings('.cnt_input').val());
+                            amount -= 1; //minus를 클릭할때마다 1씩 감소되는 기본동작은 변수 amount에 넣어줌
+            
+                            if(amount < 0){ //수량이 0보다 작은 경우
+                                // pd_amount[k] = 0; 혹시모르니 0으로 수량값을 초기화한것
+                                // $(this).siblings('.cnt_input').val(0);
+                                alert('최소구매수량은 1개입니다.');
+                                return false;
+                            }
+                            $(this).siblings('.cnt_input').val(amount);
+                            pd_price[i] -= price; //가격값배열은 마이너스를 누를때마다 가격값을 빼줌
+                            total_price = 0; 
+                            
+                            for(var k = 0; k < pd_price.length; k++){
+                                if(pd_price[k] > 0){
+                                    total_price += pd_price[k];
+                                }
+                            }
+                            $('#last_price').text(COMMON.form.comma(total_price));
+                        });
+                    });
+            
+                });
+            </script>
+            <div class="cart_box">
+                <button class="add_cart">
+                    <ul class="add_box">
+                        <li><i class="fas fa-shopping-cart"></i></li>
+                        <li>Add</li>
+                    </ul>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

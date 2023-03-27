@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>계산된 속성 computed </title>
+    </head>
+    <script>
+        /*
+            Vue는 양방향 데이터 바인딩이다
+            - 뷰 인스턴스의 data객체가 가지고 있는 정보를 html코드 내로 바인딩 하여 값을 확인했음
+            -> methods 내의 함수로 데이터를 변경하면 변경하는 즉시 값이 변하는 것을 확인할 수 있는데
+            Vue 인스턴스  => template 와 같이 한방향으로 데이터에 접근할 수 있었다 -> 단방향 데이터 바인딩
+            -> Vue 인스턴스 <-> Template 와 같이 두 방향 모두 데이터에 접근할 수 있도록 하는 것을 양방향 데이터 바인딩이라고 함
+            -> 양방향 데이터 바인딩을 가능하게 해주는 디렉티브가 "v-model"
+
+            양방향 데이터 바인딩이 자주 사용되는 대표적인 예 -> 폼 입력 input 태그
+            : input 태그의 v-model 디렉티브를 통해 Vue의 data에 직접 태그를 수정할 수 있음 -> 양방향데이터
+            {{name}}은 단방향 데이터 바인딩으로 Vue 인스턴스가 가지고 있는 정보를 보여주는 역할만을 하는데, (단방향데이터)
+            input태그 내의 값을 변경해주자 여기에 보여지는 값도 바로 변경됨을 볼 수 있음
+            
+        */
+    </script>
+    <body>
+        <div id="app">
+            <input type="text" v-model="name">{{name}}
+        </div>
+
+        <div id="app1">
+            <h1>hello,{{ title }}</h1>
+            <input type="text" v-model="title">
+        </div>
+
+        <div id="app2">
+            <h1>sss{{title}}</h1>
+            <input type="text" v-model="title">
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: "#app",
+            data: {
+                name: "munju"
+            }
+        })
+
+        new Vue({
+            el: "#app1",
+            data: {
+                title: "단방향 데이터"
+            }
+        })
+        new Vue({
+        el: "#app2",
+        data: {
+            title: "양방향데이터"
+        } 
+        })
+        
+    </script>
+</html>

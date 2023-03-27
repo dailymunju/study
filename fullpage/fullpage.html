@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>fullpage.js 적용 예제</title>
+        <script src="../js/jquery-1.12.4.min.js"></script>
+        <link rel="stylesheet" href="../css/swiper.min.css">
+        <link rel="stylesheet" href="../fullpage/css/jquery.fullpage.css">
+        <script src="../js/swiper.min.js"></script>
+        <script src="../fullpage/js/jquery.fullpage.js"></script>
+    </head>
+    <script>
+        $(document).ready( function(){
+            $('#fullpage').fullpage({
+                navigationPosition: 'right',
+                navigation: true,
+                navigationTooltips: ['01.', '02.', '03.', '04', ],
+                css3: true,
+                easing: 'easeInOutCubic',
+            });
+
+            var swiper_slide = new Swiper('.section01 .swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 50,
+                speed: 1500,
+                autoplay: true,
+                loop: true,
+                /*navigation: {
+                    nextEl: '.slide-arrow-box .next',
+                    prevEl: '.slide-arrow-box .prev',
+                },*/
+                //pagination: true,
+                pagination: { //페이징 사용자 설정                             
+                    el: ".section01 .lawyer-paging", //페이징 태그 클래스 설정		  
+                    clickable: true,
+                    // Bullet Numbering 설정
+                    renderBullet: function(index, className) {
+
+                        switch (index) {
+                        case 0:
+                            tit = "슬라이드01"
+                            number = '1';
+                            break;
+                        case 1:
+                            tit = "슬라이드02"
+                            number = '2';
+                            break;
+                        case 2:
+                            tit = "슬라이드03"
+                            number = '3';
+                            break;
+                        }
+                        html = '<div class="' + className + '">';
+                        html += '<strong>' + tit + '</strong>';
+                        html += '</div>';
+
+                        return html;
+
+                    },
+                },
+            });
+        });
+    </script>
+    <style>
+        .swiper-slide img { width: 100%; }
+        .paging-wrap {width:1200px; z-index:9; margin:0 auto; position: absolute; height: 150px; bottom:150px; left:50%; margin-left:-545px;  display:block !important;}
+        .lawyer-paging{ transform: rotate(90deg); position: absolute; right: 0; color:rgba(255,255,255,.6); font-size:16px; }
+        .lawyer-paging strong{padding:0 10px;}
+        .lawyer-paging .swiper-pagination-bullet-active{color:#ff6060}
+        .swiper-pagination-clickable .swiper-pagination-bullet {width:auto; height:auto;  background:none !important; }
+    </style>
+    <body>
+        <div class="wrap">
+            <div id="fullpage" class="container">
+                <div class="section section01">
+                    <div class="paging-wrap">
+                        <div class="lawyer-paging"></div>
+                    </div>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a href="#"><img src="../naver/images/slide_img01.jpg" alt=""></a></div>
+                            <div class="swiper-slide"><a href="#"><img src="../naver/images/slide_img02.jpg" alt=""></a></div>
+                            <div class="swiper-slide"><a href="#"><img src="../naver/images/slide_img01.jpg" alt=""></a></div>
+                        </div>
+                        <!--<div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>-->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="section section02">section02</div>
+                <div class="section section03">section03</div>
+                <div class="section section04">section04</div>
+            </div>
+        </div>
+    </body>
+    
+</html>

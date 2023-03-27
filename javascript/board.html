@@ -1,0 +1,80 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>table board</title>
+	<style>
+     
+        table{
+            width: 800px;
+            margin: 70px auto;
+            border-collapse: collapse;
+        }
+        table tr th{
+            padding: 10px;
+            border-bottom: 4px solid black;
+        }
+        table tr td{
+            padding: 10px;
+            text-align: center;
+            
+        }
+        table tr:nth-child(2n) td{
+            background-color: coral;
+        }
+        table tr:last-child td{
+            border-bottom: 4px solid black;
+        }
+        table tr th:nth-child(1){
+            width: 80px;
+        }
+        table tr th:nth-child(2){
+            width: 520px;
+        }
+        table tr th:nth-child(3), table tr th:nth-child(4){
+            width: 100px;
+        }
+    
+    </style>
+</head>
+
+<body>
+
+   <table>
+   
+    <tr>
+        <th>No.</th>
+        <th>제목</th>
+        <th>작성일</th>
+        <th>조회수</th>
+    </tr>
+    
+    <script>
+    
+        var board=" ";
+        /*
+        <tr>
+        <td>10</td>
+        <td>10번째 글 제목</td>
+        <td>10</td>
+        </tr>
+        ->10번반복
+        */
+        
+        for( var i =10; i >0; i-- ){
+            board += '<tr>';
+            board += '<td>'+ i +'</td>';
+            board += '<td>'+ i +'번째 글 제목</td>';
+            board += '<td>2019-7-'+ i +'</td>';
+            board += '<td>'+ i +'</td>';
+            board += '</tr>';
+        }
+        document.write( board );
+       
+    </script>
+    
+ </table>
+</body>
+</html>

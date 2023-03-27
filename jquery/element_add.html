@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>제이쿼리 요소의 추가</title>
+    <script>
+        /*
+            -기존 요소의 내부에 새로운 요소나 콘텐츠를 추가해주는 메소드
+            append() 
+            -선택한 요소의 '마지막'에 새로운 요소나 콘텐츠를 추가함
+
+            prepend()
+            -선택한 요소의 '처음'에 새로운 요소나 콘텐츠를 추가함
+            
+            appendTo()
+            -선택한 요소를 '해당 요소의 마지막'에 삽입함.
+            -.append()메소드와 같지만, 소스와 타켓의 위치가 서로 반대
+
+            prependTo()
+            -선택한 요소를 '해당 요소의 처음'에 삽입함
+            -prepend()메소드와 같지만 소스와 타겟의 위차가 서로 반대
+
+            html()
+            -해당요소의 html콘텐츠를 반환하거나 설정함
+
+            text()
+            -해당요소의 텍스트 콘텐츠를 반환하거나 설정함
+        */
+
+        $(document).ready( function(){
+            //append() methods
+            $('#append_btn').click( function(){
+                $('#append_list').append("<li>새로 추가된 아이템입니다.</li>");
+            });
+            //prepend() methods
+            $('#prepend_btn').click( function(){
+                $('#prepend_list').prepend("<li>새로 추가된 아이템입니다.</li>");
+            });
+
+            //appendTo() methods
+            $('#firstBtn').click( function(){
+                $('#firstItem').appendTo('#appendTo_list');
+            });
+            $('#secondBtn').click( function(){
+                $('#secondItem').appendTo('#appendTo_list');
+            });
+            $('#thirdBtn').click( function(){
+                $('#thirdItem').appendTo('#appendTo_list');
+            });
+            
+        });
+    </script>
+</head>
+<body>
+    <h1>append() 메소드</h1>
+    <ul id="append_list">
+        <li>첫번째 아이템입니다.</li>
+        <li>두번째 아이템입니다.</li>
+        <li>세번째 아이템입니다.</li>
+    </ul>
+    <button id="append_btn">아이템추가</button>
+
+    <h1>.prepend() 메소드</h1>
+    <ul id="prepend_list">
+        <li>첫번째</li>
+        <li>두번째</li>
+        <li>세번째</li>
+    </ul>
+    <button id="prepend_btn">아이템추가</button>
+
+    <h1>.appendTo() 메소드</h1>
+    <p>아래 버튼들을 왼쪽에서부터 차례대로 눌러보세요!</p>
+    
+    <ul id="appendTo_list">
+        <li id="firstItem">첫 번째 아이템입니다.</li>
+        <li id="secondItem">두 번째 아이템입니다.</li>
+        <li id="thirdItem">세 번째 아이템입니다.</li>
+    </ul>
+    <button id="firstBtn">첫 번째아이템추가</button>
+    <button id="secondBtn">두 번째 아이템 추가</button>
+    <button id="thirdBtn">세 번째 아이템 추가</button>
+
+
+    <style>
+        table { margin-top: 30px; }
+        table,tr,td { border: 2px solid red; border-collapse: collapse; }
+    </style>
+    <script>
+
+        /*
+            기존 요소의 외부에 새로운 요소나 콘텐츠를 추가해주는 메소드
+            before()
+            -선택한 요소의 '바로 앞에' 새로운 요소나 콘텐츠를 추가함
+
+            after()
+            -선택한 요소의 '바로 뒤에' 새로운 요소나 콘텐츠를 추가함
+
+            insertBefore()
+            -선택한 요소를 '해당 요소 앞에' 삽입함
+            (.before() 요소와는 같지만 source와 target의 위치는 서로 반대임)
+
+            insertAfter()
+            -선택한 요소를 '해당 요소 뒤에' 삽입함
+            (.after() 요소와는 같지만 source와 target의 위치는 서로 반대임)
+
+        */
+        $(document).ready( function(){
+            //before() 
+            //id가 #before_btn인 요소의 바로 앞에 새로운 <tr>요소를 추가함.
+            $('#before_btn').click( function(){
+                $('#firstRow').before('<tr><td>새로운 행입니다.</td></tr>');
+            });
+            $('#after_btn').click( function(){
+                $('#afterRow').after('<tr><td>새로운 행입니다.</td></tr>');
+            });
+            $('#insertBefore_btn').click( function(){
+                //#insertBefore_btn 을 클릭하면 .insertBefore('해당요소선택자')에 새로운 요소를 앞에 추가함
+                $("<td>새로운 셀입니다.</td>").insertBefore('.insertBefore_Row');
+            });
+            $('#insertAfter_btn').click( function(){
+                $("<td>새로운 셀입니다.</td>").insertAfter('.insertAfter_Row');
+            });
+
+        });
+    </script>
+
+    <h1>before() 메소드</h1>
+    <table>
+        <tr id="firstRow">
+            <td>첫번째셀</td>
+            <td>두번째셀</td>
+        </tr>
+    </table>
+    <button id="before_btn">행 추가</button>
+    
+    <h1>after() 메소드</h1>
+    <table>
+        <tr id="afterRow">
+            <td>첫번째셀</td>
+            <td>두번째셀</td>
+        </tr>
+    </table>
+    <button id="after_btn">행 추가</button>
+
+    <h1>insertBefore() 메소드</h1>
+    <table>
+        <tr>
+            <td>첫번째셀</td>
+            <td class="insertBefore_Row">두번째셀</td>
+        </tr>
+    </table>
+    <button id="insertBefore_btn">셀 추가</button>
+
+    <h1>insertAfter() 메소드</h1>
+    <table>
+        <tr>
+            <td>첫번째셀</td>
+            <td class="insertAfter_Row">두번째셀</td>
+        </tr>
+    </table>
+    <button id="insertAfter_btn">셀 추가</button>
+
+    <style>
+        div { margin: 10px; }
+        .content,.wrapAll_content,.wrapInner_content { border: 2px solid yellow; }
+        .wrapper { border: 2px solid green; }
+    </style>
+    <script>
+        /*
+            기존요소를 포함하는 요소의 추가
+            .wrap()
+            -.wrap() 메소드는 '선택한 요소'를 포함하는 새로운 요소를 추가함
+
+            .wrapAll()
+            -.wrapAll() 메소드는 '선택한 요소'를 포함하는 새로운 요소를 추가함
+            
+            .wrapInner()
+            -wrapIneer() 메소드는 '선택한 요소에 포함되는' 새로운 요소를 추가함
+        */
+
+        $(document).ready( function(){
+            $('#wrap_btn').click( function(){
+                //.content에 각각 요소에 포함하는 새로운 요소를 추가함
+                $('.content').wrap('<div class="wrapper"></div>');
+            });
+
+            $('#wrapAll_btn').click( function(){
+                //.wrapAll_content 요소를 포함하는 요소에 새로운 요소를 추가함
+                $('.wrapAll_content').wrapAll('<div class="wrapper"></div>');
+            }); 
+            $('#wrapInner_btn').click( function(){
+                //.wrapInner_content 요소를 포함하는 각각의 요소 내부에 새로운 요소를 추가함
+                $('.wrapInner_content').wrapInner('<div class="wrapper"></div>');
+            }); 
+
+
+        });
+    </script>
+    <h1>.wrap()메소드</h1>
+    <div class="content">첫 번째 컨텐츠!</div>
+    <div class="content">두 번째 컨텐츠!</div>
+    <button id="wrap_btn">div 요소 각각 추가</button>
+
+    <h1>.wrapAll() 메소드</h1>
+    <div class="wrapAll_content">첫 번째 컨텐츠!</div>
+    <div class="wrapAll_content">두 번째 컨텐츠!</div>
+    <button id="wrapAll_btn">div 요소 포함하는 요소에 추가</button>
+
+    <h1>.wrapInner() 메소드</h1>
+    <div class="wrapInner_content">첫 번째 컨텐츠!</div>
+    <div class="wrapInner_content">두 번째 컨텐츠!</div>
+    <button id="wrapInner_btn">div 요소 추가</button>
+</body>
+</html>

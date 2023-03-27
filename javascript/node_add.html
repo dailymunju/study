@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>자바스크립트 노드 생성 추가 , 삭제</title>
+    </head>
+    <script>
+        // 노드 생성
+        //  var input = document.createElement('input');
+        // 생성된 노드 속성 추가
+        //  input.setAttribute('type','text');
+        // 부모노드에 생성된 노드 추가
+        // 부모노드.appnedChild(input);
+        // HTML DOM Element를 동적으로 삭제하기 위해 사용하는 remveChild()
+
+
+        function callAppendChild() {
+            var target = document.getElementById('target');
+            var li = document.createElement('li');
+            var text = document.createTextNode('javascript');
+            li.appendChild(text);
+            li.style.color = 'red';
+            target.appendChild(li);
+        }
+
+        function callremoveChild() {
+            // var target = document.getElementById('target');
+            // target.removeChild(target.childNodes[0]);
+            var target = document.getElementById('target');
+            var child = document.querySelector('li');
+            target.removeChild(child);
+        }
+    </script>
+    <body>
+    <h1>JavaScript 를 통해서 html element 추가하기</h1>
+    <ul id="target">
+        <li>html</li>
+        <li>css</li>
+    </ul>
+    <input type="button" onclick="callAppendChild();" value="appendChild"/>
+    <input type="button" onclick="callremoveChild();" value="removeChild">
+
+        <div id="div1">
+            <p id="p1">This is a paragraph.</p>
+            <p id="p2">This is another paragraph.</p>
+        </div>
+
+        <script>
+            //removeChild() 
+            var parent = document.getElementById("div1");
+            var child = document.getElementById("p2");
+            parent.removeChild(child);
+        </script>
+            
+    </body>
+</html>

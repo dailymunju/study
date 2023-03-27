@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery 요소의 위치</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        제이쿼리 요소의 위치
+        
+        .offset() 메소드
+        -선택한 요소 집합의 첫번째 요소의 위치를 HTML문서를 기준으로 반환
+
+        .position() 메소드
+        -.offset()메소드와는 달리, 선택한 요소 집합의 첫번째 요소의 위치를 해당 요소가 웹 페이지에 위치할 때 기준이 되었던
+        부모요소를 기준(offset Parent)으로하는 상대위치를 반환함
+        -기준으로 사용되는 부모요소는 .offsetParent() 메소드를 사용하여 확인하고,
+
+        .scrollLeft() 메소드
+        -선택한 요소 집합의 첫번째 요소의 수평 스크롤 바의 현재 위치를 얻거나, 해당 요소의 수평 스크롤 위치를 인수로 전달받은 값으로 설정함
+        .scrollTop() 메소드 
+        -수직 스크롤바의 현재위치를 얻거나, 해당 요소의 수직 스크롤바의 위치를 인수로 전달받은 값으로 설정함
+    
+    */
+    $(document).ready( function(){
+        //offset()
+        $('button').click( function(){
+            var paraPosition = $('#para').offset();
+            var str = "p 요소의 위치는";
+            str += "left가 " + paraPosition.left + "픽셀이고,<br>";
+            str += "top이 " + paraPosition.top + "픽셀입니다.";
+            $('#text').html(str);
+        });
+
+        //position()
+
+
+        //scrollLeft(), scrollTop()
+        $("#btn2").click( function(){
+            var scr = "수평 스크롤 바의 현재 위치는 left 방향으로 " + $('#divBox2').scrollLeft() + '픽셀이고, <br>';
+            scr += "수직 스크롤 바의 현재 위치는 top 방향으로 " + $('#divBox2').scrollTop() + "픽셀입니다.";
+            $('#text2').html(scr);
+        });
+    });
+</script>
+<body>
+    <div id="divBox">
+        <p id="para">p 요소</p>
+    </div>
+    <button>요소의 위치 정보</button>
+    <p id="text"></p>
+    <style>
+        #divBox { width: 100px; height: 50px; border: 1px solid lightgreen; margin: 10px; }
+        #para { font-weight: bold; margin-top: 15px; }
+    </style>
+
+    <div id="divBox2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue imperdiet viverra. Donec euismod placerat gravida. Suspendisse placerat commodo lectus, sit amet malesuada libero porta ac. Phasellus egestas laoreet turpis eu fringilla. Quisquetincidunteratinurnaultrices,quiseleifendipsumvolutpat. In ultrices tortor neque, malesuada scelerisque nibh vehicula quis. In quam lacus, dictum quis consectetur in, consequat sit amet arcu. Nullam ac consequat neque.
+        Aliquam semper mollis purus vel tincidunt. Mauris vehicula dictum justo. Nullam congue, felis ut luctus gravida, nunc mi semper metus, sed vestibulum enim magna ut lacus. Pellentesque sed commodo urna. Vivamus sit amet risus ac libero facilisis consequat. Nunc volutpat in ligula id malesuada. Nullam est metus, pretium vitae rhoncus nec, eleifend id leo.
+        Quisque at condimentum ipsum. Aliquam erat volutpat. Donec hendrerit pretium leo vitae faucibus. Proin eget magna sit amet justo egestas
+    </div>
+    <br>
+    <button id="btn2">스크롤 바의 위치정보 구하기</button>
+    <p>스크롤 바를 움직인 후에 버튼을 다시 누르면 값이 나옵니다.</p>
+    <p id="text2"></p>
+    <style>
+        #divBox2 { width: 150px; height: 150px; border: 1px solid lightgray; overflow: auto; }
+    </style>
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript Call Stack</title>
+</head>
+<script>
+    /*
+        -javascript 호출 스택이 하나 -> 한 번에 한작업만 처리할 수 있음(싱글쓰레드기반언어)
+        : 프로그램상에서 어디에 있는지를 기록하는 자료구조로
+        -함수를 실행하면(실행커서가 함수안에있으면), 해당 함수는 호출 스택의 가장상단에 위치함.
+        -함수의 실행이 끝날 때 (리턴 값을 돌려줄때) 해당 함수를 호출 스택에서 제거함
+    */
+//    function multiply(x,y) {
+//        return x * y;
+//    }
+//    function printSquare(x){
+//        var s = multiply(x,x);
+//        console.log(s);
+//    }
+//    printSquare(5);
+
+   /*
+        호출 스택 Call Stack
+        -호출 스택의 각 단계를 스택 프레임(Stack Frame)이라함.
+        -> step1 : printSquare(5)
+        -> step2 : printSquare(5)  multiply(x,x)
+        -> step3 : printSquare(5)  console.log(s)
+        -> step4 : printSquare(5) 
+
+        보통 예외가 발생했을 떄 콘솔 로그 상에서 나타나는 스택 트레이스가 오류가 발생하기까지의
+        스택 트레이스들로 구성됨 -> 에러가 났을때 호출스택의 단계를 의미
+   */
+//    function foo(){
+//        throw new Error('SessionStack will help you resolve crashes');
+//    }
+//    function bar(){
+//        foo();
+//    }
+//    function start(){
+//        bar();
+//    }
+//    start();
+   //호출스택이 최대크기가 되면 '스택날려버리기'가 일어남. 반복문코드를 광범위하게 테스트하지 않고 실행하면발생함
+
+   function foo(){
+   }
+   foo();
+   //위 코드를 실행하면foo()에 의해서 foo함수가 호출되는데, foo함수가 반복적으로 자기자신을 다시호출하는 재귀호출을 수행함 ->실행할때마다 호출스택에foo()가쌓임.
+
+   
+//모르겠음 21-04-01
+</script>
+<body>
+    
+</body>
+</html>

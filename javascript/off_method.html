@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!--jquery-->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+
+    <script>
+        /*
+            이벤트 제거 메서드
+            off() -> on() 메소드로 등록한 이벤트 제거
+            unbind() -> bind() 메소드로 등록한 이벤트 제거
+            undelegate() -> delegate() 메소드로 등록한 이벤트 제거
+        */
+
+        
+        $(function(){
+            $('.btn_1').on('mouseover', function(){
+                alert('HELLO');
+            });
+
+            $(document).on('mouseover','.btn_2',function(){
+                alert('WELLCOME');
+            }); 
+
+            var btn_2 = $('<p><button class=\"btn_2"\'>버튼2</button></p>');
+            $('#wrap').append(btn_2);
+
+            $('.del_1').on('click',function(){
+                $('.btn_1').off('mouseover');
+            });
+
+            $('.del_2').on('click',function(){
+                $(document).off('mouseover','.btn_2');
+            });
+            
+        });
+        
+
+    </script>
+    <body>    
+        <div id="wrap">
+            <p><button class="btn_1">버튼1</button></p>
+        </div>
+
+        <p>
+            <button class="del_1">버튼1 이벤트 해제</button>
+            <button class="del_2">버튼2 이벤트 해제</button>
+        </p>
+
+    </body>
+</html>

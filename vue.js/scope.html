@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>vueJS 유효범위</title>
+    </head>
+    <body>
+        <div id="app">
+            <my-component1></my-component1>
+            <my-component2></my-component2>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //첫번째 컴포넌트 내용
+        var cmp1 = {
+            template: '<div>첫 번째 지역 컴포넌트: {{ cmp1Data }}</div>',
+            data: function(){
+                return {
+                    cmp1Data: 100
+                }
+            }
+        };
+
+        var cmp2 = {
+            template: '<div>두번째 지역 컴포넌트: {{ cmp2Data }}</div>',
+            data: function(){
+                return {
+                    cmp2Data : cmp1.data.cmp1Data
+                }
+            }
+        }
+
+        new Vue({
+            el: '#app',
+            components: {
+                'my-component1' : cmp1,
+                'my-component2' : cmp2
+            }
+        })
+
+
+        /*
+            {{ cmp2Data }}에 아무것도 출력되지 않는 이유는 my-component2에서 my-component1의 값을 직접 참조할 수 없기때문이다.
+            컴포넌트는 각각 고유한 유효범위를 가지고 있기 때문에 직접 다른 컴포넌트의 값을 참조할 수 없다.
+            따라서 뷰 프레임워크 자페에서 정의한 컴포넌트 데이터 전달 방식을 따라야하는데
+            기본적으로 상위(부모)-하위(자식) 컴포넌트 간의 데이터 전달 방법이 있다
+            -상위에서 하위로는 이벤트만 전달할 수 있고, props라는 특별한 속성을 전달한다
+        */
+
+    </script>
+</html>

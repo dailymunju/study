@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+	body {font-family: Arial; }
+	ul { list-style: none; }
+	.tab { overflow: hidden; border: 1px solid #ccc; background-color: #fdc7c7;}
+	.tab button { background-color: inherit; float: left; border: none; outline: none; cursor: pointer; padding: 14px 16px; transition: 0.3s; font-size: 17px; }
+	.tab button:hover { background-color: #ff7c7c; color: white;} 
+	.menu_active { color:#ffffff; background-color: red; }
+	.tab button.active { background-color: #ccc;}
+	.tabcontent { display: none; padding: 6px 12px; border: 1px solid #ccc; border-top: none;}
+	.tab_active {display:block;}
+
+	</style>
+	</head>
+	<body>
+
+	<h2>Tab menu</h2>
+	<div class="tab">
+	<button class="tablinks menu_active" chk = "London" >카테고리</button>
+	<button class="tablinks" chk = "Paris">마이페이지</button>
+	<button class="tablinks" chk = "Tokyo">오늘본상품</button>
+	</div>
+
+	<div id="London" class="tabcontent tab_active">
+		<ul>
+			<li>123</li>
+			<li>123</li>
+			<li>123</li>
+		</ul>
+	</div>
+
+	<div id="Paris" class="tabcontent">
+		<ul>
+			<li>패션</li>
+			<li>뷰티</li>
+			<li>생활가전</li>
+			<li>식품</li>
+			<li>건강</li>
+			<li>인테리어</li>
+			<li>집화</li>
+			<li>생활용품</li>
+			<li>기타</li>
+		</ul>
+	</div>
+
+	<div id="Tokyo" class="tabcontent">
+		<ul>
+			<li>333</li>
+			<li>333</li>
+			<li>333</li>
+			<li>333</li>
+		</ul>
+	</div>
+
+	<script>
+
+		$("document").ready(function(){
+			$(".tablinks").each(function(){
+				$(this).click(function(){
+
+					$(".tablinks").removeClass("menu_active");
+					$(this).addClass("menu_active");
+					$(".tabcontent").removeClass("tab_active");
+
+					$(".tabcontent").css("display", "none");
+					var chk = $(this).attr("chk");
+					$("#" + chk).css("display", "block");
+					
+				});
+			});
+		});
+		</script>
+
+	<div id="Paris" class="tabcontent">
+		<ul>
+			<li>마이페이지</li>
+			<li>주문내역</li>
+			<li>검진예약내역</li>
+			<li>쿠폰존</li>
+			<li>FAQ</li>
+			<li>1:1문의</li>
+			<li>개인결제</li>
+			<li>세일상품</li>
+		</ul>
+	</div>
+
+	<div id="Tokyo" class="tabcontent">
+	없음
+	</div>
+
+
+	
+	</body>
+</html> 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>vueJS 이벤트 버스 구현</title>
+    </head>
+    <body>
+        <div id="app">
+            <child-component></child-component>
+        </div>
+
+        <div id="app2">
+            <siblings-component></siblings-component>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        /*
+            이벤트버스 형식 
+
+            -이벤트 버스를 활용해서 중간컴포넌트들을 거치지 않고 바로 상위 컴포넌트로 데이터 전달위함
+            -로직을 담는 인스턴스와는 별개로 새로운 인스턴스를 1개 생성하고, 새인스턴스를 이용하여
+            이벤트를 보내고 받는다. 보내는 컴포넌트에는 .$emit(),받는 컴포넌트에는 .$on()을 넣는다
+
+            var eventBus = new Vue();
+
+            methods:{
+                메서드명: function(){
+                    eventBus.$emit('이벤트명',데이터);
+                }
+            }=>이벤트를 보내는 컴포넌트
+
+            methods: {
+                created: function(){
+                    eventBus.$on('이벤트명',function(데이터){
+
+                    });
+                }
+            }=>이벤트를 받는 컴포넌트
+
+            이벤트 버스를 활용하면 props속성을 활용하지 않고도 원하는 컴포넌트 간에 데이터를 직접적으로 전달할 수 있어 편리함 
+
+        */
+        
+        var eventBus = new Vue(); //이벤트버스로 활용할 인스턴스 1개 생성
+
+        //하위컴포넌트에는 template속성과 methods속성을 정의하고,triggerEventBus이벤트 발생 로직추가-받는 쪽의 인자값으로 100이 출력되게 함
+        Vue.component('child-component',{
+            template : '<div>하위컴포넌트 영역입니다. <button v-on:click="showLog">show</button></div>',
+            methods: {
+                showLog: function(){
+                    //이벤트발행
+                    eventBus.$emit('triggerEventBus',100);
+                }
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            created : function(){
+                //이벤트구독
+                eventBus.$on('triggerEventBus',function(value){
+                    console.log('이벤트를 전달받음.전달받은 값:',value);
+                });
+            }
+        });
+
+
+        var add = new Vue(); //비어있는 Vue 인스턴스 생성후 데이터를 전달하는 데 사용함
+
+        //데이터를 주고자 하는 컴포넌트에서는 $emit(이벤트전송)을 사용하여 eventBus객체에 값을 넣어줌
+        //siblings-component라는 전역컴포넌트 등록하고 인라인템플릿으로 작성된 텍스틑에 의해 버튼을 클릭하면 이벤트 버스의 $emit으로 이벤트를 발생시킴
+        Vue.component('siblings-component',{
+            template: '<div>이벤트버스만들기 <button v-on:click="choe">choe</button></div>',
+            methods: {
+                choe: function(){
+                    add.$emit('triggerEventBus',200);
+                }
+            }
+        });
+
+        /*
+        데이터를 받고자 하는 컴포넌트는 vue인스턴스가 생성될 때 creadted훅으로 미리 이벤트 핸들러를 등록해 놓고 데이터가 오면 methods에 정의한 변수로 전달하게 됨
+        이벤트를 감지하는 $on을 이용
+        */
+        var app2 = new Vue({
+            el: '#app2',
+            created: function(){
+                add.$on('triggerEventBus',function(value){
+                    console.log('이벤트를 전달 받습니다. 전달받은 값:',value);
+                });
+            }
+        });
+        
+    </script>
+</html>

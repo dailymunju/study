@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생성자함수 this 바인딩</title>
+</head>
+<script>
+    /*
+        javascript 객체 생성방벙
+        1. 리터럴 방식
+        2. 생성자함수 
+
+        2) 생성자함수는 javascript의 객체를 생성하는 역할을 하는데, 
+         2-1) 기존 함수에 new연산자를 붙여서 호출하면 해당함수는 생성자 함수로 동작한다.
+         2-2) 함수이름의 첫 문자는 대문자로 쓰는 것을 권하고 있다.
+
+        --동작방식
+        1. 빈객체 생성 및 this바인딩
+        생성자 함수 코드가 실행되기 전 빈객체가 생성 됨, 생성한 객체는 this로 바인딩 되는데, 
+        이후 생성자 함수의 코드 내부에서 사용된 this는 빈 객체를 가리킨다. 
+
+    */
+
+    //Person() 생성자 함수
+    var Person = function() {
+        //함수 코드 실행 전
+        this.name = name;
+        //함수리턴
+       //this가 가리키는 빈객체에 name이라는 동적 프로퍼티를 생성
+    }
+    /*
+        Person() 함수를 생성자로 호출되면, 함수코드가 실행되기 전에 빈객체가 생성된다. 
+        빈 객체는 Person() 생성자함수의 prototype 프로퍼티가 가리키는 객체를 링크로 연결해서 자신의 프로토타입으로
+        설정한다. -> this로 바인딩 됨 
+    */
+
+    var foo = new Person('foo');
+    //리턴값이 없으므로, this로 바인딩한 객체가 생성자 함수의 리턴값으로 반환돼서 foo변수에 저장된다
+    //foo객체->객체 리터럴 방식
+    console.log(foo.name); //foo출력
+
+    var lee = {
+        name: 'lee nu',
+        age: 35,
+        gender: 'man'
+    };
+    console.dir(lee);
+
+    
+</script>
+<body>
+    
+</body>
+</html>

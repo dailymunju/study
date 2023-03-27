@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>쇼핑몰 카트 스크립트 작성</title>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="../js/COMMON.js"></script>
+        <link rel="stylesheet" href="../css/default.css">
+    </head>
+    <style type="text/css">
+        .wrap { width: 100%; max-width: 1400px; margin: 60px auto 0 auto; }
+        .t_center { text-align: center; }
+        .w10per { width: 10%; }
+        .table_title { margin-bottom: 20px; }
+        .table_title h1 { float: left;  }
+        .table_title span { float: right; font-size: 2em; font-weight: 600; }
+        .table_title::after { content: ''; display: block; overflow: hidden; clear: both; }
+
+        .wrap .cart_left table  { border-collapse: collapse; border-spacing: 0; }
+        .wrap .cart_left table td { border-bottom: 1px solid rgb(209, 209, 209); font-size: 14px;  overflow: hidden; padding: 10px 5px; word-break: normal; }
+        .wrap .cart_left table th { border-top: 1px solid #333; border-bottom: 1px solid #e0dede; font-size: 14px; font-weight: normal; overflow: hidden; padding: 10px 5px; word-break: normal; }
+        .wrap .cart_left table th:first-child { width: 5%; }
+        .wrap .cart_left table .other { text-align: center; vertical-align: top; }
+        .wrap .cart_left table .first { width: 34%; text-align: left; vertical-align: top; }
+        .wrap .cart_left table .first img { float: left; width: 180px; margin-right: 110px; }
+        .wrap .cart_left table .first ul { float: left; }
+        .wrap .cart_left table::after { content: ''; display: block; overflow: hidden; clear: both; }
+        .wrap .cart_left table .first ul li { margin-bottom: 10px; }
+        .wrap .cart_left table .first::after { content: ''; display: block; overflow: hidden; clear: both; }
+
+        .qty { position: relative; display: inline-block; width: 50px; margin: 0 1px 0 0; text-align: left; }
+        .qty input[type="text"] { width: 22px; height: 23px; padding: 0 0 0 5px; line-height: 25px; border: 1px solid #d4d8d9; border-radius: 3px 0 0 3px;  color: #353535; font-size: 12px; }
+        .qty .plus { position: absolute; left: 27px; top: -6px; }
+        .qty .minus { position: absolute; left: 27px; bottom: -1px; }
+
+        .cart_bottom table { margin-top: 30px; }
+        .cart_bottom table tr th { height: 30px; font-size: 17px; font-weight: 600; border-top: 1px solid #333; border-bottom: 1px solid #ddd;  padding: 10px 5px; }
+        .cart_bottom table tr td { padding: 10px 5px; font-size: 18px; }
+        .change_btn { transition: .3s; cursor: pointer; border: 1px solid rgb(199, 199, 199); color: #333; background-color: white; width: 100px; font-size: 13px; padding: 3px; margin-top: 10px; }
+        .change_btn:hover { background-color: rgb(235, 235, 235); transition: .3s; }
+        .order_btn { background-color: #565656;  color: white; }
+        .btn_area li button { width: 100px; padding: 7px 14px; font-size: 13px; margin-bottom: 6px; cursor: pointer; } 
+        .btn_area li:last-child button { margin-bottom: 0; }
+        .cart_wrap .next_btn { margin-top: 80px;}
+        .cart_wrap .next_btn button { width: 200px; background-color: #727272; padding: 15px 10px; font-size: 16px; color: white; }
+        .cart_wrap .next_btn button.all_order_btn { margin-right: 10px; }
+        .all_delete { margin-top: 10px; }
+        .all_delete_btn  { background-color: #ffa089; padding: 10px 14px; font-size: 14px; color: white; cursor: pointer; }
+    </style>
+    <body>
+        <div class="wrap">
+            <!--cart_wrap {-->
+            <div class="cart_wrap">
+
+                <!--cart_left {-->
+                <div class="cart_left">
+                    <div class="table_title">
+                        <h1>shopping Cart</h1>
+                        <span>3 Items</span>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="pd_all_input" name="pr_price"></th>
+                                <th class="first">상품정보</th>
+                                <th class="other">수량</th>
+                                <th class="other">판매가</th>
+                                <th class="other">배송비</th>
+                                <th class="other">합계</th>
+                                <th class="other w10per">선택</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="first_check t_center">
+                                    <input type="checkbox" name="chk[]" pd_price="12000" amount="1" class="each_chk" >
+                                </td>
+
+                                <td class="first">
+                                    <img src="http://recovershop.co.kr/uploads/images/product/640/20210705151136_1625465496326921.jpg" alt="상품이미지">
+                                    <ul>
+                                        <li>상품명 : 맥심모카골드 1BOX</li>
+                                        <li>옵션 <span class="option_btn">할인특가1+1</span></li>
+                                        <li><button class="change_btn">옵션변경</button></li>
+                                    </ul>
+                                </td>
+                                
+                                <td class="other">
+                                    <span class="qty">
+                                        <input id="cnt" class="cnt_input" value="1" type="text">
+                                        <a href="javascript:;" class="plus"><img src="https://img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif" alt="수량증가"></a>
+                                        <a href="javascript:;" class="minus">
+                                            <img src="https://img.echosting.cafe24.com/skin/base/common/btn_quantity_down.gif" alt="수량감소">
+                                        </a>
+                                    </span>
+                                </td>
+
+                                <script>
+                                    $(document).ready( function(){
+
+                                        var total_price = 0;
+                                        var pd_check = [];
+                                        var qty = [];
+                                        var chkBox = [];
+                                        var product_price = [];
+                                        var each_price = [];
+                                        var each_product_price = 0;
+                                        var deliveryPrice = 3000;
+                                        var deliveryChkPrice = 29999;
+                                        var chkBoxCnt = 0;
+                                        
+                                        //수량 숫자 1로 항상 초기화
+                                        $('#cnt').val(1);
+                                        //체크박스 체크 초기화
+                                        $('input:checkbox').prop("checked", false);
+
+                                        //전체선택체크박스 하면 해야할 일
+                                        $('#pd_all_input').click( function(){
+                                            //배열 초기화
+                                            pd_check = [];
+                                            qty = [];
+                                            check_box = [];
+                                            product_price = [];
+                                            total_price = [];
+                                            each_product_price = 0; 
+
+                                            //전체체크박스가 체크(prop 상태)가 되면 해야할 일 
+                                            if($('#pd_all_input').prop('checked')){
+                                                
+                                                //각각의 체크박스도 체크드 true
+                                                $('input:checkbox[name="chk[]"]').prop('checked',true);
+
+                                                //각각의 체크박스도 각자 해야할 일 
+                                                $('input:checkbox[name="chk[]"]').each(function(i){
+                                                    check_box[i] = i;
+                                                    //parseInt 문자열 -> 숫자로 변환, 숫자만 추출
+                                                    product_price[i] = parseInt(COMMON.form.str_num($(".product_price").eq(i).text()));
+                                                    //각각의 수량의 value값을 숫자만 추출
+                                                    qty[i] = parseInt(COMMON.form.str_num($('.cnt_input').eq(i).val()));
+
+                                                    //각각의 가격은 상품 * 수량
+                                                    each_price[i] = (product_price[i] * qty[i]);
+
+                                                    //상품 각각의 가격의 합은 -> 상품 * 수량한것을 더한것 
+                                                    each_product_price += each_price[i];
+                                                    
+                                                    //총상품금액의 text는 상품 각각의 합에 콤마를 찍어서 넣는다.
+                                                    $('.only_p_price').text(COMMON.form.comma(each_product_price));
+                                                    
+                                                    if(each_product_price > deliveryChkPrice){
+                                                        //상품가격이 29999보다 크면 배송비 더하지 않고 총합이랑 같음 (3만원이상일경우에는 배송비 0원)
+                                                        total_price = each_product_price;
+                                                        
+                                                        //총배송비에 배송비 0원으로 출력함
+                                                        $('.etc_price').text(COMMON.form.comma(0));
+
+                                                    }else {
+                                                        //상품가격이 29999보다 작으면(크지않으면) 총합계 = 총상품가격 + 배송비
+                                                        total_price = each_product_price + deliveryPrice;
+                                                        //배송비 총합에 3000원 대입
+                                                        $('.etc_price').text(COMMON.form.comma(deliveryPrice));
+                                                    }
+                                                    //총합출력
+                                                    $('.total_price').text(COMMON.form.comma(total_price));
+                                                });
+                                                
+                                            }else{ //전체체크박스가 체크되지 않은 상태가 되면 해야할 일
+                                                pd_check = [];
+                                                qty = [];
+                                                chkBox = [];
+                                                product_price = [];
+                                                each_price = [];
+                                                total_price = 0;
+                                                each_product_price = 0;
+                                                //전체체크박스가 체크되지 않으면 각각 체크박스 false uncheked
+                                                
+                                                $('input:checkbox[name="chk[]"]').prop("checked",false);
+                                                $('.only_p_price, .etc_price, .total_price').text(COMMON.form.comma(total_price));
+                                            }
+                                        });
+
+                                        //각각상품의 체크박스 
+                                        $('input:checkbox[name="chk[]"]').each(function(i){
+                                            //각각의 체크박스를 클릭했을 때 해야할 일 
+                                            $(this).click( function(){
+                                                //총합 초기화
+                                                total_price = 0;
+                                                //전체체크박스 unchecked
+                                                $('#pd_all_input').prop('checked',false);
+                                                chkBox[i] = $(this).is(":checked");
+
+                                                //각각 상품의 가격을 숫자로 추출하여 상품가격배열에 넣기
+                                                product_price[i] = parseInt(COMMON.form.str_num($(".product_price").eq(i).text()));
+                                                //각각상품의 수량(value값)을 숫자로 추출하여 상품수량 배열에 넣기
+                                                qty[i] = parseInt(COMMON.form.str_num($(".cnt_input").eq(i).val()));
+                                                //각각상품의 가격 = 상품가격배열 * 상품수량
+                                                each_price[i] = product_price[i] * qty[i];
+                                                
+                                                //각각의상품들이 체크됐다는 배열이 사실이면
+                                                if(chkBox[i] == true){
+                                                    //each_product_price = each_product_price + each_price[i]
+                                                    //상품각각의가격의 총합 = 상품각각의총합 + 각각상품의가격 
+                                                    each_product_price += each_price[i];
+                                                }else{
+                                                    //체크가 되지 않았다면
+                                                    //상품각각의가격의 총합 = 상품각각의총합 - 각각상품의가격
+                                                    each_product_price -= each_price[i];
+                                                    //각각상품의 가격이 들어있는 배열은 0 (체크되지 않았으므로 0)
+                                                    each_price[i] = 0;
+                                                }
+
+                                                //상품가격의총합에다가 상품각각의가격을 더한 총합을 넣는다.
+                                                $('.only_p_price').text(COMMON.form.comma(each_product_price));
+                                                
+                                                //만약 각각의상품을 더한 가격의총합이 29999보다 크다면, (배송비가 없음)
+                                                if(each_product_price > deliveryChkPrice) {
+                                                    //배송비가 없으므로 총합가격은 각각상품의가격의 합과 같다
+                                                    total_price = each_product_price;
+                                                    //총합은 각각의상품을 더한가격의 총합과 같은데, 29999보다 크므로 배송비 0원을 넣는다.
+                                                    $('.etc_price').text(COMMON.form.comma(0));
+
+                                                }else { //만약 각각의 상품을 더한 가격의총합이 29999보다 작다면, (배송비있음)
+
+                                                    //체크박스배열이 true일경우
+                                                    if(chkBox[i] == true){  
+                                                        //총합은 각각의상품을더한합의가격과 똑같은데 만약 배송비보다 그값이 크다면
+                                                        total_price = each_product_price;
+
+                                                        //만약 총합 > 29999
+                                                        if(total_price > deliveryChkPrice) {
+                                                            //총합 = 총합 - 3000
+                                                            total_price -= deliveryPrice;
+                                                            //배송비는 0원 
+                                                            $(".etc_price").text(COMMON.form.comma(0));
+                                                        } else { //총합이 29999보다 작다면
+                                                            //총합 = 총합 + 3000
+                                                            total_price += deliveryPrice;
+                                                            //배송비는 3000원
+                                                            $(".etc_price").text(COMMON.form.comma(deliveryPrice));
+                                                        }
+                                                    }else {
+
+                                                        total_price = each_product_price;
+                                                        //총합 > 29999
+                                                        if(total_price > deliveryChkPrice){
+                                                            total_price -= deliveryPrice;
+                                                            $(".etc_price").text(COMMON.form.comma(0));
+                                                        } else { 
+                                                            //총합 < 29999
+                                                            if(total_price != 0){
+                                                                //만약 총합이 0이 아닌경우에는
+                                                                //총합 = 총합 + 3000
+                                                                total_price += deliveryPrice;
+                                                            }
+                                                            $(".etc_price").text(COMMON.form.comma(deliveryPrice));
+                                                        }
+                                                    }
+                                                    //만약 총합 = 0인경우에는 배송비도 0원
+                                                    if(total_price == 0) {
+                                                        $(".etc_price").text(COMMON.form.comma(0));
+                                                    }
+                                                }
+                                                // 총합 넣기
+                                                $(".total_price").text(COMMON.form.comma(total_price));
+                                            });
+                                        });
+                                        
+                                        //plus 클릭시 각각 해야할 일
+                                        $('.plus').each( function(i){
+                                            $(this).click( function(){
+                                                //총합은 무조건초기화
+                                                total_price = 0;
+                                                //각각의가격을 담은 배열도 초기화
+                                                each_price[i] = 0;
+                                                each_product_price = 0;
+                                                $('.each_chk').eq(i).prop("checked",true);
+                                                chkBox[i] = $('.each_chk').eq(i).is(":checked");
+
+                                                //수량
+                                                //각각의 input의 value값을 숫자로 바꿔서 배열에 넣는다.
+                                                qty[i] = parseInt($('.cnt_input').eq(i).val());
+                                                //각각의 제품가격배열 숫자만 추출해서 각각text에 넣는다.
+                                                product_price[i] = parseInt(COMMON.form.str_num($('.product_price').eq(i).text()));
+                                                //수량 1만큼 증가
+                                                qty[i] += 1;
+                                                
+                                                $('.cnt_input').eq(i).val(qty[i]);
+                                                //각각가격의배열은 = 상품가격배열 곱하기 수량
+                                                each_price[i] = (product_price[i] * qty[i]);
+                                                // console.log(chkBox.length);
+
+                                                //상품갯수만큼 반복문 돌림
+                                                for(var k = 0; k < chkBox.length; k++ ){
+                                                    console.log(each_price[k]);
+                                                    
+                                                    if(each_price[k] == "undefined" || each_price[k] == null){
+                                                        each_price[k] = 0;
+                                                    }
+                                                    each_product_price += each_price[k];
+                                                }
+
+                                                $('.only_p_price').text(COMMON.form.comma(each_product_price));
+
+                                                //만약 각각의 상품가격의 합이 29999보다 크면 
+                                                if(each_product_price > deliveryChkPrice) {
+                                                    total_price = each_product_price;
+                                                    //총합 = 상품가격, 배송비는 0 대입
+                                                    $('.etc_price').text(COMMON.form.comma(0));
+                                                }else {
+                                                    //총합 = 상품가격 + 배송비
+                                                    total_price = each_priduct_price + deliveryPrice;
+                                                    $('.etc_price').text(COMMON.form.comma(deliveryPrice));
+                                                }
+                                                $('.total_price').text(COMMON.form.comma(total_price));
+                                            });
+                                        });
+
+                                        $(".minus").each(function(i){
+                                            $(this).click(function(){
+
+                                                total_price = 0;
+                                                each_price[i] = 0;
+                                                each_product_price = 0;
+                                                //checkbox checked true
+                                                $(".each_chk").eq(i).prop("checked", true);
+                                                chkBox[i] = $(".each_chk").eq(i).is(":checked");
+
+                                                //amount plus
+                                                qty[i] = parseInt($(".cnt_input").eq(i).val());
+                                                product_price[i] = parseInt(COMMON.form.str_num($(".product_price").eq(i).text()));
+                                                qty[i] -= 1;
+
+                                                if(qty[i] > 0){
+                                                    $(".cnt_input").eq(i).val(qty[i]);
+
+                                                    each_price[i] = (product_price[i] * qty[i]);
+
+                                                    for(var k = 0; k < chkBox.length; k++){
+                                                        if(each_price[k] == "undefined" || each_price[k] == null){
+                                                            each_price[k] = 0;
+                                                        }
+                                                        each_product_price += each_price[k];
+                                                    }
+
+                                                    $(".only_p_price").text(COMMON.form.comma(each_product_price));
+
+                                                    if(each_product_price > deliveryChkPrice){
+                                                        total_price = each_product_price;
+                                                        $(".etc_price").text(COMMON.form.comma(0));
+                                                    }else {
+                                                        total_price = each_product_price + deliveryPrice;
+                                                        $(".etc_price").text(COMMON.form.comma(deliveryPrice));
+                                                    }
+
+                                                    $(".total_price").text(COMMON.form.comma(total_price));
+
+                                                }else{
+                                                    qty[i] = 1;
+                                                    $(".cnt_input").eq(i).val(qty[i]);
+
+                                                    each_price[i] = (product_price[i] * qty[i]);
+
+                                                    for(var k = 0; k < chkBox.length; k++){
+                                                        if(each_price[k] == "undefined" || each_price[k] == null){
+                                                            each_price[k] = 0;
+                                                        }
+                                                        each_product_price += each_price[k];
+                                                    }
+
+                                                    $(".only_p_price").text(COMMON.form.comma(each_product_price));
+
+                                                    if(each_product_price > deliveryChkPrice){
+                                                        total_price = each_product_price;
+                                                        $(".etc_price").text(COMMON.form.comma(0));
+                                                    }else {
+                                                        total_price = each_product_price + deliveryPrice;
+                                                        $(".etc_price").text(COMMON.form.comma(deliveryPrice));
+                                                    }
+
+                                                    $(".total_price").text(COMMON.form.comma(total_price));
+                                                    alert("최소구매 수량은 1개 입니다.");
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+
+                                <td class="other">
+                                    <div class="cart_table t_center cart_price">
+                                        <span class="product_price">10,000</span>원
+                                    </div>
+                                </td>
+
+                                <td class="other">
+                                    <span class="deli_price">3,000</span>원
+                                </td>
+                                
+                                <td class="other">
+                                    <span class="each_p_price">13,000</span>원
+                                </td>
+
+                                <td class="other">
+                                    <ul class="btn_area">
+                                        <li><button class="order_btn">주문하기</button></li>
+                                        <li><button class="dibs_btn">관심상품등록</button></li>
+                                        <li><button class="delete_btn">삭제하기</button></li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="first_check t_center">
+                                    <input type="checkbox" name="chk[]" pd_price="12000" amount="1" class="each_chk" >
+                                </td>
+
+                                <td class="first">
+                                    <img src="http://recovershop.co.kr/uploads/images/product/640/20210705151136_1625465496326921.jpg" alt="상품이미지">
+                                    <ul>
+                                        <li>상품명 : 맥심모카골드 1BOX</li>
+                                        <li>옵션 <span class="option_btn">할인특가1+1</span></li>
+                                        <li><button class="change_btn">옵션변경</button></li>
+                                    </ul>
+                                </td>
+                                
+                                <td class="other">
+                                    <span class="qty">
+                                        <input type="text" id="cnt" class="cnt_input" value="1">
+                                        <a href="javascript:;" class="plus"><img src="https://img.echosting.cafe24.com/skin/base/common/btn_quantity_up.gif" alt="수량증가"></a>
+                                        <a href="javascript:;" class="minus">
+                                            <img src="https://img.echosting.cafe24.com/skin/base/common/btn_quantity_down.gif" alt="수량감소">
+                                        </a>
+                                    </span>
+                                </td>
+
+                                <td class="other">
+                                    <div class="cart_table t_center cart_price">
+                                        <span class="product_price">20,000</span>원
+                                    </div>
+                                </td>
+
+                                <td class="other">
+                                    <span class="deli_price">3,000</span>원
+                                </td>
+                                
+                                <td class="other">
+                                    <span class="each_p_price">23,000</span>원
+                                </td>
+
+                                <td class="other">
+                                    <ul class="btn_area">
+                                        <li><button class="order_btn">주문하기</button></li>
+                                        <li><button class="dibs_btn">관심상품등록</button></li>
+                                        <li><button class="delete_btn">삭제하기</button></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+
+                    <div class="all_delete">
+                        <button class="all_delete_btn">전체삭제하기</button>
+                    </div>
+                </div>
+                <!--} cart_left-->
+                
+                <!--cart_bottom {-->
+                <div class="cart_bottom">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>총 상품금액</th>
+                                <th>총 배송비</th>
+                                <th>결제예정금액</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="t_center">
+                                    <span class="only_p_price">0</span>원
+                                </td>
+                                
+                                <td class="t_center">
+                                    <span class="etc_price" del_pr="3000">0</span> 원
+                                </td>
+
+                                <td class="t_center">
+                                    <span class="total_price cart_sum_price">0</span>원
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--} cart_bottom-->
+         
+                <div class="next_btn t_center">
+                    <button class="all_order_btn">전체상품주문</button>
+                    <button class="choice_order_btn">선택상품주문</button>
+                </div>
+            </div>
+            <!--} cart_wrap-->
+        </div>
+    </body>
+</html>

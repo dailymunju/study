@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript 복습하기</title>
+</head>
+<script>
+    /*
+        -자바스크립트 타입
+        1. Number - 실수, 부동소수점 64비트(double)
+        2. String -문자열
+        3. Boolean - True, False
+        4. undefined - 변수에 값이 할당되지 않을 때, 인터프리터가 undefined로 할당. 값이자 타입
+        5. null - 개발자가 의도적으로 할당하는 값, typeof값이 Object로 반환, 따라서 ===로 확인
+    
+    */
+    
+    //typeof 연산자
+
+    var num = 10;
+    var str = "a";
+    var boolean = true;
+    var obj = {};
+    var undefined;
+    var nullValue = null;
+    var arr = [];
+    function func() {};
+
+    console.log(typeof num);            //number
+    console.log(typeof str);            //string
+    console.log(typeof boolean);        //boolean
+    console.log(typeof obj);            //object
+    console.log(typeof undefined);      //undefined
+    console.log(typeof nullValue);      //object - null 은 object
+    console.log(typeof arr);            //object - 배열도 object
+    console.log(typeof func);           //function
+
+    var nullCheck = null;
+    console.log(typeof nullCheck === null); //false
+    console.log(nullCheck === null); //true
+
+    /*
+     * ==연산자와 ===연산자
+     * 차이점: 값뿐만 아니라 타입까지 체크
+     * ==는 수행시에 타입이 다를 경우 타입을 일치 시켜 값을 비교함, ==같은지, ===완전같은지비교
+    */
+    console.log(1 == '1');  //true 
+    console.log(1 === '1'); // false
+
+    /*
+        -참조타입(객체 타입)
+        1. Object
+        2. Array - 배열 객체로 취급
+        3. Function - 함수 객체로 취급
+
+    */
+
+    /*
+        NaN (Not a Number)
+        - 수치 연산을 해서 정상적인 값을 얻지 못할 때 발생하는 에러
+    */
+    console.log( 1 - 'hello'); // NaN
+
+    var foo = {
+        name: 'foo',
+        major: 'cs'
+    };
+    
+    foo['full-name'] = 'ffoo';
+    console.log(foo['full-name']); //'ffoo'
+    console.log(foo.full-name); //NaN, 프로퍼티명이 연산자를 포함할 경우
+
+    //객체의 모든 연산은 참조 값을 처리함.
+    var a = 10;
+    var b = 10;
+
+    var objA = {
+        value : 100
+    };
+
+    var objB = {
+        value : 100
+    };
+    var objC = objB;
+
+    console.log( a == b );
+    console.log( objA == objB );
+    console.log( objB == objC );
+
+    //delete 연산자 : 객체 프로퍼티를 삭제하는 기능, 객체 삭제는 불가능
+    var foo = {
+        name: 'foo',
+        nickname: 'pang'
+    };
+    delete foo.nickname;
+    console.log(foo.nickname); //undefined
+    console.log(foo.name); // foo
+
+    //delete & splice 연산자 in 배열
+    //배열에서 delete를 사용하면 요소의 값만 undefined로 변경하고, 해당요소 index를 지우지는 않음.
+    var array = [1,2,3];
+    delete array[1]; // [1,empty,3]
+    console.log(array);
+
+    //반대로 splice는 해당요소 전체를 아예 잘라내서 없앰
+    // array.splice(1,1);
+    // console.log(array);
+
+    //함수의 length속성
+    function func1(a){ return a; }
+    function func2(a,b){ return a + b; }
+    function func3(a,b,c){ return a + b + c; }
+
+    console.log('func1 length :' + func1.length);  //func1 length : 1
+    console.log('func2 length :' + func2.length);  //func1 length : 2
+    console.log('func3 length :' + func3.length);  //func1 length : 3
+
+    //내부함수 -함수의 내부에 정의한 함수
+    function parent(){
+        var a = 10;
+        var b = 20;
+        function child(){
+            var b = 30;
+            console.log(a);
+            console.log(b);
+        }
+        child();
+    }
+    parent(); // 10, 30
+    //child();  child is not defined
+
+    //생성자함수 - 일반 객체 선언과 다르게 여러개의 객체를 찍어낼 수 있는 함수 (함수명 맨앞글자 대문자, 호출시 new사용)
+    function Developer(name,stack,city){
+        this.name = name;
+        this.stack = stack;
+        this.city = city;
+    }
+    var dev = new Developer('captin','web','pang');
+    var devops = new Developer('a','b','c');
+    console.log(dev);
+    console.log(devops);
+
+    //전역스코프와 함수 스코프 구분
+    var c = 1; 
+    var d = 2;
+    function func(){
+        var c = 10;
+        var b = 20;
+        console.log(c); //10
+        console.log(d); //20
+    }
+    func();
+    console.log(c); //1
+    console.log(d); //2
+
+    //내부함수 innerFunc에서 외부함수인 func의 변수에 접근
+    var a = 1;
+    function func(){
+        var a = 2;
+        function innerFunc(){
+            return a;
+        }
+        console.log(innerFunc());  //2
+
+    }
+    func();
+
+    //instanceof 를 활용한 생성자 함수 구분법
+    function Func(arg){
+        //instanceof 로 생성자 함수임을 확인
+        if(!(this instanceof arguments.callee))  //"this instanceof 함수명"도 가능
+        return new Func(arg);
+        this.value = arg || 0;
+    }
+    var a = new Func(100);
+    var b = Func(200);
+    console.log(a.value); //100
+    console.log(b.value); //200
+    
+    //prototype & constructor
+    function func(){
+        return true;
+    }
+    console.log(func.prototype);
+    console.log(func.prototype.constructor);
+
+    //프로토타입 체이닝: 해당 함수에 존재하지 않는 속성, 메서드를 부모 객체(프로토타입 객체)를 찾음
+    var obj = {
+        name: 'captain',
+        printName : function(){
+            console.log(this.name);
+        }
+    };
+    obj.printName();
+    obj.hasOwnProperty('name');
+    obj.hasOwnProperty('city');
+
+    //즉시 실행 함수
+    //: 함수를 정의함과 동시에 바로 실행하는 함수. 함수를 다시 호출할 수 없다는 특징이 있음.
+    //따라서 최초 한번의 실행만 요구되는 초기화 코드에 적합
+    (function (name){
+        console.log('This is the immediate function :' + name);
+    })('foo');
+
+    /*
+        클로져 closure : 실행이 끝난 함수의 스코프를 참조할 수 있는 함수
+        내부함수의 정의대로라면 parent의 내부함수인 child()는 외부에서 접근이 불가능하지만,
+        return값에 child를 넘김으로써 외부에서도 child를 호출할 수 있게됨 따라서 child()에서 
+        parent의 값을 참고하고 있다면 child()를 밖에서 호출함으로써 parent()의 변수에 접근이 가능하게 된다.
+    */
+    function parent(){
+        var a = 'Parent is done';
+        function child(){
+            console.log(a);
+        }
+        return child;
+    }
+
+    var closure = parent();
+    closure();
+
+    /*
+        클로져 활용
+        : 클로져를 활용하여 java기타 언어처럼 속성 및 메서드의 범위를 정할 수 있다.
+    */
+
+    var Module = ( function(){
+        var privateProperty = 'foo';
+        function privateMethod(args){
+            console.log('private method');
+        }
+        return {
+            publicProperty : '',
+            publicMethod: function(args){
+                console.log("public method");
+            },
+            privilegeMethod: function(args){
+                return privateMethod(args);
+            }
+        }
+    })();
+    Module.privilegeMethod();
+
+    /*
+        arguments 객체 : 함수 호출 시에 넘겨진 실제 인자 값을 가진 배열
+        arguments 활용: 메서드에 넘겨 받을 인자의 개수를 모를 때 유용함
+    */
+   //아래 함수 정의에 포함된 인자 값은 2개
+   function add(a,b) {
+       console.dir(arguments);
+   }
+   console.log(add(1));      //Arguments(1) 0: 1
+   console.log(add(1,2));    //Arguments(2) 0: 1, 1: 2
+   console.log(add(1,2,3));  //Arguments(3) 0: 1, 1: 2, 2:3
+
+   function sum(){
+       for (var i = 0, result = 0; i < arguments.length; i++){
+           result += arguments[i];
+       }
+       return result;
+   }
+   console.log(sum(1,2,3)); //6
+   console.log(sum(1,2,3,4,5,6)); //21
+   //arguments는 length속성과 'arguments[i]'와 같은 index를 지니지만 배열은 아니다. 이러한 객체를 배열과 비슷한객체(array-like object)라고함
+
+   //map()구현   
+   Array.prototype.myMap = function(callback){
+       arr = [];
+       for ( var i = 0; i < this.length; i++ )
+           arr.push(callback(this[i], i , this));
+        return arr;
+   };
+
+   //tests
+   var arrs = ['dic tanin','boo','nana'];
+   var numbers2 = [ 1, 4, 9 ];
+
+   var goodT = arrs.myMap( function(n){
+        return n;
+   });
+
+   var squareRoot = numbers2.myMap( function(num){
+        return Math.sqrt(num);
+   });
+
+   console.log(goodT);       // ['dic tanin','boo','nana']
+   console.log(squareRoot); // [ 1, 2, 3 ]
+
+   //this 바인딩 : 일반적으로 함수 내부에서 this를 사용하면 전역스코프(window)에 접근
+
+   //함수선언식
+   var text = 'global';
+   function bindings(){
+       var text = 'local';
+       console.log(this.text); //global
+       console.log(this); //window
+   }
+   bindings();
+   
+   //함수 표현식
+   var text = 'global';
+   var binding = function(){
+       var text = 'local';
+       console.log(this.text);
+       console.log(this);
+   }
+   binding();
+   //객체의 속성에서 함수를 선언하고 this를 사용하면 해당 객체에 접근할 수 있음
+   var text = 'global';
+   var binding = {
+       text: 'local',
+       printText: function(){
+           console.log(this.text); //local
+           console.log(this);      // { text: 'local',printText: f}
+       }
+   };
+   binding.printText();
+
+   //스코프체인을 이해하기 위한 예제
+   //ex.1 전역 스코프와 함수 스코프 구분하기
+   var a = 1;
+   var b = 2;
+   function func(){
+       var a = 10;
+       var b = 20;
+       console.log(a); //10
+       console.log(b); //20
+   }
+    func();
+    console.log(a); //1
+    console.log(b); //2
+
+    //ex.2 : 내부함수 innerfunc에서 외부함수인 func의 변수에 접근
+    var a = 1;
+    function func(){
+        var a = 2;
+        function innerfunc(){
+            return a;
+        }
+        console.log(innerfunc()); //2
+    }
+    func();
+
+    //ex3 : func1의 실행컨텍스트가 전역이라는 것에 주목
+    var a = 1;
+    function func1(){
+        return a;
+    }
+    function func2(func1){
+        var a = 2;
+        console.log(func1()); //1
+    }
+    func2(func1);
+
+    //
+</script>
+<body>
+    
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>제이쿼리 유효성검사1 기본</title>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <script>
+        $(document).ready( function(){
+            $('#regBtn').click( function(){
+                invailditem();
+            });
+            
+            $(':reset').click(function(){
+                $('#userId').focus();
+            });
+
+            function invailditem(){
+                var userID = $('#userId').val();
+                if( userID == ""){
+                    alert('아이디를 입력해주세요');
+                    $('#userId').focus();
+                    return false;
+                }
+
+                var userName = $('#userName').val();
+                if(userName == ""){
+                    alert('이름을 입력하세요');
+                    $('#userName').focus();
+                    return false;
+                }
+
+                if($('#pwd').val() == '' || $('#pwdConfirm').val() == ''){
+                    alert('암호를 입력하세요.');
+                    return false;
+                }
+                if($('#pwd').val() != $('#pwdConfirm').val()) {
+                    alert('암호가 일치하지 않습니다.');
+                    $('#pwdConfirm').val('').focus();
+                    return false;
+                }
+                alert('회원가입이 완료되었습니다.');
+            }
+        });
+    </script>
+    <body>
+        <form>
+            <div><span class="item"> 아이디 * </span>
+            <input type="text" id="userId" ></div>
+            
+            <div><span class="item"> 이름   * </span>
+            <input type="text" id="userName"></div>
+            
+            <div><span class="item"> 암호   * </span>
+            <input type="password" id="pwd"></div>
+            
+            <div><span class="item"> 암호 확인  * </span>
+            <input type="password" id="pwdConfirm"></div>
+            
+            <input type="button" id="regBtn" value="회원가입">
+            <input type="reset" value="취소">
+        </form>
+
+        <script>
+            //숫자만입력
+            function onlyNumber(){
+                if((event.keyCode<48)||(event.keyCode>57))
+                event.returnValue=false;
+            }
+
+            $(document).ready( function(){
+                //버튼클릭시 함수*실행
+                $('#regBtn2').click( function(){
+                    invaildForm();
+                });
+
+                // 리셋 포커스
+                $(':reset').click( function(){
+                    $('#mb_id').focus();
+                });
+
+                function invaildForm() {
+                    var mb_id = $('#mb_id').val();
+                    if(mb_id == ''){
+                        alert('아이디를 입력해주세요.');
+                        $('#mb_id').focus();
+                        return false;
+                    }
+                    var mb_name = $('#mb_name').val();
+                    if(mb_name == ''){
+                        alert('이름을 입력해주세요');
+                        $('#mb_name').focus();
+                        return false; 
+                    }
+
+                    var mb_pw = $('#mb_pw').val();
+                    var mb_pw_chk = $('#mb_pw_chk').val();
+                    if(mb_pw == "" || mb_pw_chk == ""){
+                        alert('비밀번호를 입력해주세요.');
+                        return false;
+                    }
+                    if(mb_pw != mb_pw_chk ){
+                        alert('비밀번호가 일치하지 않습니다.');
+                        $('#mb_pw_chk').val('').focus();
+                        return false;
+                    }
+                    alert('회원가입이 완료되었습니다.');
+                }
+                /**
+                 * @brief 자동커서이동 추가
+                 */
+                $(".ex_input").keyup (function () {
+                    var charLimit = $(this).attr("maxlength");
+                    if (this.value.length >= charLimit) {
+                        $(this).next('.ex_input').focus();
+                        return false;
+                    }
+                });
+                
+                //숫자입력함수
+                function onlyNumber(){
+                    if((event.keyCode<48)||(event.keyCode>57))
+                    event.returnValue=false;
+                }
+
+            });
+        </script>
+        <!-- 연습 -->
+        <form id="ex_form">
+            <div>
+                <span>아이디</span>
+                <input class="ex_input" type="text" class="ex_input" id="mb_id" name="mb_id" maxlength="5">
+            </div>
+
+            <div>
+                <span>이름</span>
+                <input class="ex_input" type="text" class="ex_input" id="mb_name" name="mb_name"  maxlength="5">
+            </div>
+
+            <div>
+                <span>비밀번호</span>
+                <input class="ex_input" type="text" class="ex_input" id="mb_pw" name="mb_pw" onkeypress="onlyNumber()"  maxlength="5">
+            </div>
+
+            <div>
+                <span>비밀번호 확인</span>
+                <input class="ex_input" type="text" class="ex_input" id="mb_pw_chk" name="mb_pw_chk" onkeypress="onlyNumber();"  maxlength="5">
+            </div>
+
+            <input type="button" id="regBtn2" value="회원가입">
+            <input type="reset" value="취소">
+        </form>
+    </body>
+</html>

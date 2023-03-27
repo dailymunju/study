@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플러그인 없이 슬라이드만들기</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+        setInterval( function(){
+            $('#slide_container').animate({
+                left: '-1200px'
+            },function(){
+                $('.slide_box').eq(0).appendTo('#slide_wrap');
+                $('#slide_wrap').css({
+                    left: 0
+                });
+            });
+        });
+    });
+</script>
+<style>
+    .wrap { width: 1200px; margin: 0 auto; }
+    .slide_container { width: 1200px; overflow: hidden; }
+    .slide_wrapper { position: relative; width: 3600px; }
+</style>    
+<body>
+    <div class="wrap">
+        <div id="slide_container">
+            <div id="slide_wrap">
+                <div class="slide_box"><img src="http://placehold.it/1200x500/f1f1f1/ffffff?text=1" alt=""></div>
+                <div class="slide_box"><img src="http://placehold.it/1200x500/ed2f2f/ffffff?text=2" alt=""></div>
+                <div class="slide_box"><img src="http://placehold.it/1200x500/3333/ffffff?text=3" alt=""></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

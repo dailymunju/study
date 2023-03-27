@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크롤 이벤트 - 스크롤 내리면 다음글 불러오기</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    var imgs = '<img src="https://t1.daumcdn.net/cfile/tistory/9940D03D5A584CCD0C"><br />';
+        imgs += '<img src="https://t1.daumcdn.net/cfile/tistory/99F7323D5A584CCE1C"><br />';
+        imgs += '<img src="https://t1.daumcdn.net/cfile/tistory/99E6DF3E5A584CD311"><br />';
+    
+    $(document).ready( function(){
+        //스크롤 발생 이벤트 처리
+        $('#div01').scroll( function(){
+            var scrollT = $(this).scrollTop(); //스크롤 바의 상단위치
+            var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+            var contentH = $('#divContent').height(); //문서 전체 내용을 갖는 div 높이
+            if(scrollT + scrollH + 1 >= contentH) {
+                $('#divContent').append(imgs);
+            }
+            
+        });
+    });
+
+</script>
+<body>
+    <div id="div01" style="overflow-y: scroll;">
+        <div id="divContent">
+            <img src="https://t1.daumcdn.net/cfile/tistory/9940D03D5A584CCD0C"><br />
+            <img src="https://t1.daumcdn.net/cfile/tistory/99F7323D5A584CCE1C"><br />
+            <img src="https://t1.daumcdn.net/cfile/tistory/9948143D5A584CD10A"><br />
+        </div>
+    </div>
+</body>
+</html>

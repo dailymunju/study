@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!--jquery-->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <style>
+            ul { padding: 0; margin: 0; list-style: none; }
+            a { color: #333; }
+        </style>
+
+        <script>
+        
+        /*
+                메뉴목록에 마우스를 올리거나 포커스를 이동하면 발생하는 이벤트
+                이벤트가 발생한 a의 배경색을 #Off로 바꾸고 활성화, 활성화된 메뉴는 비활성화
+                마우스가  class값이 gnb인 요소를 벗어나면 메뉴전체색을 원래색으로
+            */
+            $(function(){
+                var beforeMenu = null;
+                $('.gnb button a').on('mouseover focus', function(){
+                    if(beforeMenu) beforeMenu.css({background:'none'});
+                    $(this).css({'background-color':'#ff6883'});
+                    beforeMenu = $(this);
+                });
+
+                $('.gnb').on('mouseleave',function(){
+                    if(beforeMenu) beforeMenu.css({background:'none'});
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <ul class="gnb">
+            <button><a href="#">menu1</a></button>
+            <button><a href="#">menu2</a></button>
+            <button><a href="#">menu3</a></button>
+            <button><a href="#">menu4</a></button>
+        </ul>
+    </body>
+</html>

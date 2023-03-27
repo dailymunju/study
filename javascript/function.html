@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title> function (함수) </title>    
+<!--jquery-->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+        var grades = { 'ego': 1, 'dosu':2, 'csj':3 };
+        var a = [1,2,3];
+
+        for ( val in a ) {
+            console.log( a[val] );
+            // console.log(a);
+        }
+
+        // console.log(grades['ego']);
+        // console.log(grades.dosu);
+        // console.log(grades.csj);
+
+    });
+
+    
+/*
+
+   alert ( "알림내용" );          -알림창
+   prompt ( "안내 내용" );     -입력창                          
+*/
+    
+   // alert( "테스트" );
+  //var test =prompt( "입력할 값에 대한 안내 테스트" );
+  //console.log ( test ); //입력한 값을 저장해서 사용
+     
+//     function test() {
+//         alert( "테스트" );
+//     }
+//     function 호출하기 전까지는 동작하지 않음.
+//    test(); 함수 호출 
+//     function test2( num1, num2 ) {
+        
+//         return num3 = num1+num2;
+//         alert( "테스트" );
+//     }
+    
+//     console.log( test2( 3, 5) )
+    
+    
+</script>
+<body>
+    <input type="button" value="함수실행" onclick="test();">
+</body>
+</html>

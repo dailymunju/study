@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키보드 이벤트</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        keydown: 키 누를 떄 발생
+        keypress: 글자를 입력할 때 발생
+        keyup: 키로부터 손가락을 뗄 때 발생 
+    */
+   $(document).ready( function(){
+       $("textarea").keyup(function(){
+            var arealength = $(this).val().length;
+            $('h1').html("입력된 글자 수 :" + arealength);
+       });
+
+       /*
+        keydown이 아니라 keyup인이유
+        1. 사용자가 키보드를 누른다.
+        2. keydown이벤트가 발생
+        3. 글자가 입력된다.
+        4. keypress 이벤트가 발생한다.
+        5. 사용자가 키보드에서 손을뗀다.
+        6. keyup 이벤트가 발생한다. 
+        ---> 키보드에서 손을 떼야 키보드이벤트가 발생한 것이므로, 입력한 글자가 입력되고 난 다음인 keyup 이벤트를 사용해야함
+        / 글자가 입력될때마다 동적으로 글자를 셈
+       */
+   });
+</script>
+<body>
+    <div>
+        <h1>입력된 글자 수: </h1>
+        <textarea name="" id="" cols="70" rows="5"></textarea>
+    </div>
+</body>
+</html>

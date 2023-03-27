@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!--jquery-->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <script>
+        /*
+        
+            replaceAll(), replaceWith() -> 선택한 요소를 새요소로 바꿀 때 사용함.( 주로 한꺼번에 바꿀때 사용) 
+
+        */
+
+        // $( function(){
+        //     $('h2').replaceWith('<h3>replace method</h3>');
+        //     $('<p>Change</p>').replaceAll('div');
+
+        // });
+
+    </script>
+    <body>
+
+        <!-- <section class="box1">
+            <h2>제목1</h2>
+            <div>내용1</div>
+            <div>내용2</div>
+        </section>
+
+        <section class="box2">
+            <h2>제목2</h2>
+            <div>내용3</div>
+            <div>내용4</div>
+        </section> -->
+        
+        <ul id="myList">
+            <li>내용1</li>
+            <li>내용2</li>
+            <li>내용3</li>
+            <li>내용4</li>
+        </ul>
+        <script>
+
+            /*제이쿼리 not 을 이용하여 첫번째 li요소만 배경색 넣기*/
+
+            // $( function(){
+            //     $('#myList li').not('li:first-child').css('background-color','red');
+            // });
+
+            /*세번째 li만 배경색 넣기*/
+                $( function(){
+                    $('#myList li').eq(2).css('background-color','red');
+                });
+    
+        </script>
+
+    </body>
+</html>

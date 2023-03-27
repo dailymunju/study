@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vue로 카운터 만들기</title>
+    </head>
+    <body>
+        <div id="counter">
+            <h1>카운터 : {{ number }}</h1>
+            <button @click="plus">plus</button>
+            <button @click="minus">minus</button>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#counter",
+            data: {
+                number: 0
+            },
+            methods: {
+                plus: function(){
+                    this.number++; //인스턴스 내부의 데이터 모델에 접근 할 때, this사용
+                },
+                minus: function(){
+                    this.number--;
+                }
+            }
+        });
+    </script>
+</html>

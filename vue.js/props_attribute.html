@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>vueJS props속성</title>
+    </head>
+    <body>
+        <div id="app">
+            <!-- html 컴포넌트 태그 추가 - 상위컴포넌트의 message속성값이(hello Vus js) 하위 컴포넌트인 propsdata로 전달됨 -->
+            <child-component v-bind:propsdata="message"></child-component>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        /*
+            props 대소문자 구분(camelCase VS kebab-case)
+            -HTML attribute는 대소문자 구분이 없기때문에 브라우저는 대문자를 소문자로 변경하여 읽는다
+            그렇기때문에 카멜케이스(대소문자혼용)으로 prop의 이름을 정한 경우에 DOM 템플릿안에서는 케밥케이스(하이픈으로 연결된 구조)를 
+            사용해야 올바르게 작동한다.
+            -
+            props 속성은 상위 컴포넌트에서 하위컴포넌트로 데이터를 전달할 때 사용하는 속성
+            하위 컴포넌트속성 정의방식
+            Vue.component('child-component',{
+                props: ['props 속성이름'],
+            });
+
+            html 코드에 등록된 태그에 v-bind 속성 추가
+            <child-component v-bind:props 속성이름="상위 컴포넌트의 data속성"></child-component>
+        */
+
+        //하위컴포넌트인 child-component등록
+        Vue.component('child-component',{
+            props: ['propsdata'], //props 속성으로 propsdata 속성 정의
+            template: '<p>{{ propsdata }}</p>',
+        });
+
+        //인스턴스 생성 
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'hello Vue JS passed from Parent Component'
+            }
+        });
+        //뷰인스턴스의 data속성에 정의된 message속성을 하위컴포넌트인 props에 전달되어 화면에 출력된다. 
+        
+    </script>
+</html>

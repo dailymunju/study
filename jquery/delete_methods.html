@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소의 삭제 메소드 remove(), detach(), empty(), unwrap()</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<script>
+    /*
+        요소의 삭제
+        -선택한 요소나 콘텐츠를 삭제
+
+        1. remove()
+        -선택한 요소를 DOM트리에서 삭제함 이때 삭제되는 요소와 연관된 제이쿼리 데이터나 이벤트들도 모두 삭제됨
+        
+        2.detach() 
+        -선택한 요소를 DOM트리에서 삭제되지만, 요소와 연관된 제이쿼리 데이터나 이벤트는 삭제되지 않고 계속 유지됨
+        -detach() 메소드가 반환하는 제이쿼리 객체를 .append()나 .prepend()와 같은 메소드에 인수로 전달하면 삭제된 요소를 
+        다시 복구할 수있음.
+
+        3. empty() 메소드
+        -선택한 요소의 자식요소를 모두 삭제
+        -remove()나 detach()메소드와는 달리 선택된 요소 그자체는 삭제되지 않음.
+
+        4. unwrap()
+        -선택한 요소의 부모요소를 삭제
+    */
+    $(document).ready( function(){
+        //remove()
+        $('.remove_btn').click( function(){
+            $('.first,.second').remove();
+        });
+
+        //detach()
+        var data;
+        $('#detachBtn').click(function(){
+            //클래스가 detach_content 인 요소를 모두 삭제
+            data = $('.detach_content').detach();
+        });
+        
+        //detach() append
+        $('#restoreBtn').click( function(){
+            $('#detach_container').append(data);
+        });
+
+        //empty()
+        $('.emptyBtn').click( function(){
+            $('#empty_container').empty();
+        });
+
+        //unwrap() -span의 부모요소인 div가 삭제되므로 span이 옆으로 나열됨
+        $('.unwrapBtn').click( function(){
+            $('span').unwrap();
+        });
+    });
+</script>
+<body>
+    <h1>.remove() 메소드</h1>
+    <div class="content first">첫번째 컨텐츠</div>
+    <div class="content second">두번째 컨텐츠</div>
+    <div class="content third">세번째 컨텐츠</div>
+    <br>
+    <button class="remove_btn">div 요소 삭제(remove)</button>
+
+    <h1>.detach() 메소드</h1>
+    <div id="detach_container">
+        <div>첫번째 컨텐츠</div>
+        <div class="detach_content">두번째 컨텐츠</div>
+        <div class="detach_content">세번째 컨텐츠</div>
+    </div>
+    <br>
+    <button id="detachBtn">div 요소삭제</button>
+    <button id="restoreBtn">div 요소복구</button>
+
+    <h1>.empty() 메소드</h1>
+    <div id="empty_container" style="border: 3px solid red">
+        <div>첫번째</div>
+        <div>두번째</div>
+        <div>세번째</div>
+    </div>
+    <br>
+    <button class="emptyBtn">자식요소 삭제</button>
+    
+    <h1>.unwrap() 메소드</h1>
+    <div id="unwrap_container">
+        <div class="unwrap_content"><span>첫 번째</span>컨텐츠입니다.</div>
+        <div class="unwrap_content"><span>두 번째</span>컨텐츠입니다.</div>
+        <div class="unwrap_content"><span>세 번째</span>컨텐츠입니다.</div>
+    </div>
+    <br>
+    <button class="unwrapBtn">부모요소삭제_ unwrap() 메소드</button>
+    <style>
+        #unwrap_container { border: 1px solid #170080; }
+        .unwrap_content { border: 1px solid green;  margin: 10px; }
+    </style>
+</body>
+</html>

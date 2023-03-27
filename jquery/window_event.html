@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window event (무한 스크롤 생성)</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    /*
+        window event
+        -윈도우 이벤트는 윈도우 객체만 사용할 수 있는 이벤트가 아니라, 윈도우 객제촤
+        document 객체이외에 img 태그 등이 사용하는 이벤트 
+
+        1. read  문서 객체가 준비되었을 때 발생
+        2. load  윈도우를 불러들일 때 발생
+        3. unload 윈도우를 닫을 때 발생
+        4. resize 윈도우의 크기를 바꿀 때 발생
+        5. scroll 윈도우를 스크롤 할 때 발생
+        6. error 에러가 있을 때 발생
+    */
+
+   $(document).ready( function(){
+        //무한 스크롤 기능만들기
+        for(var i = 0; i < 20; i++ ){
+            $("<h1>Scroll</h1>").appendTo('body');
+        }
+
+        //스크롤이벤트
+        $(window).scroll( function(){
+            //스크롤이 끝까지 내려가면 다시 10줄을 추가하는 방식으로 무한 스크롤 하는 제이쿼리
+            
+            var scrollHeight =  $(window).scrollTop() + $(window).height();
+            var documentHeight = $(document).height();
+            
+            if(scrollHeight + 200 >= documentHeight){
+                for(var i = 0; i < 10; i++ ){
+                    $("<h1>Infinity  Scroll</h1>").appendTo('body');
+                }
+            }
+        });
+
+   });
+</script>
+<body>
+    
+</body>
+</html>

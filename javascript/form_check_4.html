@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼체크 유효성검사 연습4</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+        $('button').click( function(){
+            if($('#userID').val() == ''){
+                alert('아이디를 입력해주세요');
+                return false;
+            }
+            if($('#userPWD').val() == ""){
+                alert('암호를 입력해주세요');
+                $('#userPWD').focus();
+                return false;
+            }
+            var userPWD = $('#userPWD').val();
+            var uerPWdConfirm = $('#uwerPwdConfirm').val();
+
+            if(userPWD != userPwdConfirm){
+                alert("암호와 암호확인이 일치하지 않습니다.");
+                $('#userPwdCofirm').focus();
+                return false;
+            }
+        });
+    });
+</script>
+<body>
+    <form action="" method="get" name="myform">
+        아이디: <input type="text" name="userID" id="userID"><br>
+        암호: <input type="text" name="userPWD" id="userPWD"><br>
+        암호확인: <input type="password" name="userPwdConfirm" id="userPwdConfirm"><br>
+        <button>가입</button>
+        <input type="reset" value="초기화">
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <script>
+        $(document).ready( function(){
+
+            //location
+            $('.nav-menu .menu').click(function(){
+                if (!$(this).hasClass('on'))
+                {
+                    $(this).addClass('on').next('ul').animate({height: "toggle"},200);
+                    $(this).parent().siblings('li').find('.dep-menu').hide();
+                    $(this).parent().siblings('li').children('.menu').removeClass('on');
+
+                }else{
+                    $(this).removeClass('on').next('ul').animate({height: "toggle"},200);
+                    $(this).parent().siblings('li').find('.dep-menu').hide();
+                    $(this).parent().siblings('li').children('.menu').removeClass('on');
+                }
+                return false;
+            });
+
+        });
+    </script>
+    <style>
+        /* location */
+        .location {position:relative;width:100%;height:50px;border-top:1px solid #dee3eb;border-bottom:1px solid #dee3eb;background:#fbfbfb;}
+        .location .inner {width:1230px;margin:0 auto;}
+        .location .nav-menu:after {content:"";display:block;clear:both;}
+        .location .nav-menu > li.ico-home {width:59px;border-left:1px solid #dee3eb;background:#fafafa url('../images/common/ico_home.png') no-repeat 50% 50%;}
+        .location .nav-menu > li.ico-home a {display:block;line-height:48px;text-indent:-9999px;overflow:hidden;}
+        .location .nav-menu > li {float:left;width:230px;height:48px;border-right:1px solid #dee3eb;background:#fafafa;}
+        .location .nav-menu > li > a {position:relative;display:block;height:50px;padding:0  20px;line-height:48px;font-size:16px;color:#666;font-weight:500;}
+        .location .nav-menu > li:last-child > a {font-weight:700;color:#333;}
+        .location .nav-menu > li:nth-child(3) > a {font-weight:700;color:#333;}
+        .location .nav-menu .menu em {position:absolute;right:15px;top:20px;display:inline-block;width:11px;height:10px;background:url('../images/common/ico_menudown.png') no-repeat 50% 50%;transition:all 0.3s;}
+        .location .nav-menu .menu.on em {transform:rotate(-180deg);}
+        .location .dep-menu {display:none;position:relative;z-index:11;width:231px;padding:10px 0;margin-left:-1px;background:#fff;border:1px solid #dee3eb;border-top:0;}
+        .location .dep-menu li a {position:relative;display:block;padding:0 20px 0 22px;line-height:27px;font-size:15px;color:#666;}
+        .location .dep-menu li a:before {content:"";position:absolute;top:12px;left:16px;width:2px;height:2px;background:#666;}
+        .location .dep-menu li a:hover {color:#3683c3;font-weight:500;text-decoration:underline;}
+        .location .dep-menu li li a {padding:0 20px 0 36px;font-size:14px;color:#888;}
+        .location .dep-menu li li a:before {content:"ㄴ";position:absolute;top:0;left:22px;background:transparent;}
+    </style>
+    <body>
+        <!-- location menu -->
+		<div class="location">
+			<div class="inner">
+				<ul class="nav-menu">
+					<li class="ico-home"><a href="#">홈</a></li>
+					<li>
+						<a href="#" class="menu">마이페이지 <em></em></a>
+						<ul class="dep-menu">
+							<li><a href="#">사업소개</a></li>
+							<li><a href="#">운영기관</a></li>
+							<li><a href="#">알림마당</a></li>
+							<li><a href="#">마이페이지</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" class="menu">운영기관 <em></em></a>
+						<ul class="dep-menu">
+							<li><a href="#">운영기관</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- //location menu -->
+    </body>
+</html>

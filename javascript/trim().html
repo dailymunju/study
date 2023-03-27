@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>trim() 공백 제거</title>
+    <script>
+        /*
+            string.trim()
+            -문자열의 양 끝 쪽에 있는 공백문자(공백,공백없음,탭, 모든 행 종결자 등)을 제거한다.
+
+            string.trimEnd()
+            -문자열의 끝쪽에 있는 공백 제거
+
+            string.trimStart()
+            -문자열의 앞쪽에 있는 공백 제거
+        */
+        var str = "  Good!  ";
+        console.log(str);
+        console.log(str.trim());
+
+        var str2 = "        Good!  ";
+        console.log(str2 + "#");
+        console.log(str2.trimEnd() + "#");
+
+        var str3 = "      Food!!";
+        console.log(str3 + '#');
+        console.log(str3.trimStart() + "#");
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

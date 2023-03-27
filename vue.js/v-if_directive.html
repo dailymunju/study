@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>조건부 렌더링 v-if ,v-else</title>
+    </head>
+    <script>
+        /*
+            조건부 렌더링 
+            -조건에 따라 다르게 렌더링함
+            -p 태그 중 조건에 따라 하나의 p태그만을 렌더링 해줘야한다면 v-if, v-else
+            -버튼 클릭시 현재 dog가 true라면 false를, false라면 true를 할당
+        */
+    </script>
+    <body>
+        <div id="app">
+            <p v-if = "dog">반려동물은 강아지지!</p>
+            <p v-else = "cat">반려동물은 고양이지!</p>
+            <button v-on:click = "dog = !dog">반대</button>
+        </div>
+
+        <div id="app2">
+            <p v-if ="A">A</p>
+            <p v-else = "B">B</p>
+            <button @click="A = !A">반대</button>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: "#app",
+            data : {
+                dog: true
+            }
+        })
+
+        new Vue({
+            el:"#app2",
+            data: {
+                A : true
+            }
+        })
+    </script>
+</html>

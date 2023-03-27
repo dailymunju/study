@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.css() 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+        $('button').on("click", function(){
+            $('p').css({
+                fontSize: "25px",
+                backgroundColor:"red",
+                color:"white"
+            });
+        });
+    });
+</script>
+<body>
+    <h1>.css() 메소드</h1>
+    <h2></h2>
+    <p>제이쿼리로 css 추가 하기</p>
+    <button>스타일설정</button>
+</body>
+</html>

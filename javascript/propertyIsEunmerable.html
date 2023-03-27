@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script>
+        /*
+            object.propertyIsEnumerable(property);
+
+            String property : 테스트할 속성의 이름을 문자열로 지정
+            매개 변수의 속성이 열거가능한지 여부를 체크함
+            
+        */
+    var arr = ["Item"];
+    var obj = {};
+    obj.prop = "enumerable";
+    
+    console.log(arr.propertyIsEnumerable(0));
+    console.log(arr.propertyIsEnumerable("length"));
+    console.log(obj.propertyIsEnumerable("prop"));
+
+    </script>
+    <body>
+        
+    </body>
+</html>

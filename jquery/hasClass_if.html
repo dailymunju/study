@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hasClass if문</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<script>
+    $(document).ready( function(){
+
+        $('.btn_box button').click( function(){
+            //버튼을 클릭하면 active 클래스가 추가
+            $(this).addClass('active');
+
+            //만약 클릭한 버튼에 active 클래스가 있으면
+            if($(this).hasClass('active')){
+                // .btn_box button 전체에 active 제거 후 클릭한 버튼에만 active 추가임      
+                $('.btn_box button').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
+<style>
+    .wrap { width: 640px; margin: 0 auto; text-align: center; }
+    .btn_box button { border: none; width: 120px; padding: 10px 20px; background-color: red; cursor: pointer; color: white; font-size: 20px; font-weight: 600; outline: none; }
+    .btn_box button.active { background-color: rgb(56, 0, 0); color: rgb(255, 255, 255); }
+
+    .btn_box_1 button { border: none; width: 120px; padding: 10px 20px; background-color: blue; cursor: pointer; color: white; font-size: 20px; font-weight: 600; outline: none; }
+    .btn_box_1 button.active { background-color: #907bc5; }
+</style>
+<body>
+    <div class="wrap">
+        <div class="btn_box">
+            <button class="btn1">button</button>
+            <button class="btn2">button</button>
+            <button class="btn3">button</button>
+        </div>
+
+        <script>
+            $(document).ready( function(){
+                $('.btn_box_1 button').click( function(){
+                    //처음에 누르면 active 추가
+                    $(this).addClass('active');
+
+                    //만약 active가 있으면 
+                    if($(this).hasClass('active')){
+                        //active제거 
+                        $('.btn_box_1 button').removeClass('active');
+                        //$(this)가 클릭한것이므로 클릭한 것에만 active 추가함 -누르면 누르는 버튼에만 active클래스추가함
+                        $(this).addClass("active");
+                    }
+                });
+            });
+        </script>
+        <div class="btn_box_1">
+            <button class="btn4">button</button>
+            <button class="btn5">button</button>
+            <button class="btn6">button</button>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready( function(){
+            $('.class_chk').click( function(){
+                var result = $('#target').hasClass('lined');
+                $('#text').html(result);
+            });
+        });
+    </script>
+    <h1>클래스의 확인</h1>
+    <p id="target" class="lined">hasClass()를 통해 해당요소가 특정클래스에 포함되어 있는지 확인할 수 있음</p>
+    <button class="class_chk">클래스의확인</button>
+    <p id="text"></p>
+</body>
+</html>

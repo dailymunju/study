@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<script>
+    /*
+        여러개의 component를 이용해 DOM을 구성하고 상위 component에서 데이터를 받아 this.props.*을 통해
+        접근하여 표시할 수 있는 예제로 React.JS에서 Data Flow는 상위 component에서 하위 component로 진행된다.
+    */
+</script>
+<style> 
+    #content { border: 1px solid red; padding: 5px; margin: 5px; max-width: 500px; } 
+    .commentBox{ border: 1px solid black; padding: 10px; margin: 5px; } 
+    .commentList{ border: 1px solid blue; padding: 5px; margin: 5px; } 
+    .commentForm{ border: 1px solid red; padding: 5px; margin: 5px; } 
+    .comment{ border: 1px solid black; padding: 5px; margin: 5px; } 
+</style>
+<body>
+    <div id="content"></div>
+    
+    <script type="text/babel"> 
+        var data = [ 
+            {author: "Pete Hunt", text: "This is one comment"}, 
+            {author: "Jordan Walke", text: "This is *another* comment"}
+        ]; 
+
+        var CommentBox = React.createClass({ 
+            render: function() { 
+                return ( 
+                    <div className="commentBox"> 
+                        <h1>Comments</h1> 
+                        <CommentList {...this.props} /> 
+                        <CommentForm /> 
+                    </div>
+                ); 
+            } 
+        }); 
+
+        var CommentList = React.createClass({ 
+            render: function() { 
+                var comments = this.props.data.map(function(comment, index){ 
+                    return <Comment author={comment.author} key={index}>{comment.text}</Comment> 
+                }.bind(this)); 
+                return ( 
+                    <div className="commentList"> {comments} </div> 
+                ); 
+            } 
+        }); 
+
+        var CommentForm = React.createClass({ 
+            render: function() { 
+                return ( 
+                    <div className="commentForm"> 
+                    <form className="commentForm"> 
+                    <input type="text" placeholder="Your name" ref="author"/> 
+                    <input type="text" placeholder="Say something..." ref="text"/> 
+                    <input type="submit" value="Post" /> </form> </div>
+                ); 
+            } 
+        }); 
+
+        var Comment = React.createClass({ 
+            render: function() { 
+                return ( 
+                    <div className="comment"> 
+                    <h2 className="commentAuthor"> 
+                    {this.props.author} </h2> {this.props.children} </div>
+                ); 
+            }
+        }); 
+        
+        ReactDOM.render( 
+            <CommentBox data={data}/>, 
+            document.getElementById('content')
+        ); 
+        /*
+            ...this.props 사용 
+            -> 상위 component에서 받은 props들을 그대로 하위 component로 넘기겠다는 의미.
+            전부 전달하는 것 이외에도 몇개를 현재 component에서 사용하고 나머지를 넘기는 것도 가능함
+            
+        */
+    </script>
+
+</body>
+
+</html>
