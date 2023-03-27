@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>css :is()와 :where()</title>
+    </head>
+    <style>
+
+        /*
+            css 기능적인 의사 클래스 선택자 
+            :is()와 :where()
+
+            :is()
+
+            기존에 css 를 작성할때 여러 요소에 동일한 스타일을 적용시키려면 
+            긴 선택자 목록들을 나열해야만 했다. 
+
+            <style>
+                h1 > b, h2 > b, h3 > b, h4 < b { color: red; }
+            </style>
+            
+            동일한 클래스를 줘서 사용해도 되지만 기본적으로 이런식으로 css 를 작성하게 되면, 가독성이 떨어졌었다.
+            하지만 :is() 를 이용하면 읽기 쉬울 뿐더러 짧은 선택자 사용으로 인해 가독성이 향상 될 수 있다.
+            일반적으로 ,를 사용하여 선택자 목록을 만들때, 선택자 중 하나라도 유효하지 않다면 모든 선택자가 무효화 되며, 
+            요소를 찾는데 실패하게 된다. 하지만 :is()와 :where()은 실수를 용납하고 선택자 목록 전체가 무효화 되는 것을 방지한다.
+
+            <style>
+                :is(h1,h2,h3,h4) > b { color: red; }    
+            </style>
+
+            + 복잡한 선택자의 몇가지 예시
+            article > :is(p,blockquote) {
+                color: black;
+            }
+
+            :is(.dark-theme.hero > h1) {
+                font-weight: bold;
+            }
+
+            article:is(.dark-theme:not(main .hero)) {
+                font-size: 2rem;
+            }
+
+            :where()
+            반복선택을 줄일 수 있다는 점에서 :is()와 비슷하면서도 다른데, 
+            :where()의 예제를 살펴보겠다.
+
+            article h2,
+            article h3,
+            article p {
+                color: blue;
+            }
+
+            CSS Selector를 사용해 article 요소의 h2, h3, p 문자 색을 바꾸는 예제 코드이다. 
+            이 예제는 article 요소 선택자를 중복으로 선언해서 사용해야 하는 불편함이 있다.
+
+            article :where(h2, h3, p) { 
+                color: blue;
+            }
+
+            :where()를 사용해서 다시 작성한 예제 코드이다. 여기서 article 요소 선택자는 단 한번만 사용된다.
+            :where()는 불필요한 중복을 없앨 수 있다.
+
+            article :is(h2, h3, p) { 
+                color: blue;
+            }
+            -> 이렇게만 보면 where과 is의 다른점을 찾기가 어려운데, 
+            :is()는 기본적으로 :where과 같은 동작을 하기 때문이다.
+
+            :is()와 :where()의 차이점 이해하기
+
+            :is()가 :where()과 다른 점은 명시도가 높다는것이다.
+            :where()은 명시도가 0이지만, :is()는 구체적인 명시도를 갖는다.
+
+            + :where()은 명시도가 없다.
+            -> 매개변수로 전달된 선택자 목록의 모든 명시도를 무시한다. 이러한 기능은 다른 선택자에서는 찾아볼 수 없다.
+
+            + :is()는 가장 구체적인 선택자의 명시도를 따라간다.
+            -> :is(a,div,#id) 의 명시도는 ID의 명시도인 100점이다.
+
+            article > :is(header, #nav) {
+                background: white;
+            }
+
+         
+            article > header,
+            article > #nav {
+                background: white;
+            }
+            ---> 이렇게 쓰는 게 더 낫다.
+
+            선택자의 그룹화
+
+            선택자 처음 
+            :where(h1,h2,h3,h4,h5,h6) > b {
+                color: hotpink;
+            }
+
+            선택자 중간
+            article :is(header,footer) > p {
+                color: gray;
+            }
+
+            선택자 끝
+            .dark-theme :where(button,a) {
+                color: rebeccapurple;
+            }
+
+            여러 가지 사용
+            :is(.dark-theme, .dim-theme) :where(button,a) {
+                color: rebeccapurple;
+            }
+
+            결합
+            :is(h1,h2):where(.hero,.subtitle) {
+                text-transform: uppercase;
+            }
+
+            중첩
+            .hero:is(h1,h2,:is(.header,.boldest)) {
+                font-weight: 900;
+            }
+            :is()나 :where()의 이점은 쉼표가 여려개있고 선택자가 반복되는 곳을 찾아서 사용하면 의사 클래스의 유연함을 깨달을 수 있다. 
+
+
+            */
+    </style>
+    
+    <style>
+        :where(section.where, aside.where, footer.where) p {
+            color: red;
+        }
+
+        :is(section.is, aside.is, footer.is) p {
+            color: green;
+        }
+
+        footer p {
+            color: blue;
+        }
+    </style>
+    <body>
+        <article>
+            <h2>:where()</h2>
+            <section class="where">
+                <p>Section</p>
+            </section>
+            
+            <aside class="where">
+                <p>Aside</p>
+            </aside>
+            
+            <footer class="where">
+                <p>Footer</p>
+            </footer>
+        </article>
+
+        <article>
+            <h2>:is()</h2>
+            
+            <section class="is">
+                <p>Section</p>
+            </section>
+
+            <aside class="is">
+                <p>Aside</p>
+            </aside>
+
+            <footer class="is">
+                <p>Footer</p>
+            </footer>
+        </article>
+    </body>
+</html>

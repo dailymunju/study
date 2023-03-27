@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>css @supports</title>
+    </head>
+    <style>
+
+        @supports(display: flex) {
+            div h1 { 
+                display: flex;
+                justify-self: flex-start;
+                color: red; 
+                border: 3px solid red;
+                padding: 20px;
+                font-size: 40px;
+            }
+        }
+        /*
+            @supports not (display: flex) {
+                div h1 {
+                    display: flex;
+                    justify-content: flex-start;
+                    color: green;
+                    border: 3px solid green;
+                    padding: 20px;
+                    font-size: 40px;
+                }
+            }
+        */
+
+        /*.flex-container > * {
+            padding: 0.3em;
+            list-style-type: none;
+            text-shadow: 0 0 2px red;
+            float: left;
+        }
+
+        @supports (display: flex) {
+            .flex-container > * {
+                text-shadow: 0 0 2px blue;
+                float: none;
+            }
+
+            .flex-container {
+                display: flex;
+            }
+        }
+       
+        @supports (display: flex) and (display: -webkit-flex) {
+            div h1 {
+                display: flex;
+                justify-content: flex-start;
+                color: green;
+                border: 8px solid green;
+                padding: 20px;
+                font-size: 35px;
+            }
+        } */
+
+    </style>
+    <body>
+        <!--
+            *코멘트*
+            @supports 의 사용
+            - @supports 문법은 미디어 쿼리 문법과 유사하다 
+            선언 구문은 브라우저가 지정된 <property>: <value>선언을 지원하는지 확인한다.
+            선언은 괄호로 묶어야 합니다. 다음 예제는 브라우저가 표현식을 지원하는 경우 true를 반환하고 CSS 스타일을 적용한다.
+
+            ex  ->
+            
+            @supports (테스트할 프로퍼티 혹은 조건) {
+                적용하려는 스타일
+            }
+
+            @supports (<supports-condition>) and (<supports-condition>) {
+            /* If both conditions are true, use the CSS in this block. */
+            }
+
+            @supports (display:flex) {
+                .contents { display: flex; margin: 0 5px; align-items: center; justify-content: space-between; }
+                .contents div { flex-grow: 1; }
+            }
+
+            @supports not (display:flex) {
+                .contents { overflow: hidden;}
+                .contents div { float: left; margin: 0 5px;}
+            }
+
+            위의 예시 코드를 보면, display: flex를 지원하는 브라우저와 그렇지 않은 브라우저에서
+            적용될 소스가 다르다. 이처럼 css 속성이 지원하거나 지원하지 않는 상황에 따라 css 값을 달리 적용시킬 수 있다.
+
+            선언 구문은 브라우저가 지정된 <property>: <value>선언을 지원하는지 확인하는데 선언은 괄호로 묶어야 한다.
+            다음 예제는 브라우저가 표현식을 지원하는 경우 true를 반환하고 CSS 스타일을 적용합니다 transform-origin: 5% 5%.
+            @supports (transform-origin: 5% 5%) {
+            }
+            
+
+            @supports는 연산자와 함께 사용할 수 있는데, 
+            - not / and / or
+            1. not 키워드는 조건 지정의 반대를 확인하는 데 사용할 수 있다. 
+
+            연산자 not 은 표현식 앞에 와서 표현식을 부정한다.
+            ()괄호 안의 내용이 유효하지 않은 것으로 간주되면 true를 반환한다.
+
+            아래 예시에서는 브라우저가 플렉스가 아닐 때에 지원하기 때문에 
+            즉 특정 스타일을 해당 브라우저에 적용하기 위해 지원하지 않는
+            브라우저를 확인하는 것이다.
+
+            원한다면, 여러개의 'not'을 연결하여 부정의 부정문으로도 쓰일 수 있다.
+            @supports not(:not( border-radius:10px)){
+
+            }
+
+            2. and 연산자 
+            and 를 기점으로 작성한 조건의 css가 모두 (동시에) 참일 경우에만 관련 css값을 적용한다.
+            @supports (display: flex) and (display:gird) {
+            }
+            'display: flex'와 'display:gird'를 모두 동시에 지원하는 지 확인하고  {} 안의 내용을 실행한다.
+            
+            @supports (display: table-cell) and
+            ((display: list-item) and (display: contents)) {
+            }
+            ===> 괄호 없이 여러 접속사를 병치 할 수 있다. 
+            
+            3. or 연산자
+            연산자 or은 하나 또는 둘다 참일 경우 참을 반환하여 실행한다.
+           @supports (transform:rotate(45deg)) or (-webkit-transform:rotate(45deg)){
+                .box{transform:rotate(45deg);}
+            }
+            transform:rotate(45deg) 나 -webkit-transform:rotate(45deg)의 css 중 하나라도 브라우저에서 지원을 하게된다면 .box에 입력한 css 가 적용된다.
+
+            ===>참고:and 및 연산자를 모두 사용하는 경우 or괄호를 사용하여 적용 순서를 정의해야 합니다. 그렇지 않으면 조건이 유효하지 않으며 전체 규칙이 무시된다.
+
+            4. 함수구문
+            1) seletor()
+            브라우저에서 특정 선택자를 지원하는 문법을 통해 분별하여 스타일을 적용시킬 수 있다.
+            @supports selector(h2 > p) {
+            }
+            @supports selector(A > B){
+                .contents > .box {background:#000;}
+            }
+            -> 직계 자손 선택자 (>) 를 지원하는 브라우저일 경우에
+            .contents > .box에 입력한 css를 적용할 수 있게 만든다.
+            selector() 를 사용할 때는 selector 문법 뒤에 띄어 쓰기 없이 selector(선택자 조건)을 입력한다.
+                selector (A ~ B){}   ---- X
+                selector(A ~ B){}    ---- O
+
+            2) 글꼴지원
+            다음 예제는 브라우저가 COLRv1글꼴 기술을 지원하는 경우 CSS 스타일을 적용합니다.
+
+            @import url("https://fonts.googleapis.com/css2?family=Bungee+Spice");
+
+            @supports font-tech(color-COLRv1) {
+            font-family: "Bungee Spice";
+            }
+
+
+            @supports font-format(woff2) {
+                font-family: "Open Sans";
+                src: url("open-sans.woff2") format("woff2");
+            } ->woff2 글꼴 형식을 지원하는경우 {} 안의 내용 실행함.
+
+        -->
+        <div>
+            <h1>@supports</h1>
+        </div>    
+
+        <ul class="flex-container">
+            <li><a href="#">Index</a></li>
+            <li><a href="#">About me</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </body>
+    
+</html>
