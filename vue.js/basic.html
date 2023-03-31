@@ -1,87 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <title>VueJS basic</title>
-  </head>
-  <style>
-    ul li { list-style: none; }
-  </style>
-  <body>
-      <div id="app">
-        <p>{{ title }}</p>
-        <p>{{ howareyou() }}</p>
-        <p>{{ sayHello() }}</p>
-      </div>
 
-      <div id="content"> 
-          <ul>
-            <li>{{ title }}</li>
-            <li>{{ name() }}</li>
-            <li>{{ nickname() }}</li>
-          </ul>
-      </div>
-  </body>
-  <script>
-    new Vue({
-      el: "#app",//어떤 요소에 적용할 지 정함 element
-      data : {
-        title: '안녕 Vue.js'
-      },
-      methods :{
-        howareyou: function() {
-          return "기분이어때?"
-        },
-        sayHello : function(){
-          return this.title //Vue를 가르키는 단어 this
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <title>VueJS basic</title>
+    </head>
+    <style>
+        ul li {
+            list-style: none;
         }
-      }
-    })
+    </style>
 
-    new Vue({
-        el: "#content",
-        data: {
-          title: 'vue.js 시작하기'
-        },
-        methods: {
-          name: function(){
-            return "이름은?"
-          },
-          nickname: function(){
-            return this.title
-          }
-        }
-    })
-    /*
-      VueJS 
-      1.간단한 템플릿 구문을 사용해 선언적으로 DOM에 데이터를 렌더링하는 것       
-      화면에 렌더링 되는 HTML코드들을 컨트롤 하는데, Vue에서는 new Vue({}) 통해 Vue를 선언하고 정의해주는 역할을 한다
+    <body>
+        <div id="app">
+            <p>{{ title }}</p>
+            <p>{{ howareyou() }}</p>
+            <p>{{ sayHello() }}</p>
+        </div>
 
-      2. *el 요소는 Vue가 새롭게 정의 될때 해당 Vue가 적용될 요소를 지정해주는 역할을 함 (Vue를 사용하되 여기에 적용해줘!)
+        <div id="content">
+            <ul>
+                <li>{{ title }}</li>
+                <li>{{ name() }}</li>
+                <li>{{ nickname() }}</li>
+            </ul>
+        </div>
 
-      3. *data Vue는 여러 속성(property)들을 가지는데 data는 Vue에서 사용할 정보들을 저장하는 곳으로 object 형태로 정보들을 가지고 있다
-      title 이라는 변수를 만들어 '안녕 Vue.js'라는 값을 넣어주고, Vue가 title값이 필요한 곳이 어디인지 찾고 알려줌 
+        <div id="today">
+            <ul>
+                <li>{{title}}</li>
+                <li>{{name}}</li>
+                <li>{{what}}</li>
+            </ul>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: "#app", //어떤 요소에 적용할 지 정함 element
+            data: {
+                title: '안녕 Vue.js'
+            },
+            methods: {
+                howareyou: function () {
+                    return "어때?"
+                },
+                sayHello: function () {
+                    return this.title //Vue를 가르키는 단어 this
+                }
+            }
+        })
+        new Vue({
+            el: '#content',
+            data: {
+                title: '뷰 시작하기'
+            },
+            methods: {
+                name: function(){
+                  return '시작하는 방법은?'  
 
-      4. {{ Mustache(interpolation) }} data 안에 저장된 값이 넣어지는 곳으로 그 모양이 수염을 닮았다고 해서 (보간법) 지어짐,
-      기호 안에 vue에서 선언된 속성 내의 변수나 함수 등을 호출하여 사용할 수 있다. 예시에서는 data.title의 값으로
-      지정된 "안녕 Vue.js"가 html의 p태그 안에 들어가 출력된 것을 볼 수 있다 
+                },
+                nickname: function(){
+                    return this.title
+                }
+            }
+        })
 
-      5. HTML안에 미리 약속된 언어(여기서는 {{title}})로 자리를 만들어두면 해당 부분을 반응형으로 만들어 작업할 수 있도록 해주는 것이 Vue의 역할이다
-      -정적인 웹페이지를 동적으로 운영할 때 서버와 통신하며 여러 동작들을 처리 해 줄때 다양한 역할을 할 수 있음
+        new Vue({
+            el: '#today',
+            data: {
+                title: '오늘 날짜'
+            },
+        })
 
-      6. 함수의 저장소 methods 
-      -Vue의 정보들을 저장하는 저장소가 data이고, 함수들을 저장하는 곳은 methods 이다
-      
-      7. Vue내에서 Vue를 지칭하는 this,
-      -data는 Vue가 가지고 있는 정보들의 저장소인데, 원하는 때에 꺼내서 쓸 수 있도록 하는 역할이 this이다
-      -this.title Vue에 정의된 title이라는 값을 가져오라는 뜻으로 this는 data내의 값을 불러올때만 사용되지 않고, methods의 함수를 불러올 때도 사용함
+        /*new Vue({
+            el: "#content",
+            data: {
+                title: 'vue.js 시작하기'
+            },
+            methods: {
+                name: function () {
+                    return "이름은?"
+                },
+                nickname: function () {
+                    return this.title
+                }
+            }
+        })*/
+        /*
+        VueJS 
+        1.간단한 템플릿 구문을 사용해 선언적으로 DOM에 데이터를 렌더링하는 것       
+        화면에 렌더링 되는 HTML코드들을 컨트롤 하는데, Vue에서는 new Vue({}) 통해 Vue를 선언하고 정의해주는 역할을 한다
 
-      8. 인스턴스
-      -생성된 오브젝트 하나 를 지칭함
-      - var vm = new Vue ({ //옵션 }) -> 인스턴스를 생성할 때 데이터, 템플릿 메서드 등 옵션값을 전달할 수 있음
+        2. *el 요소는 Vue가 새롭게 정의 될때 해당 Vue가 적용될 요소를 지정해주는 역할을 함 (Vue를 사용하되 여기에 적용해줘!)
 
-    */
-  </script>
-</html>  
+        3. *data Vue는 여러 속성(property)들을 가지는데 data는 Vue에서 사용할 정보들을 저장하는 곳으로 object 형태로 정보들을 가지고 있다
+        title 이라는 변수를 만들어 '안녕 Vue.js'라는 값을 넣어주고, Vue가 title값이 필요한 곳이 어디인지 찾고 알려줌 
+
+        4. {{ Mustache(interpolation) }} data 안에 저장된 값이 넣어지는 곳으로 그 모양이 수염을 닮았다고 해서 (보간법) 지어짐,
+        기호 안에 vue에서 선언된 속성 내의 변수나 함수 등을 호출하여 사용할 수 있다. 예시에서는 data.title의 값으로
+        지정된 "안녕 Vue.js"가 html의 p태그 안에 들어가 출력된 것을 볼 수 있다 
+
+        5. HTML안에 미리 약속된 언어(여기서는 {{title}})로 자리를 만들어두면 해당 부분을 반응형으로 만들어 작업할 수 있도록 해주는 것이 Vue의 역할이다
+        -정적인 웹페이지를 동적으로 운영할 때 서버와 통신하며 여러 동작들을 처리 해 줄때 다양한 역할을 할 수 있음
+
+        6. 함수의 저장소 methods 
+        -Vue의 정보들을 저장하는 저장소가 data이고, 함수들을 저장하는 곳은 methods 이다
+        
+        7. Vue내에서 Vue를 지칭하는 this,
+        -data는 Vue가 가지고 있는 정보들의 저장소인데, 원하는 때에 꺼내서 쓸 수 있도록 하는 역할이 this이다
+        -this.title Vue에 정의된 title이라는 값을 가져오라는 뜻으로 this는 data내의 값을 불러올때만 사용되지 않고, methods의 함수를 불러올 때도 사용함
+
+        8. 인스턴스
+        -생성된 오브젝트 하나 를 지칭함
+        - var vm = new Vue ({ //옵션 }) -> 인스턴스를 생성할 때 데이터, 템플릿 메서드 등 옵션값을 전달할 수 있음
+
+        */
+    </script>
+
+</html>
