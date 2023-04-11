@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>이미지 스프라이트 기법 사용하기</title>
+    </head>
+    <style>
+        a::after {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            background-image: url(./css_sprites.png);
+        }
+
+        .css::after {
+            width: 120px; height: 170px;
+            background: url('css_sprites.png') -10px -10px;
+        }
+
+        .js::after {
+            width: 120px; height: 170px;
+            background: url('css_sprites.png') -290px -10px;
+        }
+
+        .html::after {
+            width: 120px; height: 170px;
+            background: url('css_sprites.png') -150px -10px;
+        }
+    </style>
+
+
+    <body>
+        <a href="#" class="css">CSS</a>
+        <a href="#" class="js">JS</a>
+        <a href="#" class="html">HTML</a>
+    </body>
+</html>
